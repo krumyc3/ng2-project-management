@@ -3,6 +3,26 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Backend {
+  getTasks(): Promise<any> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+           {
+            id: 0,
+            projectId: 0,
+            name: 'First task',
+            description: 'First project first task',
+          },
+          {
+            id: 0,
+            projectId: 0,
+            name: 'Second task',
+            description: 'Second project second task',
+          },
+        ]);
+      }, 1000);
+    });
+  }
   getProjects(): Promise<any> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -19,6 +39,13 @@ export class Backend {
           },
         ]);
       }, 800);
-    }).catch(error => Promise.reject(error));
+    });
+  }
+
+  getUsers(): Promise<any> {
+    return new Promise((resolve, reject) => resolve(null));
+  }
+  getComments(): Promise<any> {
+    return new Promise((resolve, reject) => resolve(null));
   }
 }
