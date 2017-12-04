@@ -1,0 +1,25 @@
+<div class="ui active modal new-project-modal" [ngClass]="{'active': isOpen}">
+  <div class="header">
+    New project
+  </div>
+  <div class="content">
+    <form class="ui form">
+      <div class="field">
+        <label for="">Project name</label>
+        <input type="text">
+      </div>
+      <div class="field">
+        <label for="">Description</label>
+        <textarea name="" id="" cols="30" rows="5"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div (click)="closeModal()" class="ui grey cancel button">
+      Cancel
+    </div>
+    <div (click)="createProject()" class="ui green approve button">
+      Create
+    </div>
+  </div>
+</div>
