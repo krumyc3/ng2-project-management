@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { Backend } from './backend/backend';
 import { DomainModule } from './modules/domain.module';
+import { LayoutModule } from './modules/layout.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { DomainModule } from './modules/domain.module';
   ],
   imports: [
     BrowserModule,
-    DomainModule
+    DomainModule,
+    LayoutModule,
   ],
   providers: [Backend],
   bootstrap: [AppComponent]
