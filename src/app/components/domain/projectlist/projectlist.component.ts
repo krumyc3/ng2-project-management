@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Backend } from '../../../backend/backend';
 import { Project } from '../../../models/project';
 
 @Component({
@@ -9,12 +8,8 @@ import { Project } from '../../../models/project';
 })
 export class ProjectlistComponent implements OnInit {
   private projects: Project[];
-  constructor(private backend: Backend) { }
-
+  constructor() { }
   ngOnInit() {
-    this.backend.getProjects().then((projects) => {
-      this.projects = projects;
-    });
   }
 
 }

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { Backend } from './backend/backend';
 import { DomainModule } from './modules/domain.module';
 import { LayoutModule } from './modules/layout.module';
 
@@ -17,7 +16,6 @@ import { LayoutModule } from './modules/layout.module';
     DomainModule,
     LayoutModule,
   ],
-  providers: [Backend],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
