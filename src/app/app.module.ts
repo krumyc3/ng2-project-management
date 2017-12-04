@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { Backend } from './backend/backend';
+import { DomainModule } from './modules/domain.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { Backend } from './backend/backend';
     AppComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    DomainModule
   ],
   providers: [Backend],
   bootstrap: [AppComponent]
