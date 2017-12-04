@@ -6,12 +6,15 @@ import { UserComponent } from '../components/domain/user/user.component';
 import { CommentComponent } from '../components/domain/comment/comment.component';
 import { ProjectlistComponent } from '../components/domain/projectlist/projectlist.component';
 import { InteractionModule } from './interaction.module';
+import { ProjectService } from '../services/project.service';
+import { ProjectActions } from '../store/actions/project.actions';
 
 @NgModule({
   imports: [
     CommonModule,
     InteractionModule
   ],
+  providers: [ProjectService, ProjectActions],
   declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent],
   exports: [ProjectlistComponent]
 })

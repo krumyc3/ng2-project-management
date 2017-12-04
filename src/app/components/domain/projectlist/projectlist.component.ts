@@ -1,5 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Project } from '../../../models/project';
+import { ProjectService } from '../../../services/project.service';
+import { NgRedux } from '@angular-redux/store';
+import { InitialAppState } from '../../../store/AppStore';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-projectlist',
@@ -7,9 +11,20 @@ import { Project } from '../../../models/project';
   styleUrls: ['./projectlist.component.css']
 })
 export class ProjectlistComponent implements OnInit {
-  private projects: Project[];
-  constructor() { }
+  @Input() private projects: Project[];
+  subscription: Subscription;
+  constructor(private projectService: ProjectService, private ngRedux: NgRedux<InitialAppState>) { }
   ngOnInit() {
+    this.projectService.fetchProjects();
+    this.setUpProjectSubscription();
+  }
+  setUpProjectSubscription(): any {
+    this.subscription = this.ngRedux.select<Project[]>('projectsList').subscribe((projectList) => {
+      this.projects = projectList;
+    });
+  }
+  onDestroy(): any {
+    this.subscription.unsubscribe();
   }
 
 }

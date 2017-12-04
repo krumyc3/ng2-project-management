@@ -1,6 +1,7 @@
 <div class="projectslist">
   <h1>Your projects</h1>
   <div class="ui celled list">
+    {{ projects }}
     <app-project [project]="project" *ngFor="let project of projects"></app-project>
   </div>
   <button class="ui purple button">Create new project</button>
