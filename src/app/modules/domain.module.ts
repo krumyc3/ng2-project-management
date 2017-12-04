@@ -10,6 +10,5 @@ import { CommentComponent } from '../components/domain/comment/comment.component
     CommonModule
   ],
   declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent],
-  exports: [DomainModule]
 })
 export class DomainModule { }
