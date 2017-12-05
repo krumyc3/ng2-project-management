@@ -2,8 +2,9 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Project } from '../../../models/project';
 import { ProjectService } from '../../../services/project.service';
 import { NgRedux } from '@angular-redux/store';
-import { InitialAppState } from '../../../store/AppStore';
+import { InitialAppState } from '../../../store/initialState';
 import { Subscription } from 'rxjs/Subscription';
+import { ModalsAction, ModalsActions } from '../../../store/actions/modals.actions';
 
 @Component({
   selector: 'app-projectlist',
@@ -13,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class ProjectlistComponent implements OnInit {
   @Input() private projects: Project[];
   subscription: Subscription;
-  constructor(private projectService: ProjectService, private ngRedux: NgRedux<InitialAppState>) { }
+  constructor(private projectService: ProjectService, private ngRedux: NgRedux<InitialAppState>, private modalActions: ModalsActions) { }
   ngOnInit() {
     this.projectService.fetchProjects();
     this.setUpProjectSubscription();
@@ -25,6 +26,10 @@ export class ProjectlistComponent implements OnInit {
   }
   onDestroy(): any {
     this.subscription.unsubscribe();
+  }
+
+  openNewProjectModal() {
+    this.ngRedux.dispatch(this.modalActions.openModal());
   }
 
 }
