@@ -6,13 +6,13 @@ import { AppComponent } from './app.component';
 import { DomainModule } from './modules/domain.module';
 import { LayoutModule } from './modules/layout.module';
 import { NgRedux } from '@angular-redux/store';
-import { rootReducer } from './store/AppStore';
 import { createLogger } from 'redux-logger';
 import { NgReduxModule } from '@angular-redux/store';
 import { InitialAppState, INITIAL_STATE } from './store/initialState';
 import { createStore, Store, applyMiddleware } from 'redux';
-import { $ } from 'protractor';
-]
+import { rootReducer } from './store/AppStore';
+
+export const store: Store<any> = createStore(rootReducer, INITIAL_STATE, applyMiddleware(createLogger()));
 
 @NgModule({
   declarations: [
@@ -27,7 +27,6 @@ import { $ } from 'protractor';
   bootstrap: [AppComponent]
 })
 
-export const store: Store<any> = createStore(rootReducer, INITIAL_STATE, applyMiddleware(createLogger));
 
 export class AppModule {
   constructor(ngRedux: NgRedux<InitialAppState>) {

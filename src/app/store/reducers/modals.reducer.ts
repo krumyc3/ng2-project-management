@@ -1,15 +1,14 @@
 import { ModalsAction, ModalsActions } from '../actions/modals.actions';
-import { InitialAppState } from '../initialState';
+import { InitialAppState, INITIAL_STATE } from '../initialState';
 
-export function modalsReducer(state: InitialAppState, action: ModalsAction) {
+
+export function modalsReducer(state: InitialAppState = INITIAL_STATE,  action: ModalsAction) {
   switch (action.type) {
     case ModalsActions.OPEN_MODAL:
-    return {
+    return state = {
       ...state,
-      modalsState: [action.payload],
+      modalsState: action.payload,
     };
-    default:
-      break;
   }
   return state;
 }

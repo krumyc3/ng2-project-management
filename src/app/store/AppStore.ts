@@ -5,7 +5,8 @@ import { combineReducers, createStore } from 'redux';
 import { INITIAL_STATE } from './initialState';
 
 export const rootReducer = combineReducers({
-  projectReducer: projectReducer,
-  modalsReducer: modalsReducer,
+  projectsList: projectReducer,
+  modalsState: modalsReducer,
 });
+
 

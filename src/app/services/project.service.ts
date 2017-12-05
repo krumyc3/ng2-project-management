@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
-import { InitialAppState } from '../store/AppStore';
+import { InitialAppState } from '../store/initialState';
 import Firebase from '../backend/firebase';
 import {DbRefs} from '../enums/db-refs.enum';
 import { ProjectActions } from '../store/actions/project.actions';

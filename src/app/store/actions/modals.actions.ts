@@ -4,14 +4,14 @@ import { dispatch } from '@angular-redux/store';
 
 export interface ModalsAction {
   type: any;
-  payload: String;
+  payload: string;
 }
 
 @Injectable()
 export class ModalsActions {
   static OPEN_MODAL = 'OPEN_MODAL';
 
-  openModal(modalType: String): ModalsAction {
+  openModal(modalType: string): ModalsAction {
     return {
       type: ModalsActions.OPEN_MODAL,
       payload: modalType,
