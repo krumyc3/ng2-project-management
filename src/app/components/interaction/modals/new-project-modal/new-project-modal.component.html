@@ -3,23 +3,27 @@
     New project
   </div>
   <div class="content">
-    <form class="ui form">
+    <form #form="ngForm" (ngSubmit)="createProject()" class="ui form">
       <div class="field">
-        <label for="">Project name</label>
-        <input type="text">
+        <label for="project-name">Project name</label>
+        <input id="project-name" [(ngModel)]="project.name" #name="ngModel" name="name" required minlength="1" type="text">
+        <p [hidden]="name.valid || (name.pristine && form.submitted)">
+          Name is required (at least one character).
+        </p>
       </div>
       <div class="field">
-        <label for="">Description</label>
-        <textarea name="" id="" cols="30" rows="5"></textarea>
+        <label for="project-description">Description</label>
+        <textarea [(ngModel)]="project.description" #description="ngModel" required minlength="1" name="description" id="project-description" cols="30" rows="5"></textarea>
+        
       </div>
     </form>
   </div>
   <div class="actions">
-    <div (click)="closeModal()" class="ui grey cancel button">
+    <button (click)="closeModal()" class="ui grey cancel button">
       Cancel
-    </div>
-    <div (click)="createProject()" class="ui green approve button">
+    </button>
+    <button type="submit" class="ui green approve button">
       Create
-    </div>
+    </button>
   </div>
 </div>

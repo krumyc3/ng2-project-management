@@ -17,14 +17,9 @@ export class ProjectService {
    }
 
    fetchProjects(): void {
-     console.log('should fetch projects');
      this.db.ref('/projects/').once('value', (snapshot) => {
-       console.log('snapshot');
-       console.log(snapshot);
        snapshot.forEach(project => {
          const fetchedProject = project.val();
-         console.log('fetched project');
-         console.log(fetchedProject);
         //  this.ngRedux.dispatch(
         //    this.actions.addProject(new Project(fetchedProject.name, fetchedProject.id, fetchedProject.description, null, null)));
        });
@@ -38,6 +33,4 @@ export class ProjectService {
          this.actions.addProject(new Project(newProject.name, newProject.id, newProject.description, null, null)));
       });
      }
-   }
-
 }
