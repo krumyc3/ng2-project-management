@@ -9,10 +9,16 @@ import { NgRedux } from '@angular-redux/store';
 import { createLogger } from 'redux-logger';
 import { NgReduxModule } from '@angular-redux/store';
 import { InitialAppState, INITIAL_STATE } from './store/initialState';
-import { createStore, Store, applyMiddleware } from 'redux';
-import { rootReducer } from './store/AppStore';
+import { createStore, Store, applyMiddleware, combineReducers } from 'redux';
+import { modalsReducer } from './store/reducers/modals.reducer';
+import { projectReducer } from './store/reducers/project.reducer';
 
-export const store: Store<any> = createStore(rootReducer, INITIAL_STATE, applyMiddleware(createLogger()));
+export const store: Store<any> = createStore(combineReducers(
+  {
+    projectsList: projectReducer,
+    modalsState: modalsReducer,
+  }
+), INITIAL_STATE, applyMiddleware(createLogger()));
 
 @NgModule({
   declarations: [

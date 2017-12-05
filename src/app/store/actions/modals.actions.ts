@@ -10,7 +10,7 @@ export interface ModalsAction {
 @Injectable()
 export class ModalsActions {
   static OPEN_MODAL = 'OPEN_MODAL';
-
+  static CLOSE_MODAL = 'CLOSE_MODAL';
   openModal(modalType: string): ModalsAction {
     return {
       type: ModalsActions.OPEN_MODAL,

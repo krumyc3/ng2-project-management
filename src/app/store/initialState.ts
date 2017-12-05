@@ -7,6 +7,6 @@ export interface InitialAppState {
 
 export const INITIAL_STATE: InitialAppState = {
   projectsList: [],
-  modalsState: [],
+  modalsState: '',
 };
 
