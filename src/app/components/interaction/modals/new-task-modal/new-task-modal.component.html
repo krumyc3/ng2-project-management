@@ -6,7 +6,7 @@
     <form #form="ngForm" class="ui form">
       <div class="field">
         <label for="task-name">Task name</label>
-        <input type="text" id="task-name" #name="ngModel" required minlength="1"
+        <input type="text" id="task-name" name="name" #name="ngModel" required minlength="1"
         [(ngModel)]="task.name">
           <app-message [hidden]="name.valid || (name.pristine && form.submitted)">
             <p>Name is required (at least one character).</p>

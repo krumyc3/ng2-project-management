@@ -3,7 +3,7 @@ import { Input } from '@angular/core';
 import { Project } from '../../../../models/project';
 import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from '../../../../store/initialState';
-import { ModalsActions } from '../../../../store/actions/modals.actions';
+import { ModalsActions, ModalTypes } from '../../../../store/actions/modals.actions';
 import { ProjectService } from '../../../../services/project.service';
 import { ModalInterface } from '../modal-interface';
 
@@ -28,7 +28,7 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   }
 
   closeModal(): void {
-    this.store.dispatch(this.modalActions.closeModal());
+    this.store.dispatch(this.modalActions.closeModal(ModalTypes.ADD_NEW_PROJECT));
   }
 
   createProject(): void {

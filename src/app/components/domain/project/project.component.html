@@ -14,4 +14,7 @@
       <p> {{ task.status }}</p>
     </li>
   </ul>
+  <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui small button">
+    Add task
+  </button>
 </div>

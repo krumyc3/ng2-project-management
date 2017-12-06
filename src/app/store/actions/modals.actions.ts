@@ -4,21 +4,28 @@ import { dispatch } from '@angular-redux/store';
 
 export interface ModalsAction extends Action {
   type: any;
+  payload: string;
+}
+export enum ModalTypes {
+  ADD_NEW_PROJECT = 'newProjectModalActive',
+  ADD_NEW_TASK = 'newTaskModalActive',
 }
 
 @Injectable()
 export class ModalsActions {
   static OPEN_MODAL = 'OPEN_MODAL';
   static CLOSE_MODAL = 'CLOSE_MODAL';
-  openModal(): ModalsAction {
+  openModal(modalType: string): ModalsAction {
     return {
       type: ModalsActions.OPEN_MODAL,
+      payload: modalType,
     };
   }
 
-  closeModal(): ModalsAction {
+  closeModal(modalType: ModalTypes): ModalsAction {
     return {
       type: ModalsActions.CLOSE_MODAL,
-    }
+      payload: modalType,
+    };
   }
 }
