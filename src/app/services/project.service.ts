@@ -33,8 +33,6 @@ export class ProjectService {
        data.forEach(element => {
          tasks.push(element.val());
        });
-       console.log('fetch project tasks');
-       console.log(tasks);
        this.ngRedux.dispatch(
          this.actions.setTasks({
            projectId: projectId.toString(),
@@ -46,12 +44,16 @@ export class ProjectService {
    listenForChanges(): void {
      this.db.ref('/projects/').on('child_added', (data) => {
        const newProject = data.val();
+       console.log('listen to changes');
+       console.log(data.key);
        this.ngRedux.dispatch(
-         this.actions.addProject(new Project(newProject.name, newProject.id.toString(), newProject.description, null, [], [])));
+         this.actions.addProject(new Project(newProject.name, data.key, newProject.description, null, [], [])));
       });
      }
 
     addProject(newProject: Project): void {
-      this.db.ref('/projects/').push(newProject);
+      const newProjectWithoutId = newProject;
+      delete newProjectWithoutId.id;
+      this.db.ref('/projects/').push(newProjectWithoutId);
     }
 }
