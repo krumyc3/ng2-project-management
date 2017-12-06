@@ -8,14 +8,17 @@ import { ProjectlistComponent } from '../components/domain/projectlist/projectli
 import { InteractionModule } from './interaction.module';
 import { ProjectService } from '../services/project.service';
 import { ProjectActions } from '../store/actions/project.actions';
+import { SingleProjectViewComponent } from '../components/domain/single-project-view/single-project-view.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
-    InteractionModule
+    InteractionModule,
+    RouterModule
   ],
   providers: [ProjectService, ProjectActions],
-  declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent],
+  declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent, SingleProjectViewComponent],
   exports: [ProjectlistComponent]
 })
 export class DomainModule { }

@@ -12,6 +12,8 @@ import { InitialAppState, INITIAL_STATE } from './store/initialState';
 import { createStore, Store, applyMiddleware, combineReducers } from 'redux';
 import { modalsReducer } from './store/reducers/modals.reducer';
 import { projectReducer } from './store/reducers/project.reducer';
+import { RouterModule } from '@angular/router';
+import appRoutes from './routing/routes';
 
 export const store: Store<any> = createStore(combineReducers(
   {
@@ -25,6 +27,12 @@ export const store: Store<any> = createStore(combineReducers(
     AppComponent,
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      {
+        enableTracing: true
+      }
+    ),
     BrowserModule,
     DomainModule,
     LayoutModule,

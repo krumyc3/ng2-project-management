@@ -1,21 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterLink } from '@angular/router';
 
-import { ProjectComponent } from './project.component';
+import { SingleProjectViewComponent } from './single-project-view.component';
 
-describe('ProjectComponent', () => {
-  let component: ProjectComponent;
-  let fixture: ComponentFixture<ProjectComponent>;
+describe('SingleProjectViewComponent', () => {
+  let component: SingleProjectViewComponent;
+  let fixture: ComponentFixture<SingleProjectViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectComponent ]
+      declarations: [ SingleProjectViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectComponent);
+    fixture = TestBed.createComponent(SingleProjectViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
