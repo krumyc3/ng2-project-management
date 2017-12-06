@@ -11,5 +11,18 @@ export function projectReducer(state = [] , action: any) {
        return [...state, action.payload];
     default:
       return state;
+    case ProjectActions.SET_TASKS:
+      return state.map((project) => {
+          if (project.id === action.payload.projectId) {
+            return {
+              ...project,
+              tasks: action.payload.projectTasks,
+            };
+          } else {
+            return {
+              ...project
+            };
+          }
+  });
   }
 }

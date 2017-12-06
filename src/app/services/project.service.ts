@@ -5,6 +5,8 @@ import Firebase from '../backend/firebase';
 import {DbRefs} from '../enums/db-refs.enum';
 import { ProjectActions } from '../store/actions/project.actions';
 import { Project } from '../models/project';
+import { Task } from '../models/task';
+import { User } from '../models/user';
 
 @Injectable()
 export class ProjectService {
@@ -25,12 +27,27 @@ export class ProjectService {
        });
      });
    }
-
+   fetchProjectTasks(projectId: String) {
+     this.db.ref(`/tasks/projects/${projectId}`).once('value', (data) => {
+       let tasks = [];
+       data.forEach(element => {
+         tasks.push(element.val());
+       });
+       console.log('fetch project tasks');
+       console.log(tasks);
+       this.ngRedux.dispatch(
+         this.actions.setTasks({
+           projectId: projectId.toString(),
+           projectTasks: tasks,
+         })
+       );
+       });
+   }
    listenForChanges(): void {
      this.db.ref('/projects/').on('child_added', (data) => {
        const newProject = data.val();
        this.ngRedux.dispatch(
-         this.actions.addProject(new Project(newProject.name, newProject.id, newProject.description, null, null)));
+         this.actions.addProject(new Project(newProject.name, newProject.id.toString(), newProject.description, null, [], [])));
       });
      }
 

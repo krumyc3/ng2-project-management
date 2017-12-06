@@ -14,7 +14,7 @@ import { ProjectService } from '../../../../services/project.service';
 export class NewProjectModalComponent implements OnInit {
   @Input() isOpen: Boolean = false;
   subscription;
-  private project: Project = new Project('', '', '', null, null);
+  private project: Project = new Project('', '', '', null, [], []);
   constructor(private store: NgRedux<InitialAppState>, private modalActions: ModalsActions, private projectService: ProjectService) { }
   ngOnInit() {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {

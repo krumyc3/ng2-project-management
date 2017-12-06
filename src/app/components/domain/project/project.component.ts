@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Project } from '../../../models/project';
+import { Task } from '../../../models/task';
 
 @Component({
   selector: 'app-project',
@@ -8,6 +9,8 @@ import { Project } from '../../../models/project';
 })
 export class ProjectComponent implements OnInit {
   @Input() project: Project;
+  @Input() tasks: Task[];
+  @Input() onlyDescription: Boolean = true;
   constructor() { }
 
   ngOnInit() {

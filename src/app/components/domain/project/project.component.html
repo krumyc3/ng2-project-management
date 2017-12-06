@@ -7,4 +7,11 @@
       {{ project.description }}
     </div>
   </div>
+  <ul *ngIf="tasks && !onlyDescription">
+    <li *ngFor="let task of tasks;">
+      <p *ngIf="task.name"> {{ task.name }}</p>
+      <p> {{ task.description }}</p>
+      <p> {{ task.status }}</p>
+    </li>
+  </ul>
 </div>
