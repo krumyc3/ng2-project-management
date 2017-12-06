@@ -3,6 +3,7 @@ import { TaskStatus } from '../enums/task.status.enum';
 
 export class Task {
   private id: string;
+  projectId: string;
   private status: TaskStatus;
   private name: string;
   private description: string;

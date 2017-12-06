@@ -5,6 +5,7 @@ import { select, NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../../../../store/initialState';
 import { ModalsActions, ModalsAction, ModalTypes } from '../../../../store/actions/modals.actions';
 import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-task-modal',
@@ -14,15 +15,21 @@ import { Subscription } from 'rxjs/Subscription';
 export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy {
   modalActions: ModalsActions;
   @Input() isOpen: Boolean;
+  @Input() projectId: String;
   private task: Task = new Task('', '', '', '', null, null);
   subscription: any;
-  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions) {
+  routerSubscription: Subscription;
+  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private route: ActivatedRoute) {
     this.modalActions = modalActions;
   }
   ngOnInit() {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
       console.log(status.newTaskModalActive);
       this.isOpen = status.newTaskModalActive;
+    });
+
+    this.routerSubscription = this.route.params.subscribe(params => {
+      this.projectId = params.id;
     });
   }
   closeModal(): void {
@@ -32,7 +39,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
     this.subscription.unsubscribe();
   }
   createTask() {
-    console.log('should create task');
+    console.log('should create task for project', this.projectId);
   }
 
 }

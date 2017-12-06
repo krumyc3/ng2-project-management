@@ -7,8 +7,8 @@ import { InitialAppState, INITIAL_STATE } from '../initialState';
 
 export function projectReducer(state = [] , action: any) {
   switch (action.type) {
-    case ProjectActions.ADD_PROJECT:
-       return [...state, action.payload];
+    case ProjectActions.SET_PROJECTS:
+       return action.payload;
     default:
       return state;
     case ProjectActions.SET_TASKS:

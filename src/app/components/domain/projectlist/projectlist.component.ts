@@ -16,7 +16,6 @@ export class ProjectlistComponent implements OnInit {
   subscription: Subscription;
   constructor(private projectService: ProjectService, private ngRedux: NgRedux<InitialAppState>, private modalActions: ModalsActions) { }
   ngOnInit() {
-    this.projectService.fetchProjects();
     this.setUpProjectSubscription();
   }
   setUpProjectSubscription(): any {

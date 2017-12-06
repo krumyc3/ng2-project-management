@@ -15,41 +15,38 @@ export class ProjectService {
   constructor(private ngRedux: NgRedux<InitialAppState>, private actions: ProjectActions) {
     this.db = Firebase.database();
     this.dbRefs = DbRefs;
-    this.listenForChanges();
+    this.listenForProjectChanges();
    }
-
-   fetchProjects(): void {
-     this.db.ref('/projects/').once('value', (snapshot) => {
-       snapshot.forEach(project => {
-         const fetchedProject = project.val();
-        //  this.ngRedux.dispatch(
-        //    this.actions.addProject(new Project(fetchedProject.name, fetchedProject.id, fetchedProject.description, null, null)));
-       });
-     });
+   deactiveTaskListener(projectId: String) {
+     this.db.ref(`/task/projects/${projectId}`).off();
    }
-   fetchProjectTasks(projectId: String) {
-     this.db.ref(`/tasks/projects/${projectId}`).once('value', (data) => {
+   listenForTaskChanges(projectId: String) {
+     this.db.ref(`/tasks/projects/${projectId}`).on('value', (data) => {
        let tasks = [];
+       console.log('listen for task changes');
        data.forEach(element => {
          tasks.push(element.val());
        });
        this.ngRedux.dispatch(
          this.actions.setTasks({
-           projectId: projectId.toString(),
+           projectId: data.key,
            projectTasks: tasks,
          })
        );
        });
    }
-   listenForChanges(): void {
-     this.db.ref('/projects/').on('child_added', (data) => {
-       const newProject = data.val();
-       console.log('listen to changes');
-       console.log(data.key);
+   listenForProjectChanges(): void {
+     this.db.ref('/projects/').on('value', (data) => {
+       let projects = [];
+       data.forEach(project => {
+         projects.push(new Project(project.val().name, project.key, project.val().description, null, [], []));
+       });
+       console.log('projects in services');
+       console.log(projects);
        this.ngRedux.dispatch(
-         this.actions.addProject(new Project(newProject.name, data.key, newProject.description, null, [], [])));
-      });
-     }
+         this.actions.setProjects(projects));
+    });
+  }
 
     addProject(newProject: Project): void {
       const newProjectWithoutId = newProject;

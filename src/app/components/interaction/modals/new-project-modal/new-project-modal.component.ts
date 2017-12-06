@@ -32,9 +32,8 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   }
 
   createProject(): void {
-    console.log('should create project');
     this.projectService.addProject(this.project);
-    this.isOpen = false;
+    this.closeModal();
   }
 
 }

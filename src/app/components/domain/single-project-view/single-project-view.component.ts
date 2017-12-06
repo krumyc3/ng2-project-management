@@ -6,13 +6,14 @@ import { ProjectService } from '../../../services/project.service';
 import { Project } from '../../../models/project';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-single-project-view',
   templateUrl: './single-project-view.component.html',
   styleUrls: ['./single-project-view.component.css']
 })
-export class SingleProjectViewComponent implements OnInit {
+export class SingleProjectViewComponent implements OnInit, OnDestroy {
   private currentProjectId: string;
   private subscription: any;
   private storeSubscription: any;
@@ -31,7 +32,11 @@ export class SingleProjectViewComponent implements OnInit {
    });
   }
   getProjectDetails(projectId: String) {
-    this.projectService.fetchProjectTasks(projectId);
+    this.projectService.listenForTaskChanges(projectId);
+  }
+
+  ngOnDestroy() {
+    this.projectService.deactiveTaskListener(this.currentProjectId);
   }
 
 }

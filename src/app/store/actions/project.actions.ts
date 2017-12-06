@@ -15,12 +15,12 @@ export interface ProjectTasks {
 }
 @Injectable()
 export class ProjectActions {
-  static ADD_PROJECT = 'ADD_PROJECT';
+  static SET_PROJECTS = 'SET_PROJECTS';
   static SET_TASKS = 'SET_TASKS';
-  addProject(newProject: Project): ProjectAction {
+  setProjects(projectsList: Project[]): ProjectAction {
     return {
-      type: ProjectActions.ADD_PROJECT,
-      payload: newProject
+      type: ProjectActions.SET_PROJECTS,
+      payload: projectsList
     };
   }
 
