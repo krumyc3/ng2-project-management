@@ -5,17 +5,21 @@ import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from '../../../../store/initialState';
 import { ModalsActions } from '../../../../store/actions/modals.actions';
 import { ProjectService } from '../../../../services/project.service';
+import { ModalInterface } from '../modal-interface';
 
 @Component({
   selector: 'app-new-project-modal',
   templateUrl: './new-project-modal.component.html',
   styleUrls: ['./new-project-modal.component.css']
 })
-export class NewProjectModalComponent implements OnInit {
+export class NewProjectModalComponent implements OnInit, ModalInterface {
+  modalActions: ModalsActions;
   @Input() isOpen: Boolean = false;
   subscription;
   private project: Project = new Project('', '', '', null, [], []);
-  constructor(private store: NgRedux<InitialAppState>, private modalActions: ModalsActions, private projectService: ProjectService) { }
+  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: ProjectService) {
+    this.modalActions = modalActions;
+   }
   ngOnInit() {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
       console.log(status.newProjectModalActive);
