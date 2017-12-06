@@ -1,0 +1,8 @@
+.project {
+  padding-bottom: 30px;
+}
+
+.project__name {
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
