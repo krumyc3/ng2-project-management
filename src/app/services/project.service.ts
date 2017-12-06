@@ -25,7 +25,12 @@ export class ProjectService {
        let tasks = [];
        console.log('listen for task changes');
        data.forEach(element => {
-         tasks.push(element.val());
+         const el = element.val();
+         tasks.push(
+           new Task(
+             el.id, el.status, el.projectId, el.name, el.description, el.due, el.user, [],
+            )
+         );
        });
        this.ngRedux.dispatch(
          this.actions.setTasks({
