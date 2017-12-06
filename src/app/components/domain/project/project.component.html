@@ -7,13 +7,8 @@
       {{ project.description }}
     </div>
   </div>
-  <ul *ngIf="tasks && !onlyDescription">
-    <li *ngFor="let task of tasks;">
-      <p *ngIf="task.name"> {{ task.name }}</p>
-      <p> {{ task.description }}</p>
-      <p> {{ task.status }}</p>
-    </li>
-  </ul>
+  <app-tasklist [tasks]="tasks" *ngIf="tasks && !onlyDescription">
+  </app-tasklist>
   <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui small button">
     Add task
   </button>

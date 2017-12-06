@@ -10,6 +10,8 @@ import { ProjectService } from '../services/project.service';
 import { ProjectActions } from '../store/actions/project.actions';
 import { SingleProjectViewComponent } from '../components/domain/single-project-view/single-project-view.component';
 import { RouterModule } from '@angular/router';
+import { TasklistComponent } from '../components/domain/tasklist/tasklist.component';
+import { TasksService } from '../services/tasks.service';
 
 @NgModule({
   imports: [
@@ -17,8 +19,8 @@ import { RouterModule } from '@angular/router';
     InteractionModule,
     RouterModule
   ],
-  providers: [ProjectService, ProjectActions],
-  declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent, SingleProjectViewComponent],
+  providers: [ProjectService, ProjectActions, TasksService],
+  declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent, SingleProjectViewComponent, TasklistComponent],
   exports: [ProjectlistComponent]
 })
 export class DomainModule { }
