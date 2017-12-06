@@ -33,4 +33,8 @@ export class ProjectService {
          this.actions.addProject(new Project(newProject.name, newProject.id, newProject.description, null, null)));
       });
      }
+
+    addProject(newProject: Project): void {
+      this.db.ref('/projects/').push(newProject);
+    }
 }
