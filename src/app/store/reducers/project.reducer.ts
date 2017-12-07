@@ -2,6 +2,7 @@ import { Project } from '../../models/project';
 
 import { ProjectActions } from '../actions/project.actions';
 import { InitialAppState, INITIAL_STATE } from '../initialState';
+import { TaskActions } from '../actions/task.actions';
 
 
 
@@ -23,6 +24,6 @@ export function projectReducer(state = [] , action: any) {
               ...project
             };
           }
-  });
+      });
   }
 }

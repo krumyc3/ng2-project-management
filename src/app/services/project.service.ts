@@ -7,12 +7,13 @@ import { ProjectActions } from '../store/actions/project.actions';
 import { Project } from '../models/project';
 import { Task } from '../models/task';
 import { User } from '../models/user';
+import { Comment } from '../models/comment';
 
 @Injectable()
 export class ProjectService {
   private db: any;
   private dbRefs: any;
-  constructor(private ngRedux: NgRedux<InitialAppState>, private actions: ProjectActions) {
+  constructor(private store: NgRedux<InitialAppState>, private projectActions: ProjectActions) {
     this.db = Firebase.database();
     this.dbRefs = DbRefs;
     this.listenForProjectChanges();
@@ -32,8 +33,8 @@ export class ProjectService {
             )
          );
        });
-       this.ngRedux.dispatch(
-         this.actions.setTasks({
+       this.store.dispatch(
+         this.projectActions.setTasks({
            projectId: data.key,
            projectTasks: tasks,
          })
@@ -46,10 +47,20 @@ export class ProjectService {
        data.forEach(project => {
          projects.push(new Project(project.val().name, project.key, project.val().description, null, [], []));
        });
-       console.log('projects in services');
-       console.log(projects);
-       this.ngRedux.dispatch(
-         this.actions.setProjects(projects));
+       this.store.dispatch(
+         this.projectActions.setProjects(projects));
+    });
+  }
+
+  listenForCommentChanges(): void {
+    this.db.ref(`/comments/tasks/`).on('value', (data) => {
+      let comments = [];
+      comments.forEach(comment => {
+        comments.push(new Comment(null, comment.key, comment.val().content, 0));
+      });
+      this.store.dispatch(
+        this.taskActions.setComments(comments)
+      );
     });
   }
 
