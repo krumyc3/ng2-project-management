@@ -12,6 +12,7 @@ import { SingleProjectViewComponent } from '../components/domain/single-project-
 import { RouterModule } from '@angular/router';
 import { TasklistComponent } from '../components/domain/tasklist/tasklist.component';
 import { TasksService } from '../services/tasks.service';
+import { CommentsListComponent } from '../components/domain/comments-list/comments-list.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { TasksService } from '../services/tasks.service';
     RouterModule
   ],
   providers: [ProjectService, ProjectActions, TasksService],
-  declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent, SingleProjectViewComponent, TasklistComponent],
+  declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent, SingleProjectViewComponent, TasklistComponent, CommentsListComponent],
   exports: [ProjectlistComponent]
 })
 export class DomainModule { }

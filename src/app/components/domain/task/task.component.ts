@@ -9,9 +9,18 @@ import { Task } from '../../../models/task';
 })
 export class TaskComponent implements OnInit {
   @Input() task: Task;
+  commentsActive: Boolean = false;
   constructor() { }
 
   ngOnInit() {
   }
-
+  toggleComments(): void {
+    this.commentsActive = !this.commentsActive;
+  }
+  commentsLength(): number {
+    return this.task.comments.length;
+  }
+  hasComments(): boolean {
+    return this.commentsLength() > 0;
+  }
 }

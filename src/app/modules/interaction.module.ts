@@ -6,13 +6,15 @@ import { NewProjectModalComponent } from '../components/interaction/modals/new-p
 import { MessageComponent } from '../components/interaction/message/message.component';
 import { ModalsActions } from '../store/actions/modals.actions';
 import { NewTaskModalComponent } from '../components/interaction/modals/new-task-modal/new-task-modal.component';
+import { CommentFormComponent } from '../components/interactions/forms/comment-form/comment-form.component';
+
 
 @NgModule({
   imports: [
     CommonModule, FormsModule
   ],
   providers: [ModalsActions],
-  declarations: [NewProjectModalComponent, MessageComponent, NewTaskModalComponent],
-  exports: [NewProjectModalComponent, NewTaskModalComponent]
+  declarations: [NewProjectModalComponent, MessageComponent, NewTaskModalComponent, CommentFormComponent],
+  exports: [NewProjectModalComponent, NewTaskModalComponent, CommentFormComponent]
 })
 export class InteractionModule { }

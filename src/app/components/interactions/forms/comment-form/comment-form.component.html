@@ -1,0 +1,17 @@
+<div class="comment-form-container">
+  <form #commentForm="ngForm" (ngSubmit)="addComment()" class="ui form">
+    <div class="field">
+      <label for="comment-content">Comment</label>
+      <textarea [(ngModel)]="comment.content" required minlength="1" name="content" id="comment-content" #content="ngModel" cols="30" rows="3">
+      </textarea>
+      <app-message [hidden]="content.valid">
+        <p>Comment content is required (at least one character)</p>
+      </app-message>
+    </div>
+    <div class="field">
+      <button type="submit" [disabled]="!content.valid" class="ui positive button">
+        Add comment
+      </button>
+    </div>
+  </form>
+</div>

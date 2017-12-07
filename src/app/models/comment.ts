@@ -3,6 +3,13 @@ import { Task } from './task';
 
 export class Comment {
   private user: User;
-  private task: Task;
-  private likes: Number;
+  content: string;
+  taskId: string;
+  likes: Number;
+  constructor(user: User, taskId: string, content: string, likes: Number) {
+    this.user = user;
+    this.taskId = taskId;
+    this.content = content;
+    this.likes = likes;
+  }
 }

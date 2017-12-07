@@ -28,7 +28,7 @@ export class ProjectService {
          const el = element.val();
          tasks.push(
            new Task(
-             el.id, el.status, el.projectId, el.name, el.description, el.due, el.user, [],
+             element.key, el.status, el.projectId, el.name, el.description, el.due, el.user, [],
             )
          );
        });
