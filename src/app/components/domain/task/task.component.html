@@ -6,11 +6,11 @@
       {{ task.description }}
     </p>
     <div class="footer">
-      <button class="comments-link ui basic button" (click)="toggleComments()">{{ !hasComments() ? 'no comments' : commentsLength() + ' comments'}}</button>
-
-      <app-comments-list [taskId]="task.id" *ngIf="commentsActive">
-      </app-comments-list>
+      <a class="show-comments" (click)="toggleComments()">Show comments</a>
     </div>
 
     
 </div>
+
+<app-comments-list [taskId]="task.id" *ngIf="commentsActive">
+</app-comments-list>

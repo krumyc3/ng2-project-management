@@ -6,13 +6,16 @@ import { UserComponent } from '../components/domain/user/user.component';
 import { CommentComponent } from '../components/domain/comment/comment.component';
 import { ProjectlistComponent } from '../components/domain/projectlist/projectlist.component';
 import { InteractionModule } from './interaction.module';
-import { ProjectService } from '../services/project.service';
+import { BackendService } from '../services/project.service';
 import { ProjectActions } from '../store/actions/project.actions';
 import { SingleProjectViewComponent } from '../components/domain/single-project-view/single-project-view.component';
 import { RouterModule } from '@angular/router';
 import { TasklistComponent } from '../components/domain/tasklist/tasklist.component';
 import { TasksService } from '../services/tasks.service';
 import { CommentsListComponent } from '../components/domain/comments-list/comments-list.component';
+import { TaskActions } from '../store/actions/task.actions';
+import { CommentActions } from '../store/actions/comment.actions';
+import { ModalsActions } from '../store/actions/modals.actions';
 
 @NgModule({
   imports: [
@@ -20,8 +23,16 @@ import { CommentsListComponent } from '../components/domain/comments-list/commen
     InteractionModule,
     RouterModule
   ],
-  providers: [ProjectService, ProjectActions, TasksService],
-  declarations: [ProjectComponent, TaskComponent, UserComponent, CommentComponent, ProjectlistComponent, SingleProjectViewComponent, TasklistComponent, CommentsListComponent],
+  providers: [BackendService, ProjectActions, TasksService, TaskActions, CommentActions],
+  declarations: [
+    ProjectComponent,
+    TaskComponent,
+    UserComponent,
+    CommentComponent,
+    ProjectlistComponent,
+    SingleProjectViewComponent,
+    TasklistComponent,
+    CommentsListComponent],
   exports: [ProjectlistComponent]
 })
 export class DomainModule { }

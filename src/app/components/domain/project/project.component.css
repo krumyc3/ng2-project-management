@@ -1,7 +1,11 @@
 .project {
-  padding-bottom: 30px;
+  margin-bottom: 50px !important;
 }
-
+.project__header {
+  display: flex !important;
+  justify-content: space-between;
+  flex-direction: row;
+}
 .project__name {
   font-size: 1.2rem;
   text-transform: capitalize;

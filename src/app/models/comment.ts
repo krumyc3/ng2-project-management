@@ -2,7 +2,7 @@ import { User } from './user';
 import { Task } from './task';
 
 export class Comment {
-  private user: User;
+  user: User;
   content: string;
   taskId: string;
   likes: Number;

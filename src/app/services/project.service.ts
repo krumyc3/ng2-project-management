@@ -8,23 +8,29 @@ import { Project } from '../models/project';
 import { Task } from '../models/task';
 import { User } from '../models/user';
 import { Comment } from '../models/comment';
+import { TaskActions } from '../store/actions/task.actions';
+import { CommentActions } from '../store/actions/comment.actions';
 
 @Injectable()
-export class ProjectService {
+export class BackendService {
   private db: any;
   private dbRefs: any;
-  constructor(private store: NgRedux<InitialAppState>, private projectActions: ProjectActions) {
+  constructor(
+    private store: NgRedux<InitialAppState>,
+    private projectActions: ProjectActions,
+    private taskActions: TaskActions,
+    private commmentActions: CommentActions
+  ) {
     this.db = Firebase.database();
     this.dbRefs = DbRefs;
     this.listenForProjectChanges();
    }
    deactiveTaskListener(projectId: String) {
-     this.db.ref(`/task/projects/${projectId}`).off();
+     this.db.ref(`/tasks/projects/${projectId}`).off();
    }
    listenForTaskChanges(projectId: String) {
      this.db.ref(`/tasks/projects/${projectId}`).on('value', (data) => {
-       let tasks = [];
-       console.log('listen for task changes');
+       const tasks = [];
        data.forEach(element => {
          const el = element.val();
          tasks.push(
@@ -34,7 +40,7 @@ export class ProjectService {
          );
        });
        this.store.dispatch(
-         this.projectActions.setTasks({
+         this.taskActions.setTasks({
            projectId: data.key,
            projectTasks: tasks,
          })
@@ -43,7 +49,7 @@ export class ProjectService {
    }
    listenForProjectChanges(): void {
      this.db.ref('/projects/').on('value', (data) => {
-       let projects = [];
+       const projects = [];
        data.forEach(project => {
          projects.push(new Project(project.val().name, project.key, project.val().description, null, [], []));
        });
@@ -53,13 +59,15 @@ export class ProjectService {
   }
 
   listenForCommentChanges(): void {
-    this.db.ref(`/comments/tasks/`).on('value', (data) => {
-      let comments = [];
-      comments.forEach(comment => {
-        comments.push(new Comment(null, comment.key, comment.val().content, 0));
+    this.db.ref(`/comments/tasks`).on('value', (data) => {
+      const comments = [];
+      data.forEach(task => {
+        task.forEach(comment => {
+          comments.push(comment.val());
+        });
       });
       this.store.dispatch(
-        this.taskActions.setComments(comments)
+        this.commmentActions.setComments(comments)
       );
     });
   }

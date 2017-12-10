@@ -6,18 +6,23 @@ import { AppComponent } from './app.component';
 import { DomainModule } from './modules/domain.module';
 import { LayoutModule } from './modules/layout.module';
 import { NgRedux } from '@angular-redux/store';
-import { createLogger } from 'redux-logger';
 import { NgReduxModule } from '@angular-redux/store';
 import { InitialAppState, INITIAL_STATE } from './store/initialState';
-import { createStore, Store, applyMiddleware, combineReducers } from 'redux';
 import { modalsReducer } from './store/reducers/modals.reducer';
 import { projectReducer } from './store/reducers/project.reducer';
 import { RouterModule } from '@angular/router';
 import appRoutes from './routing/routes';
+import { taskReducer } from './store/reducers/task.reducer';
+import { commentReducer } from './store/reducers/comment.reducer';
+import { createStore, Store, applyMiddleware, combineReducers } from 'redux';
+import { createLogger } from 'redux-logger';
 
-export const store: Store<any> = createStore(combineReducers(
+
+export const appStore: Store<any> = createStore(combineReducers(
   {
     projectsList: projectReducer,
+    tasksList: taskReducer,
+    commentsList: commentReducer,
     modalsState: modalsReducer,
   }
 ), INITIAL_STATE, applyMiddleware(createLogger()));
@@ -30,7 +35,7 @@ export const store: Store<any> = createStore(combineReducers(
     RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true
+        enableTracing: false
       }
     ),
     BrowserModule,
@@ -44,6 +49,6 @@ export const store: Store<any> = createStore(combineReducers(
 
 export class AppModule {
   constructor(ngRedux: NgRedux<InitialAppState>) {
-    ngRedux.provideStore(store);
+    ngRedux.provideStore(appStore);
   }
 }

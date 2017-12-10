@@ -4,7 +4,7 @@ import { Project } from '../../../../models/project';
 import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from '../../../../store/initialState';
 import { ModalsActions, ModalTypes } from '../../../../store/actions/modals.actions';
-import { ProjectService } from '../../../../services/project.service';
+import { BackendService } from '../../../../services/project.service';
 import { ModalInterface } from '../modal-interface';
 
 @Component({
@@ -17,12 +17,11 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   @Input() isOpen: Boolean = false;
   subscription;
   private project: Project = new Project('', '', '', null, [], []);
-  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: ProjectService) {
+  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: BackendService) {
     this.modalActions = modalActions;
    }
   ngOnInit() {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
-      console.log(status.newProjectModalActive);
       this.isOpen = status.newProjectModalActive;
     });
   }

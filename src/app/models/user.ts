@@ -1,8 +1,17 @@
 export class User {
-  private uid: String;
-  private email: String;
-  private firstName: String;
-  private lastName: String;
+  private uid: string;
+  public email: string;
+  private firstName: string;
+  private lastName: string;
 
-  constructor(uid: String, email: String, firstName: String, lastName: String) {}
+  constructor(uid: string, email: string, firstName: string, lastName: string) {
+    this.uid = uid;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public getFullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
 }

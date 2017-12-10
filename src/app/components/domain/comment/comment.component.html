@@ -1,3 +1,17 @@
-<p>
-  comment works!
-</p>
+<div class="comment app-comment">
+  <div class="content">
+    
+    <a class="author">
+      {{ comment.user}}
+    </a>
+    <div class="metadata">
+      <span class="date">some date</span>
+    </div>
+    <p class="text">
+      {{ comment.content }}
+    </p>
+    <div class="actions">
+      <a class="like-comment">Like</a>
+    </div>
+  </div>
+</div>
