@@ -2,7 +2,7 @@
   <div class="content">
     <div class="header project__header">
       <a class="project__name" href="" routerLink="{{ '/projects/' + project.id }}">{{ project.name }}</a>
-      <i class="options icon"></i>
+      <i (click)="editProject()" class="options icon"></i>
     </div>
     <div class="meta">
       <div class="description project__description">

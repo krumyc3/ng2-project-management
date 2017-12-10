@@ -9,6 +9,7 @@ export interface ModalsAction extends Action {
 export enum ModalTypes {
   ADD_NEW_PROJECT = 'newProjectModalActive',
   ADD_NEW_TASK = 'newTaskModalActive',
+  EDIT_PROJECT = 'editProjectModalActive',
 }
 
 @Injectable()

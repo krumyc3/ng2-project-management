@@ -16,6 +16,7 @@ import { taskReducer } from './store/reducers/task.reducer';
 import { commentReducer } from './store/reducers/comment.reducer';
 import { createStore, Store, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
+import { editingReducer } from './store/reducers/editing.reducer';
 
 
 export const appStore: Store<any> = createStore(combineReducers(
@@ -24,6 +25,7 @@ export const appStore: Store<any> = createStore(combineReducers(
     tasksList: taskReducer,
     commentsList: commentReducer,
     modalsState: modalsReducer,
+    editingResource: editingReducer
   }
 ), INITIAL_STATE, applyMiddleware(createLogger()));
 

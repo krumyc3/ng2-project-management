@@ -7,12 +7,16 @@ export interface InitialAppState {
   commentsList: any;
   tasksList: any;
   modalsState: any;
+  editingResource: any;
 }
 
 export const INITIAL_STATE: InitialAppState = {
   projectsList: [],
   commentsList: [],
   tasksList: [],
+  editingResource: {
+    project: {}
+  },
   modalsState: {
     newProjectModalActive: false
   },

@@ -4,6 +4,7 @@ import { InitialAppState, INITIAL_STATE } from '../initialState';
 const modalState = {
   newProjectModalActive: false,
   newTaskModalActive: false,
+  editProjectModalActive: false,
 };
 export function modalsReducer(state = modalState,  action: ModalsAction) {
   switch (action.type) {

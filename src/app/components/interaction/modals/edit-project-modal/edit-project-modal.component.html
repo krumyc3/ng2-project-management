@@ -1,0 +1,35 @@
+<div class="ui active modal edit-project-modal" [ngClass]="{'active': isOpen}">
+  <div class="header">
+    Edit project
+  </div>
+  <div class="content">
+    <form #form="ngForm" class="ui form">
+      <div class="field">
+        <div class="field">
+          <label for="project-name">Project name</label>
+          <input id="project-name" [(ngModel)]="project.name" #name="ngModel" name="name" required minlength="1" type="text">
+          <app-message [hidden]="name.valid || (name.pristine && form.submitted)">
+            <p>Name is required (at least one character).</p>
+          </app-message>
+        </div>
+        <div class="field">
+          <label for="project-description">Description</label>
+          <textarea [(ngModel)]="project.description" #description="ngModel" required minlength="1" name="description" id="project-description"
+            cols="30" rows="5"></textarea>
+          <app-message [hidden]="description.valid || (description.pristine && form.submitted)">
+            <p>Description is required (at least one character)</p>
+          </app-message>
+        </div>
+      </div>
+      <div class="field"></div>
+    </form>
+  </div>
+  <div class="actions">
+    <button (click)="closeModal()" class="ui grey cancel button">
+      Cancel
+    </button>
+    <button type="submit" (click)="updateProject()" class="ui green approve button" [disabled]="!form.valid">
+      Update
+    </button>
+  </div>
+  </div>
