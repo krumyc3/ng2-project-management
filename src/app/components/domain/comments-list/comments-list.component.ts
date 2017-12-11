@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
-import { BackendService } from '../../../services/project.service';
+import { ProjectService } from '../../../services/project.service';
 import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from '../../../store/initialState';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';

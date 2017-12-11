@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Firebase from '../backend/firebase';
+// import Firebase from '../backend/firebase';
 import { Task } from '../models/task';
 import { Comment } from '../models/comment';
 
@@ -7,7 +7,7 @@ import { Comment } from '../models/comment';
 export class TasksService {
   private db: any;
   constructor() {
-    this.db = Firebase.database();
+    // this.db = Firebase.database();
   }
 
   addNewTask(newTask: Task): void {

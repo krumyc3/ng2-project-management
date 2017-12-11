@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../../models/task';
-import { BackendService } from '../../../services/project.service';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-tasklist',
@@ -9,10 +9,10 @@ import { BackendService } from '../../../services/project.service';
 })
 export class TasklistComponent implements OnInit {
   @Input() tasks: Task[];
-  constructor(private backend: BackendService) { }
+  constructor(private backend: ProjectService) { }
 
   ngOnInit() {
-    this.backend.listenForCommentChanges();
+    // this.backend.listenForCommentChanges();
   }
 
 }

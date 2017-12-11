@@ -4,7 +4,7 @@ import { Project } from '../../../../models/project';
 import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from '../../../../store/initialState';
 import { ModalsActions, ModalTypes } from '../../../../store/actions/modals.actions';
-import { BackendService } from '../../../../services/project.service';
+import { ProjectService } from '../../../../services/project.service';
 import { ModalInterface } from '../modal-interface';
 
 @Component({
@@ -17,7 +17,7 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   @Input() isOpen: Boolean = false;
   subscription;
   private project: Project = new Project('', '', '', null, [], []);
-  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: BackendService) {
+  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: ProjectService) {
     this.modalActions = modalActions;
    }
   ngOnInit() {
@@ -31,7 +31,7 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   }
 
   createProject(): void {
-    this.projectService.addProject(this.project);
+    // this.projectService.addProject(this.project);
     this.closeModal();
   }
 

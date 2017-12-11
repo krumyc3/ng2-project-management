@@ -3,7 +3,7 @@ import { ModalInterface } from '../modal-interface';
 import { ModalsActions, ModalTypes } from '../../../../store/actions/modals.actions';
 import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from '../../../../store/initialState';
-import { BackendService } from '../../../../services/project.service';
+import { ProjectService } from '../../../../services/project.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Project } from '../../../../models/project';
 import { EditingAction, EditingActions } from '../../../../store/actions/editing.actions';
@@ -19,7 +19,7 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   subscription: any;
   @Input() project: Project = new Project('', '', '', null, [], []);
   projectSubscription: any;
-  constructor(private store: NgRedux<InitialAppState>, private backendService: BackendService, modalActions: ModalsActions) {
+  constructor(private store: NgRedux<InitialAppState>, private backendService: ProjectService, modalActions: ModalsActions) {
     this.modalActions = modalActions;
   }
   ngOnInit() {

@@ -6,7 +6,7 @@ import { UserComponent } from '../components/domain/user/user.component';
 import { CommentComponent } from '../components/domain/comment/comment.component';
 import { ProjectlistComponent } from '../components/domain/projectlist/projectlist.component';
 import { InteractionModule } from './interaction.module';
-import { BackendService } from '../services/project.service';
+import { ProjectService } from '../services/project.service';
 import { ProjectActions } from '../store/actions/project.actions';
 import { SingleProjectViewComponent } from '../components/domain/single-project-view/single-project-view.component';
 import { RouterModule } from '@angular/router';
@@ -23,7 +23,7 @@ import { ModalsActions } from '../store/actions/modals.actions';
     InteractionModule,
     RouterModule
   ],
-  providers: [BackendService, ProjectActions, TasksService, TaskActions, CommentActions],
+  providers: [ProjectService, ProjectActions, TasksService, TaskActions, CommentActions],
   declarations: [
     ProjectComponent,
     TaskComponent,

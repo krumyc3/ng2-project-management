@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgRedux, select } from '@angular-redux/store';
 import { InitialAppState } from '../../../store/initialState';
-import { BackendService } from '../../../services/project.service';
+import { ProjectService } from '../../../services/project.service';
 import { Project } from '../../../models/project';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subscribable } from 'rxjs/Observable';
@@ -21,7 +21,7 @@ export class SingleProjectViewComponent implements OnInit, OnDestroy {
   private tasksSubscription: any;
   @Input() tasks: Task[];
   @Input() project: Project;
-  constructor(private route: ActivatedRoute, private store: NgRedux<InitialAppState>, private projectService: BackendService) { }
+  constructor(private route: ActivatedRoute, private store: NgRedux<InitialAppState>, private projectService: ProjectService) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
@@ -41,11 +41,11 @@ export class SingleProjectViewComponent implements OnInit, OnDestroy {
     });
   }
   getProjectDetails(projectId: String) {
-    this.projectService.listenForTaskChanges(projectId);
+    // this.projectService.listenForTaskChanges(projectId);
   }
 
   ngOnDestroy() {
-    this.projectService.deactiveTaskListener(this.currentProjectId);
+    // this.projectService.deactiveTaskListener(this.currentProjectId);
     this.subscription.unsubscribe();
     this.projectsSubscription.unsubscribe();
   }
