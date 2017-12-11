@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
 import { InitialAppState } from '../store/initialState';
 import { Apollo } from 'apollo-angular';
 import { QAllProjects, QProjectDetails } from '../backend/graph.queries';
-import { MCreateProject, MUpdateProject, MDeleteProject } from '../backend/graph.mutations';
+import { MCreateProject, MUpdateProject, MDeleteProject, MAddTaskToProject } from '../backend/graph.mutations';
 
 import { Project } from '../models/project';
 import { ModalsActions, ModalTypes } from '../store/actions/modals.actions';
+import { Task } from '../models/task';
 
 @Injectable()
 export class ProjectService {
@@ -78,11 +79,10 @@ export class ProjectService {
         id: projectId
       }
     }).subscribe(({data}: any) => {
-      const projectId = data.deleteProject.id;
       this.store.dispatch({
         type: ProjectActions.DELETE_PROJECT,
-        payload: projectId
-      })
+        payload: data.deleteProject.id
+      });
     });
   }
 
@@ -97,6 +97,27 @@ export class ProjectService {
       this.store.dispatch({
         type: ProjectActions.UPDATE_PROJECT,
         payload: new Project(projectToUpdate.name, projectToUpdate.id, projectToUpdate.description, null, null, projectToUpdate.tasks),
+      });
+    });
+  }
+
+  addTaskToProject(projectId: String, task: Task) {
+    this.apollo.mutate({
+      mutation: MAddTaskToProject,
+      variables: {
+        projectId,
+        taskName: task.title,
+        taskDescription: task.description,
+        taskDue: task.due
+      }
+    }).subscribe(({data}: any) => {
+      const response = data.createTask;
+      this.store.dispatch({
+        type: ProjectActions.ADD_TASK_TO_PROJECT,
+        payload: {
+          projectId: response.project.id,
+          task: new Task(response.id, null, response.project.id, response.title, response.description, response.due, null, null),
+        }
       });
     });
   }

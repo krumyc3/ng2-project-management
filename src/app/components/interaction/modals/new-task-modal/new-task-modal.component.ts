@@ -7,6 +7,7 @@ import { ModalsActions, ModalsAction, ModalTypes } from '../../../../store/actio
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { TasksService } from '../../../../services/tasks.service';
+import { ProjectService } from '../../../../services/project.service';
 
 @Component({
   selector: 'app-new-task-modal',
@@ -21,7 +22,8 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
   subscription: any;
   routerSubscription: Subscription;
   constructor(
-    private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private route: ActivatedRoute, private tasksService: TasksService
+    private store: NgRedux<InitialAppState>, modalActions: ModalsActions, 
+    private route: ActivatedRoute, private projectService: ProjectService
   ) {
     this.modalActions = modalActions;
   }
@@ -43,8 +45,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
   }
   createTask() {
     this.task.projectId = this.projectId;
-    this.tasksService.addNewTask(this.task);
-    this.closeModal();
+    this.projectService.addTaskToProject(this.task.projectId, this.task);
   }
 
 }

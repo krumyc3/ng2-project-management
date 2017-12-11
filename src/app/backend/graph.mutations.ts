@@ -33,3 +33,22 @@ export const MDeleteProject = gql`
     }
   }
 `;
+
+export const MAddTaskToProject = gql`
+  mutation addTaskToProject($projectId: ID!, $taskName: String!, $taskDescription: String!, $taskDue: DateTime) {
+    createTask(
+      projectId: $projectId,
+      title: $taskName,
+      description: $taskDescription,
+      due: $taskDue
+    ) {
+      project {
+        id
+      }
+      id
+      description
+      due
+      title
+    }
+  }
+`;

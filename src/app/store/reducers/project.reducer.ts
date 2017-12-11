@@ -19,6 +19,20 @@ export function projectReducer(state = [] , action: any) {
       });
     case ProjectActions.DELETE_PROJECT:
       return state.filter(singleProject => singleProject.id !== action.payload);
+    case ProjectActions.ADD_TASK_TO_PROJECT:
+      return state.map((singleProject) => {
+        if (singleProject.id === action.payload.projectId) {
+          return {
+            ...singleProject,
+            tasks: [
+              ...singleProject.tasks,
+              action.payload.task
+            ]
+          };
+        } else {
+          return singleProject;
+        }
+      });
     default:
       return state;
   }

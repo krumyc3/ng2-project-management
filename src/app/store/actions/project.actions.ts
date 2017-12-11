@@ -2,6 +2,7 @@ import { dispatch } from '@angular-redux/store';
 import { Action } from 'redux';
 import { Project } from '../../models/project';
 import { Injectable } from '@angular/core';
+import { Task } from '../../models/task';
 
 export interface ProjectAction {
   type: any;
@@ -19,7 +20,17 @@ export class ProjectActions {
   static ADD_SINGLE_PROJECT = 'ADD_SINGLE_PROJECT';
   static UPDATE_PROJECT = 'UPDATE_PROJECT';
   static DELETE_PROJECT = 'DELETE_PROJECT';
+  static ADD_TASK_TO_PROJECT = 'ADD_TASK_TO_PROJECT';
 
+  addTaskToProject(projectId: String, task: Task): ProjectAction {
+    return {
+      type: ProjectActions.ADD_TASK_TO_PROJECT,
+      payload: {
+        projectId,
+        task,
+      }
+    };
+  }
   setProjects(projectsList: Project[]): ProjectAction {
     return {
       type: ProjectActions.SET_PROJECTS,
