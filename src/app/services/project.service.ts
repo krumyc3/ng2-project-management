@@ -3,8 +3,8 @@ import { ProjectActions } from '../store/actions/project.actions';
 import { Injectable } from '@angular/core';
 import { InitialAppState } from '../store/initialState';
 import { Apollo } from 'apollo-angular';
-import { QAllProjects } from '../backend/graph.queries';
-import { MCreateProject, MUpdateProject } from '../backend/graph.mutations';
+import { QAllProjects, QProjectDetails } from '../backend/graph.queries';
+import { MCreateProject, MUpdateProject, MDeleteProject } from '../backend/graph.mutations';
 
 import { Project } from '../models/project';
 import { ModalsActions, ModalTypes } from '../store/actions/modals.actions';
@@ -68,6 +68,36 @@ export class ProjectService {
         });
         this.getAllProjects();
       }
+    });
+  }
+
+  deleteProject(projectId: String) {
+    this.apollo.mutate({
+      mutation: MDeleteProject,
+      variables: {
+        id: projectId
+      }
+    }).subscribe(({data}: any) => {
+      const projectId = data.deleteProject.id;
+      this.store.dispatch({
+        type: ProjectActions.DELETE_PROJECT,
+        payload: projectId
+      })
+    });
+  }
+
+  getProjectDetails(projectId: String) {
+    this.apollo.query({
+      query: QProjectDetails,
+      variables: {
+        id: projectId
+      }
+    }).subscribe(({data}: any) => {
+      const projectToUpdate = data.Project;
+      this.store.dispatch({
+        type: ProjectActions.UPDATE_PROJECT,
+        payload: new Project(projectToUpdate.name, projectToUpdate.id, projectToUpdate.description, null, null, projectToUpdate.tasks),
+      });
     });
   }
 }

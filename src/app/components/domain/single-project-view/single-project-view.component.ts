@@ -18,8 +18,6 @@ export class SingleProjectViewComponent implements OnInit, OnDestroy {
   private currentProjectId: string;
   private subscription: any;
   private projectsSubscription: any;
-  private tasksSubscription: any;
-  @Input() tasks: Task[];
   @Input() project: Project;
   constructor(private route: ActivatedRoute, private store: NgRedux<InitialAppState>, private projectService: ProjectService) { }
 
@@ -32,16 +30,9 @@ export class SingleProjectViewComponent implements OnInit, OnDestroy {
      const foundProject = projectList.find(project => project.id === this.currentProjectId);
      this.project = foundProject;
    });
-
-    this.tasksSubscription = this.store.select('tasksList').subscribe((tasksList: any) => {
-      const projectTasks = tasksList.find(singleTask => singleTask.projectId === this.currentProjectId);
-      if (projectTasks) {
-        this.tasks = projectTasks.projectTasks;
-      }
-    });
   }
   getProjectDetails(projectId: String) {
-    // this.projectService.listenForTaskChanges(projectId);
+    this.projectService.getProjectDetails(projectId);
   }
 
   ngOnDestroy() {

@@ -8,11 +8,15 @@
       <div class="description project__description">
         {{ project.description }}
       </div>
+      <div>
+        <i class="delete icon" (click)="deleteProject()"> </i>
+      </div>
     </div>
   </div>
-  <app-tasklist [tasks]="tasks" *ngIf="tasks && !onlyDescription">
-  </app-tasklist>
+  
   <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui small button">
     Add task
   </button>
 </div>
+<app-tasklist [tasks]="project.tasks" *ngIf="tasks && !onlyDescription">
+</app-tasklist>

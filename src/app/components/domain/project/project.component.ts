@@ -5,6 +5,7 @@ import { InitialAppState } from '../../../store/initialState';
 import { NgRedux } from '@angular-redux/store';
 import { ModalsActions, ModalTypes } from '../../../store/actions/modals.actions';
 import { EditingActions } from '../../../store/actions/editing.actions';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-project',
@@ -15,7 +16,11 @@ export class ProjectComponent implements OnInit {
   @Input() project: Project;
   @Input() tasks: Task[];
   @Input() onlyDescription: Boolean = true;
-  constructor(private store: NgRedux<InitialAppState>, private modalActions: ModalsActions, private editingActions: EditingActions) { }
+  constructor(
+    private projectService: ProjectService,
+    private store: NgRedux<InitialAppState>,
+    private modalActions: ModalsActions,
+    private editingActions: EditingActions) { }
 
   ngOnInit() {
   }
@@ -33,5 +38,9 @@ export class ProjectComponent implements OnInit {
     this.store.dispatch(
       this.editingActions.editProject(JSON.parse(JSON.stringify(this.project)))
     );
+  }
+
+  deleteProject() {
+    this.projectService.deleteProject(this.project.id);
   }
 }
