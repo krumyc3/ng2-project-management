@@ -1,6 +1,7 @@
 <div class="ui card project">
   <div class="content">
     <div class="header project__header">
+      <p>id {{ project.id }}</p>
       <a class="project__name" href="" routerLink="{{ '/projects/' + project.id }}">{{ project.name }}</a>
       <i (click)="editProject()" class="options icon"></i>
     </div>

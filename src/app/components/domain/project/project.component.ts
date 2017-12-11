@@ -31,7 +31,7 @@ export class ProjectComponent implements OnInit {
       this.modalActions.openModal(ModalTypes.EDIT_PROJECT)
     );
     this.store.dispatch(
-      this.editingActions.editProject(this.project)
+      this.editingActions.editProject(JSON.parse(JSON.stringify(this.project)))
     );
   }
 }

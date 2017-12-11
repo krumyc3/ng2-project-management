@@ -3,9 +3,9 @@ import { Comment } from './comment';
 import { Task } from './task';
 
 export class Project {
-  private name: string;
+  public name: string;
   id: string;
-  private description: string;
+  public description: string;
   private user: User;
   private comments: Array<Comment>;
   tasks: Task[];

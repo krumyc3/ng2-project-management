@@ -19,7 +19,7 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   subscription: any;
   @Input() project: Project = new Project('', '', '', null, [], []);
   projectSubscription: any;
-  constructor(private store: NgRedux<InitialAppState>, private backendService: ProjectService, modalActions: ModalsActions) {
+  constructor(private store: NgRedux<InitialAppState>, private projectService: ProjectService, modalActions: ModalsActions) {
     this.modalActions = modalActions;
   }
   ngOnInit() {
@@ -32,15 +32,14 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
     });
 
     this.projectSubscription = this.store.select<any>('editingResource').subscribe((editingState) => {
-      console.log('edited project');
-      console.log(editingState);
       this.project = editingState.project;
     });
   }
   closeModal(): void {
     this.store.dispatch(this.modalActions.closeModal(ModalTypes.EDIT_PROJECT));
   }
-  editProject() {
+  updateProject() {
+    this.projectService.updateProject(JSON.parse(JSON.stringify(this.project)));
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
