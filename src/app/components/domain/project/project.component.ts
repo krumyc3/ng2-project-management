@@ -16,6 +16,7 @@ export class ProjectComponent implements OnInit {
   @Input() project: Project;
   @Input() tasks: Task[];
   @Input() onlyDescription: Boolean = true;
+  isDeleteProjectModalActive: Boolean = false;
   constructor(
     private projectService: ProjectService,
     private store: NgRedux<InitialAppState>,
@@ -42,5 +43,14 @@ export class ProjectComponent implements OnInit {
 
   deleteProject() {
     this.projectService.deleteProject(this.project.id);
+    this.closeDeleteProjectModal();
+  }
+
+  showDeleteProjectModal(): void {
+    this.isDeleteProjectModalActive = true;
+  }
+
+  closeDeleteProjectModal(): void {
+    this.isDeleteProjectModalActive = false;
   }
 }

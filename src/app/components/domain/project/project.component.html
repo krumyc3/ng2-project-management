@@ -2,21 +2,50 @@
   <div class="content">
     <div class="header project__header">
       <a class="project__name" href="" routerLink="{{ '/projects/' + project.id }}">{{ project.name }}</a>
-      <i (click)="editProject()" class="options icon"></i>
+      
+      <div class="ui compact menu">
+        <div class="ui simple dropdown item">
+          <div></div>
+          <i class="options icon"></i>
+          <div class="menu">
+            <div class="item" (click)="editProject()">Edit</div>
+            <div class="item" (click)="showDeleteProjectModal()">Delete</div>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="meta">
       <div class="description project__description">
         {{ project.description }}
       </div>
       <div>
-        <i class="delete icon" (click)="deleteProject()"> </i>
       </div>
     </div>
   </div>
-  
   <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui small button">
     Add task
   </button>
 </div>
 <app-tasklist [tasks]="project.tasks" *ngIf="tasks && !onlyDescription">
 </app-tasklist>
+
+<div class="ui mini modal" [class.active]="isDeleteProjectModalActive">
+  <div class="ui header">
+    <i class="trash icon"></i>
+    Delete project
+  </div>
+  <div class="content">
+    <p>Are you sure you want to delete project {{ project.name }}?</p>
+  </div>
+  <div class="actions">
+    <div class="ui basic button" (click)="closeDeleteProjectModal()">
+      No
+    </div>
+    <div class="ui green basic button" (click)="deleteProject()">
+      <i class="checkmark icon"> 
+      </i>
+       Yes
+    </div>
+  </div>
+</div>
