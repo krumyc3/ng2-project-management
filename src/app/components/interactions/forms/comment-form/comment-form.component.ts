@@ -11,13 +11,13 @@ import { TasksService } from '../../../../services/tasks.service';
 })
 export class CommentFormComponent implements OnInit {
   @Input() taskId: string;
-  private comment: Comment = new Comment(null, '', '', 0);
+  private comment: Comment = new Comment(null, '', '', 0, '');
   constructor(private route: ActivatedRoute, private taskService: TasksService) { }
   ngOnInit() {
   }
 
   addComment() {
     this.comment.taskId = this.taskId;
-    this.taskService.addCommentToTask(this.comment, this.comment.taskId);
+    this.taskService.addCommentToTask(this.comment);
   }
 }

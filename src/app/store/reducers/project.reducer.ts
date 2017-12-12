@@ -36,6 +36,25 @@ export function projectReducer(state = [] , action: any) {
           return singleProject;
         }
       });
+    case ProjectActions.ADD_COMMMENT_TO_TASK:
+      return state.map((singleProject => {
+        return {
+          ...singleProject,
+          tasks: singleProject.tasks.map((task) => {
+            if (task.id === action.payload.taskId) {
+              if (task.comments.length < 1) {
+                return action.payload.comment;
+              }
+              return {
+                ...task,
+                comments: [...task.comments, action.payload.comment],
+              };
+            } else {
+              return task;
+            }
+          }),
+        };
+      }));
     default:
       return state;
   }

@@ -11,27 +11,12 @@ import { Subscribable, Observable } from 'rxjs/Observable';
   templateUrl: './comments-list.component.html',
   styleUrls: ['./comments-list.component.css']
 })
-export class CommentsListComponent implements OnInit, OnDestroy {
+export class CommentsListComponent implements OnInit {
   @Input() taskId: String;
   @Input() comments: any[];
-  private commentsSubscription: any;
   constructor(
-    private store: NgRedux<InitialAppState>
   ) {
   }
   ngOnInit() {
-    this.subscribeToTaskComments();
   }
-  subscribeToTaskComments(): void {
-    this.commentsSubscription = this.store.select('commentsList').subscribe((commentsList: any[]) => {
-      const taskComments = commentsList.filter(comment => comment.taskId.toString() === this.taskId.toString());
-      console.log(`comments for task id ${this.taskId}`);
-      console.log(taskComments);
-      this.comments = taskComments;
-    });
-  }
-    ngOnDestroy(): void {
-      this.commentsSubscription.unsubscribe();
-    }
-
 }

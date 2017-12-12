@@ -52,3 +52,20 @@ export const MAddTaskToProject = gql`
     }
   }
 `;
+
+export const MAddCommentToTask = gql`
+  mutation addCommentToTask($taskId: ID!, $commentContent: String!) {
+    createComment(
+      taskId: $taskId,
+      content: $commentContent,
+      likes: 0
+    ) {
+      id
+      task {
+        id
+      }
+      content
+      createdAt
+    }
+  }
+`;

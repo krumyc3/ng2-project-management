@@ -15,14 +15,19 @@ const QProjectDetails = gql`
       Project(id: $id) {
         id
         name
+        createdAt
         description
         tasks {
           id
           title
           description
+          comments {
+            id
+            createdAt
+            content
+            likes
+          }
         }
-        createdAt
-        updatedAt
       }
     }
 `;

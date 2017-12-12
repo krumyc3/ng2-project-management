@@ -5,12 +5,13 @@
       {{ comment.user}}
     </a>
     <div class="metadata">
-      <span class="date">some date</span>
+      <span class="date">{{ comment.createdAt }}</span>
     </div>
     <p class="text">
       {{ comment.content }}
     </p>
     <div class="actions">
+      {{ comment.likes }}
       <a class="like-comment">Like</a>
     </div>
   </div>

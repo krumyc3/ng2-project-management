@@ -8,12 +8,12 @@
     <div class="footer">
       <span>Due date: {{ task.due }} </span>
       <div>
-        <a class="show-comments" (click)="toggleComments()">Show comments</a>
+        <a class="show-comments" (click)="toggleComments()">Show {{task.comments.length }} comments</a>
       </div>
     </div>
 </div>
 <div class="ui divider">
   
 </div>
-<app-comments-list [taskId]="task.id" *ngIf="commentsActive">
+<app-comments-list [taskId]="task.id" [comments]="task.comments" *ngIf="commentsActive">
 </app-comments-list>
