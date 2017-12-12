@@ -37,8 +37,19 @@ type Task @model {
   updatedAt: DateTime!
   
   project: Project @relation(name: "TasksOnProject")
+  comments: [Comment!]! @relation(name: "CommentsOnProject")
   title: String!
   description: String!
   due: DateTime
 
+}
+
+type Comment @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  task: Task @relation(name: "CommentsOnProject")
+  content: String!
+  likes: Int @defaultValue(value: 0)
 }
