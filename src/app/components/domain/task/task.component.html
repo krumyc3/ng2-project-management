@@ -1,5 +1,5 @@
-<div class="ui segment task">
-    <h4 class="ui header">
+<div class="ui basic segment task">
+    <h4 class="header">
       {{ task.title }}
     </h4>
     <p>
@@ -7,11 +7,13 @@
     </p>
     <div class="footer">
       <span>Due date: {{ task.due }} </span>
-      <a class="show-comments" (click)="toggleComments()">Show comments</a>
+      <div>
+        <a class="show-comments" (click)="toggleComments()">Show comments</a>
+      </div>
     </div>
-
-    
 </div>
-
+<div class="ui divider">
+  
+</div>
 <app-comments-list [taskId]="task.id" *ngIf="commentsActive">
 </app-comments-list>

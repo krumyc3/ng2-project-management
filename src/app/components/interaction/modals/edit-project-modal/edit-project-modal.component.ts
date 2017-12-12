@@ -7,6 +7,7 @@ import { ProjectService } from '../../../../services/project.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Project } from '../../../../models/project';
 import { EditingAction, EditingActions } from '../../../../store/actions/editing.actions';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-edit-project-modal',
@@ -19,7 +20,12 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   subscription: any;
   @Input() project: Project = new Project('', '', '', null, [], []);
   projectSubscription: any;
-  constructor(private store: NgRedux<InitialAppState>, private projectService: ProjectService, modalActions: ModalsActions) {
+  constructor
+  (private store: NgRedux<InitialAppState>,
+    private projectService: ProjectService,
+    modalActions: ModalsActions,
+    private notification: NotificationsService,
+  ) {
     this.modalActions = modalActions;
   }
   ngOnInit() {
@@ -40,6 +46,8 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   }
   updateProject() {
     this.projectService.updateProject(JSON.parse(JSON.stringify(this.project)));
+    this.closeModal();
+    this.notification.success('Updated', 'Project updated');
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
