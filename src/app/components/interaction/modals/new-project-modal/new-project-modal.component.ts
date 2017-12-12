@@ -6,6 +6,7 @@ import { InitialAppState } from '../../../../store/initialState';
 import { ModalsActions, ModalTypes } from '../../../../store/actions/modals.actions';
 import { ProjectService } from '../../../../services/project.service';
 import { ModalInterface } from '../modal-interface';
+import { getLocaleDateTimeFormat } from '@angular/common/src/i18n/locale_data_api';
 
 @Component({
   selector: 'app-new-project-modal',
@@ -16,7 +17,7 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   modalActions: ModalsActions;
   @Input() isOpen: Boolean = false;
   subscription;
-  private project: Project = new Project('', '', '', null, [], []);
+  private project: Project = new Project('', '', '', null, [], [], new Date());
   constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: ProjectService) {
     this.modalActions = modalActions;
    }

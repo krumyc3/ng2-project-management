@@ -5,16 +5,19 @@ import { Task } from './task';
 export class Project {
   public name: string;
   id: string;
+  createdAt: Date;
   public description: string;
   private user: User;
   private comments: Array<Comment>;
   tasks: Task[];
-  constructor(name: string, id: string, description: string, user: User, comments: Array<Comment>, tasks: Task[]) {
+  constructor(
+    name: string, id: string, description: string, user: User, comments: Array<Comment>, tasks: Task[], createdAt: Date) {
     this.name = name;
     this.id = id;
     this.description = description;
     this.user = user;
     this.comments = comments;
+    this.createdAt = createdAt;
     this.tasks = tasks;
   }
 }

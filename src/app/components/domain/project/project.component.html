@@ -1,4 +1,4 @@
-<div class="ui card project">
+<div class="ui card project" [class.basic]="!onlyDescription">
   <div class="content">
     <div class="header project__header">
       <a class="project__name" href="" routerLink="{{ '/projects/' + project.id }}">{{ project.name }}</a>
@@ -13,20 +13,17 @@
         </div>
       </div>
     </div>
-    <div class="meta">
+      <div class="meta">
+        {{ project.createdAt }}
+      </div>
       <div class="description project__description">
         {{ project.description }}
       </div>
-      <div>
-      </div>
     </div>
-  </div>
 </div>
 <app-tasklist [tasks]="project.tasks" *ngIf="tasks && !onlyDescription">
 </app-tasklist>
-<button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui small button">
-  Add task
-</button>
+
 <div class="ui mini modal" [class.active]="isDeleteProjectModalActive">
   <div class="ui header">
     <i class="trash icon"></i>

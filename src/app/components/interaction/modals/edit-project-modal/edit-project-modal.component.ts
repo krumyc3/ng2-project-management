@@ -18,7 +18,7 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   modalActions: ModalsActions;
   isOpen: Boolean = false;
   subscription: any;
-  @Input() project: Project = new Project('', '', '', null, [], []);
+  @Input() project: Project = new Project('', '', '', null, [], [], new Date());
   projectSubscription: any;
   constructor
   (private store: NgRedux<InitialAppState>,

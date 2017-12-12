@@ -28,11 +28,6 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
   }
 
-  openNewTaskModal() {
-    this.store.dispatch(
-      this.modalActions.openModal(ModalTypes.ADD_NEW_TASK)
-    );
-  }
 
   editProject() {
     this.store.dispatch(

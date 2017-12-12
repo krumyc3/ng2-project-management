@@ -6,6 +6,7 @@ const QAllProjects = gql`
           id
           name
           description
+          createdAt
         }
       }
     `;

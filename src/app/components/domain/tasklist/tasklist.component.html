@@ -1,5 +1,10 @@
   <h2 class="tasks__header">
-    Tasks
+    <span class="tasks__number">{{ tasks.length }} tasks</span>
+    <span>
+      <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui small green button">
+        Add task
+      </button>
+    </span>
   </h2>
   <div class="tasks-list">
     <div *ngFor="let task of tasks;">

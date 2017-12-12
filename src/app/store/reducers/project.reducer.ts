@@ -10,6 +10,9 @@ export function projectReducer(state = [] , action: any) {
     case ProjectActions.ADD_SINGLE_PROJECT:
       return [...state, action.payload];
     case ProjectActions.UPDATE_PROJECT:
+      if (state.length < 1) {
+        return [action.payload];
+      }
       return state.map((singleProject) => {
         if (singleProject.id === action.payload.id) {
           return action.payload;

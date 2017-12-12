@@ -1,4 +1,4 @@
-<div [ngClass]="{'active': isOpen}" class="ui active modal new-task-modal">
+<div [ngClass]="{'active': isOpen}" class="ui active small modal new-task-modal">
   <div class="header">
     New task
   </div>
@@ -7,7 +7,7 @@
       <div class="field">
         <label for="task-name">Task name</label>
         <input type="text" id="task-name" name="name" #name="ngModel" required minlength="1"
-        [(ngModel)]="task.name">
+        [(ngModel)]="task.title">
           <app-message [hidden]="name.valid || (name.pristine && form.submitted)">
             <p>Name is required (at least one character).</p>
           </app-message>
@@ -18,6 +18,13 @@
           cols="30" rows="5"></textarea>
         <app-message [hidden]="description.valid || (description.pristine && form.submitted)">
           <p>Description is required (at least one character)</p>
+        </app-message>
+      </div>
+      <div class="field">
+        <label for="due">Due date</label>
+        <input [(ngModel)]="task.due" type="date" #due="ngModel" required name="due" id="due">
+        <app-message [hidden]="due.valid">
+          <p>Due date must be set.</p>
         </app-message>
       </div>
     </form>

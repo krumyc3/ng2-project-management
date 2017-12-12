@@ -9,20 +9,22 @@ import { MCreateProject, MUpdateProject, MDeleteProject, MAddTaskToProject } fro
 import { Project } from '../models/project';
 import { ModalsActions, ModalTypes } from '../store/actions/modals.actions';
 import { Task } from '../models/task';
+import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
 export class ProjectService {
   constructor(
     private store: NgRedux<InitialAppState>,
     private projectActions: ProjectActions,
-    private apollo: Apollo
+    private apollo: Apollo,
+    private notification: NotificationsService,
   ) {
   }
 
   getAllProjects() {
     this.apollo.query({ query: QAllProjects}).subscribe((data: any) => {
       const projects = data.data.allProjects.map((project) => {
-        return new Project(project.name, project.id, project.description, null, null, null);
+        return new Project(project.name, project.id, project.description, null, null, null, project.createdAt);
       });
       this.store.dispatch({
         type: ProjectActions.SET_PROJECTS,
@@ -44,7 +46,7 @@ export class ProjectService {
         console.log(data);
         this.store.dispatch({
           type: ProjectActions.ADD_SINGLE_PROJECT,
-          payload: new Project(response.name, response.id, response.description, null, null, null),
+          payload: new Project(response.name, response.id, response.description, null, null, null, response.createdAt),
         });
       }
     }, (error) => {
@@ -96,7 +98,10 @@ export class ProjectService {
       const projectToUpdate = data.Project;
       this.store.dispatch({
         type: ProjectActions.UPDATE_PROJECT,
-        payload: new Project(projectToUpdate.name, projectToUpdate.id, projectToUpdate.description, null, null, projectToUpdate.tasks),
+        payload: new Project(
+          projectToUpdate.name, projectToUpdate.id, projectToUpdate.description, null, null,
+          projectToUpdate.tasks, projectToUpdate.createdAt
+        ),
       });
     });
   }
@@ -120,5 +125,6 @@ export class ProjectService {
         }
       });
     });
+    this.notification.success('Success', 'Added task to project');
   }
 }

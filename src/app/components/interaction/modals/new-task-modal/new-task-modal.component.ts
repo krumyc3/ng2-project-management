@@ -46,6 +46,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
   createTask() {
     this.task.projectId = this.projectId;
     this.projectService.addTaskToProject(this.task.projectId, this.task);
+    this.isOpen = false;
   }
 
 }
