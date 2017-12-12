@@ -6,6 +6,7 @@ import { NgRedux } from '@angular-redux/store';
 import { ModalsActions, ModalTypes } from '../../../store/actions/modals.actions';
 import { EditingActions } from '../../../store/actions/editing.actions';
 import { ProjectService } from '../../../services/project.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-project',
@@ -21,7 +22,8 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectService,
     private store: NgRedux<InitialAppState>,
     private modalActions: ModalsActions,
-    private editingActions: EditingActions) { }
+    private editingActions: EditingActions,
+  private notification: NotificationsService) { }
 
   ngOnInit() {
   }
@@ -44,6 +46,7 @@ export class ProjectComponent implements OnInit {
   deleteProject() {
     this.projectService.deleteProject(this.project.id);
     this.closeDeleteProjectModal();
+    this.notification.success('Deleted', `Project ${this.project.name} deleted successfully.`);
   }
 
   showDeleteProjectModal(): void {

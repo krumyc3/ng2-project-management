@@ -24,6 +24,8 @@ import ApolloClient from 'apollo-client';
 import { ApolloClientOptions } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-angular-link-http';
+import { SimpleNotificationsModule, SimpleNotificationsComponent } from 'angular2-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 export const appStore: Store<any> = createStore(combineReducers(
@@ -52,6 +54,8 @@ export const appStore: Store<any> = createStore(combineReducers(
     HttpClientModule,
     HttpLinkModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
     DomainModule,
     LayoutModule,
     NgReduxModule,

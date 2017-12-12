@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  notificationOptions = {
+    timeOut: 2000,
+    position: ['top, right'],
+    lastOnBottom: true,
+  };
 }
