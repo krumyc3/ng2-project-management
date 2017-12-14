@@ -4,10 +4,12 @@ import { Task } from '../models/task';
 import { Comment } from '../models/comment';
 import { NotificationsService } from 'angular2-notifications';
 import { Apollo } from 'apollo-angular';
-import { MAddCommentToTask, MDeleteTask, MLikeComment } from '../backend/graph.mutations';
+import { MAddCommentToTask, MDeleteTask, MLikeComment, MAddTaskToProject } from '../backend/graph.mutations';
 import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../store/initialState';
 import { ProjectActions } from '../store/actions/project.actions';
+import { QProjectTasks } from '../backend/graph.queries';
+import { TaskActions } from '../store/actions/task.actions';
 
 @Injectable()
 export class TasksService {
@@ -18,7 +20,24 @@ export class TasksService {
     private notification: NotificationsService,
   ) {
   }
-
+  getProjectTasks(projectId: String) {
+    this.apollo.query({
+      query: QProjectTasks,
+      variables: {
+        projectId: projectId
+      }
+    }).subscribe(({ data }: any) => {
+      console.log('task.service.#getProjectTasks()');
+      const response = data.Project;
+      const projectTasks = response.tasks.map((task) => {
+        return new Task(task.id, task.status, response.id, task.title, task.description, task.due, null, []);
+      });
+      this.store.dispatch({
+        type: TaskActions.SET_PROJECT_TASKS,
+        payload: projectTasks,
+      });
+    });
+  }
   deleteTask(taskId: String) {
     this.apollo.mutate({
       mutation: MDeleteTask,
@@ -29,28 +48,9 @@ export class TasksService {
       const response = data.deleteTask;
       console.log('deleted task with id ', response.id);
       this.store.dispatch({
-        type: ProjectActions.DELETE_TASK,
+        type: TaskActions.DELETE_TASK,
         payload: {
           taskId: response.id
-        }
-      });
-    });
-  }
-  addCommentToTask(newComment: Comment) {
-    this.apollo.mutate({
-      mutation: MAddCommentToTask,
-      variables: {
-        taskId: newComment.taskId,
-        commentContent: newComment.content
-      },
-    }).subscribe(({data}) => {
-      const response = data.createComment;
-      this.notification.success('Success', 'Comment added');
-      this.store.dispatch({
-        type: ProjectActions.ADD_COMMMENT_TO_TASK,
-        payload: {
-          taskId: response.task.id,
-          comment: new Comment(response.id, null, response.task.id, response.content, response.likes, response.createdAt),
         }
       });
     });
@@ -74,5 +74,23 @@ export class TasksService {
       });
       this.notification.success('Success', 'Comment liked');
     });
+  }
+  addTaskToProject(projectId: String, task: Task) {
+    this.apollo.mutate({
+      mutation: MAddTaskToProject,
+      variables: {
+        projectId,
+        taskName: task.title,
+        taskDescription: task.description,
+        taskDue: task.due
+      }
+    }).subscribe(({ data }: any) => {
+      const response = data.createTask;
+      this.store.dispatch({
+        type: TaskActions.ADD_TASK_TO_PROJECT,
+        payload: new Task(response.id, null, response.project.id, response.title, response.description, response.due, null, null),
+      });
+    });
+    this.notification.success('Success', 'Added task to project');
   }
 }

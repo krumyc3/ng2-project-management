@@ -3,6 +3,7 @@ import { Comment } from '../../../../models/comment';
 import { ActivatedRoute } from '@angular/router';
 import { Input } from '@angular/core';
 import { TasksService } from '../../../../services/tasks.service';
+import { CommentsService } from '../../../../comments.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -11,13 +12,13 @@ import { TasksService } from '../../../../services/tasks.service';
 })
 export class CommentFormComponent implements OnInit {
   @Input() taskId: string;
-  private comment: Comment = new Comment(null, '', '', 0, '');
-  constructor(private route: ActivatedRoute, private taskService: TasksService) { }
+  private comment: Comment = new Comment('', null, '', '', 0, new Date());
+  constructor(private route: ActivatedRoute, private commentsService: CommentsService) { }
   ngOnInit() {
   }
 
   addComment() {
     this.comment.taskId = this.taskId;
-    this.taskService.addCommentToTask(this.comment);
+    this.commentsService.addCommentToTask(this.comment);
   }
 }

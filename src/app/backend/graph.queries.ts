@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const QAllProjects = gql`
+export const QAllProjects = gql`
       query AllProjects {
         allProjects {
           id
@@ -10,7 +10,20 @@ const QAllProjects = gql`
         }
       }
     `;
-const QProjectDetails = gql`
+export const QProjectTasks = gql`
+  query projectTasks($projectId: ID!) {
+    Project(id: $projectId) {
+      id
+      tasks {
+        id
+        title
+        description
+        due
+      }
+    }
+  }`;
+
+export const QProjectDetails = gql`
     query ProjectDetails($id: ID!) {
       Project(id: $id) {
         id
@@ -32,7 +45,15 @@ const QProjectDetails = gql`
     }
 `;
 
-export {
-  QAllProjects, QProjectDetails
-};
-
+export const QTaskComments = gql`
+  query taskComments($taskId: ID!) {
+    Task(id: $taskId) {
+      id
+      comments {
+        id
+        createdAt
+        content
+        likes
+      }
+    }
+  }`;

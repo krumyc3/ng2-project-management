@@ -22,8 +22,8 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
   subscription: any;
   routerSubscription: Subscription;
   constructor(
-    private store: NgRedux<InitialAppState>, modalActions: ModalsActions, 
-    private route: ActivatedRoute, private projectService: ProjectService
+    private store: NgRedux<InitialAppState>, modalActions: ModalsActions,
+    private route: ActivatedRoute, private tasksService: TasksService
   ) {
     this.modalActions = modalActions;
   }
@@ -45,7 +45,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
   }
   createTask() {
     this.task.projectId = this.projectId;
-    this.projectService.addTaskToProject(this.task.projectId, this.task);
+    this.tasksService.addTaskToProject(this.task.projectId, this.task);
     this.isOpen = false;
   }
 

@@ -1,11 +1,11 @@
-<div class="ui card project" [class.basic]="!onlyDescription">
+<div class="ui project" [class.segment]="!onlyDescription" [class.card]="onlyDescription" >
   <div class="content">
     <div class="header project__header">
       <a class="project__name" href="" routerLink="{{ '/projects/' + project.id }}">{{ project.name }}</a>
-      <div class="ui compact menu">
+      <div *ngIf="onlyDescription" class="ui borderless compact menu">
         <div class="ui simple dropdown item">
           <div></div>
-          <i class="options icon"></i>
+          <i class="ellipsis vertical icon"></i>
           <div class="menu">
             <div class="item" (click)="editProject()">Edit</div>
             <div class="item" (click)="showDeleteProjectModal()">Delete</div>
@@ -14,14 +14,18 @@
       </div>
     </div>
       <div class="meta">
-        {{ project.createdAt }}
+        <p class="project__date">
+          Created at: {{ project.createdAt }}
+        </p>
       </div>
-      <div class="description project__description">
-        {{ project.description }}
+      <div class="description">
+        <p class="project__description">
+          {{ project.description }}
+        </p>
       </div>
     </div>
 </div>
-<app-tasklist [tasks]="project.tasks" *ngIf="tasks && !onlyDescription">
+<app-tasklist [projectId]="project.id" *ngIf="!onlyDescription">
 </app-tasklist>
 
 <div class="ui mini modal" [class.active]="isDeleteProjectModalActive">

@@ -87,44 +87,18 @@ export class ProjectService {
       });
     });
   }
-
-  getProjectDetails(projectId: String) {
+  getProjectInfo(projectId: String) {
     this.apollo.query({
       query: QProjectDetails,
       variables: {
-        id: projectId
+        id: projectId,
       }
     }).subscribe(({data}: any) => {
-      const projectToUpdate = data.Project;
+      const response = data.Project;
       this.store.dispatch({
         type: ProjectActions.UPDATE_PROJECT,
-        payload: new Project(
-          projectToUpdate.name, projectToUpdate.id, projectToUpdate.description, null, null,
-          projectToUpdate.tasks, projectToUpdate.createdAt
-        ),
+        payload: response
       });
     });
-  }
-
-  addTaskToProject(projectId: String, task: Task) {
-    this.apollo.mutate({
-      mutation: MAddTaskToProject,
-      variables: {
-        projectId,
-        taskName: task.title,
-        taskDescription: task.description,
-        taskDue: task.due
-      }
-    }).subscribe(({data}: any) => {
-      const response = data.createTask;
-      this.store.dispatch({
-        type: ProjectActions.ADD_TASK_TO_PROJECT,
-        payload: {
-          projectId: response.project.id,
-          task: new Task(response.id, null, response.project.id, response.title, response.description, response.due, null, null),
-        }
-      });
-    });
-    this.notification.success('Success', 'Added task to project');
   }
 }

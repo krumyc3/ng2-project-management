@@ -22,48 +22,6 @@ export function projectReducer(state = [] , action: any) {
       });
     case ProjectActions.DELETE_PROJECT:
       return state.filter(singleProject => singleProject.id !== action.payload);
-    case ProjectActions.ADD_TASK_TO_PROJECT:
-      return state.map((singleProject) => {
-        if (singleProject.id === action.payload.projectId) {
-          return {
-            ...singleProject,
-            tasks: [
-              ...singleProject.tasks,
-              action.payload.task
-            ]
-          };
-        } else {
-          return singleProject;
-        }
-      });
-    case ProjectActions.ADD_COMMMENT_TO_TASK:
-      return state.map((singleProject => {
-        return {
-          ...singleProject,
-          tasks: singleProject.tasks.map((task) => {
-            if (task.id === action.payload.taskId) {
-              if (task.comments.length < 1) {
-                return action.payload.comment;
-              }
-              return {
-                ...task,
-                comments: [...task.comments, action.payload.comment],
-              };
-            } else {
-              return task;
-            }
-          }),
-        };
-      }));
-    case ProjectActions.DELETE_TASK:
-      return state.map((singleProject => {
-        return {
-          ...singleProject,
-          tasks: singleProject.tasks.filter((task => {
-            return task.id !== action.payload.taskId;
-          })),
-        };
-      }));
     case ProjectActions.UPDATE_COMMENT_LIKES:
       return state.map((singleProject) => {
         return {

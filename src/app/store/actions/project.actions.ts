@@ -20,19 +20,7 @@ export class ProjectActions {
   static ADD_SINGLE_PROJECT = 'ADD_SINGLE_PROJECT';
   static UPDATE_PROJECT = 'UPDATE_PROJECT';
   static DELETE_PROJECT = 'DELETE_PROJECT';
-  static ADD_TASK_TO_PROJECT = 'ADD_TASK_TO_PROJECT';
-  static DELETE_TASK = 'DELETE_TASK';
-  static ADD_COMMMENT_TO_TASK = 'ADD_COMMENT_TO_TASK';
   static UPDATE_COMMENT_LIKES = 'UPDATE_COMMENT_LIKES';
-  addTaskToProject(projectId: String, task: Task): ProjectAction {
-    return {
-      type: ProjectActions.ADD_TASK_TO_PROJECT,
-      payload: {
-        projectId,
-        task,
-      }
-    };
-  }
   setProjects(projectsList: Project[]): ProjectAction {
     return {
       type: ProjectActions.SET_PROJECTS,
@@ -60,24 +48,6 @@ export class ProjectActions {
     };
   }
 
-  addCommentToTask(taskId: String, comment: Comment): ProjectAction {
-    return {
-      type: ProjectActions.ADD_COMMMENT_TO_TASK,
-      payload: {
-        taskId,
-        comment
-      }
-    };
-  }
-
-  deleteTask(taskId: String): ProjectAction {
-    return {
-      type: ProjectActions.DELETE_TASK,
-      payload: {
-        taskId
-      }
-    };
-  }
 
   updateCommentLikes(commentId: String, likes: number): ProjectAction {
     return {

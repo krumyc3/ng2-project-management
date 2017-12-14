@@ -8,6 +8,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subscribable } from 'rxjs/Observable';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Task } from '../../../models/task';
+import { TasksService } from '../../../services/tasks.service';
+import { CommentsService } from '../../../comments.service';
+import { Comment } from '../../../models/comment';
 
 @Component({
   selector: 'app-single-project-view',
@@ -16,10 +19,16 @@ import { Task } from '../../../models/task';
 })
 export class SingleProjectViewComponent implements OnInit, OnDestroy {
   private currentProjectId: string;
-  private subscription: any;
-  private projectsSubscription: any;
+  private subscription: Subscription;
+  private projectsSubscription: Subscription;
+  private commentsSubscription: Subscription;
   @Input() project: Project;
-  constructor(private route: ActivatedRoute, private store: NgRedux<InitialAppState>, private projectService: ProjectService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private store: NgRedux<InitialAppState>,
+    private projectService: ProjectService,
+    private taskService: TasksService,
+    private commentsService: CommentsService) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
@@ -29,10 +38,11 @@ export class SingleProjectViewComponent implements OnInit, OnDestroy {
     this.projectsSubscription = this.store.select('projectsList').subscribe((projectList: Project[]) => {
      const foundProject = projectList.find(project => project.id === this.currentProjectId);
      this.project = foundProject;
-   });
+    });
   }
   getProjectDetails(projectId: String) {
-    this.projectService.getProjectDetails(projectId);
+    this.projectService.getProjectInfo(projectId);
+    this.taskService.getProjectTasks(projectId);
   }
 
   ngOnDestroy() {

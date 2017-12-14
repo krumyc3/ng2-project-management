@@ -16,6 +16,7 @@ import { CommentsListComponent } from '../components/domain/comments-list/commen
 import { TaskActions } from '../store/actions/task.actions';
 import { CommentActions } from '../store/actions/comment.actions';
 import { ModalsActions } from '../store/actions/modals.actions';
+import { CommentsService } from '../comments.service';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { ModalsActions } from '../store/actions/modals.actions';
     InteractionModule,
     RouterModule
   ],
-  providers: [ProjectService, ProjectActions, TasksService, TaskActions, CommentActions],
+  providers: [ProjectService, ProjectActions, TasksService, TaskActions, CommentActions, CommentsService],
   declarations: [
     ProjectComponent,
     TaskComponent,
