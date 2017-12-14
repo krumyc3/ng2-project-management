@@ -23,6 +23,7 @@ export class ProjectActions {
   static ADD_TASK_TO_PROJECT = 'ADD_TASK_TO_PROJECT';
   static DELETE_TASK = 'DELETE_TASK';
   static ADD_COMMMENT_TO_TASK = 'ADD_COMMENT_TO_TASK';
+  static UPDATE_COMMENT_LIKES = 'UPDATE_COMMENT_LIKES';
   addTaskToProject(projectId: String, task: Task): ProjectAction {
     return {
       type: ProjectActions.ADD_TASK_TO_PROJECT,
@@ -74,6 +75,16 @@ export class ProjectActions {
       type: ProjectActions.DELETE_TASK,
       payload: {
         taskId
+      }
+    };
+  }
+
+  updateCommentLikes(commentId: String, likes: number): ProjectAction {
+    return {
+      type: ProjectActions.UPDATE_COMMENT_LIKES,
+      payload: {
+        commentId,
+        likes
       }
     };
   }

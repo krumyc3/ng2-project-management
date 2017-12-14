@@ -11,12 +11,15 @@ import { Output } from '@angular/core';
 export class TaskComponent implements OnInit {
   @Input() task: Task;
   @Output() onDeleteTaskIntent: EventEmitter<Task> = new EventEmitter<Task>();
-  commentsActive: Boolean = false;
-  constructor() { }
+  commentsActive: Boolean;
+  constructor() {
+    this.commentsActive = true;
+  }
 
   ngOnInit() {
   }
   toggleComments(): void {
+    console.log('task.component#toggleComments()');
     this.commentsActive = !this.commentsActive;
   }
   commentsLength(): number {
@@ -25,7 +28,6 @@ export class TaskComponent implements OnInit {
   hasComments(): boolean {
     return this.commentsLength() > 0;
   }
-
   deleteTask() {
     this.onDeleteTaskIntent.emit(this.task);
   }

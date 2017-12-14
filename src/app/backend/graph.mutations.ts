@@ -79,4 +79,12 @@ export const MAddCommentToTask = gql`
   }
 `;
 
+export const MLikeComment = gql`
+  mutation likeComment($commentId: ID!, $likes: Int) {
+    updateComment(id: $commentId, likes: $likes) {
+      likes
+      id
+    }
+  }
+`;
 

@@ -64,6 +64,26 @@ export function projectReducer(state = [] , action: any) {
           })),
         };
       }));
+    case ProjectActions.UPDATE_COMMENT_LIKES:
+      return state.map((singleProject) => {
+        return {
+          ...singleProject,
+          tasks: singleProject.tasks.map((task => {
+            return {
+              ...task,
+              comments: task.comments.map((comment => {
+                if (comment.id === action.payload.commentId) {
+                  return {
+                    ...comment,
+                    likes: action.payload.likes
+                  };
+                // tslint:disable-next-line:curly
+                } else return comment;
+              }))
+            };
+          })),
+        };
+      });
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import { Task } from '../models/task';
 import { Comment } from '../models/comment';
 import { NotificationsService } from 'angular2-notifications';
 import { Apollo } from 'apollo-angular';
-import { MAddCommentToTask, MDeleteTask } from '../backend/graph.mutations';
+import { MAddCommentToTask, MDeleteTask, MLikeComment } from '../backend/graph.mutations';
 import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../store/initialState';
 import { ProjectActions } from '../store/actions/project.actions';
@@ -50,9 +50,29 @@ export class TasksService {
         type: ProjectActions.ADD_COMMMENT_TO_TASK,
         payload: {
           taskId: response.task.id,
-          comment: new Comment(null, response.task.id, response.content, response.likes, response.createdAt),
+          comment: new Comment(response.id, null, response.task.id, response.content, response.likes, response.createdAt),
         }
       });
+    });
+  }
+
+  likeComment(commentId: String, likes: number) {
+    this.apollo.mutate({
+      mutation: MLikeComment,
+      variables: {
+        commentId,
+        likes: likes + 1,
+      }
+    }).subscribe(({data}) => {
+      const response = data.updateComment;
+      this.store.dispatch({
+        type: ProjectActions.UPDATE_COMMENT_LIKES,
+        payload: {
+          commentId,
+          likes: response.likes,
+        }
+      });
+      this.notification.success('Success', 'Comment liked');
     });
   }
 }

@@ -2,12 +2,14 @@ import { User } from './user';
 import { Task } from './task';
 
 export class Comment {
+  id: String;
   user: User;
   content: string;
   taskId: string;
-  likes: Number;
+  likes: number;
   createdAt: any;
-  constructor(user: User, taskId: string, content: string, likes: Number, createdAt: any) {
+  constructor(id: String, user: User, taskId: string, content: string, likes: number, createdAt: any) {
+    this.id = id;
     this.user = user;
     this.taskId = taskId;
     this.content = content;

@@ -11,8 +11,7 @@
       {{ comment.content }}
     </p>
     <div class="actions">
-      {{ comment.likes }}
-      <a class="like-comment">Like</a>
+      <span (click)="likeComment()" class="like-comment" ><i class="icon red like"></i>{{ comment.likes }}</span>
     </div>
   </div>
 </div>
