@@ -10,6 +10,5 @@ export class AppComponent {
   notificationOptions = {
     timeOut: 2000,
     position: ['top, right'],
-    lastOnBottom: true,
   };
 }

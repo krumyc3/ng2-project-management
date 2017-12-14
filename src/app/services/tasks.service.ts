@@ -4,7 +4,7 @@ import { Task } from '../models/task';
 import { Comment } from '../models/comment';
 import { NotificationsService } from 'angular2-notifications';
 import { Apollo } from 'apollo-angular';
-import { MAddCommentToTask } from '../backend/graph.mutations';
+import { MAddCommentToTask, MDeleteTask } from '../backend/graph.mutations';
 import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../store/initialState';
 import { ProjectActions } from '../store/actions/project.actions';
@@ -17,12 +17,25 @@ export class TasksService {
     private store: NgRedux<InitialAppState>,
     private notification: NotificationsService,
   ) {
-    // this.db = Firebase.database();
   }
 
-  addNewTask(newTask: Task): void {
+  deleteTask(taskId: String) {
+    this.apollo.mutate({
+      mutation: MDeleteTask,
+      variables: {
+        taskId
+      }
+    }).subscribe(({data}) => {
+      const response = data.deleteTask;
+      console.log('deleted task with id ', response.id);
+      this.store.dispatch({
+        type: ProjectActions.DELETE_TASK,
+        payload: {
+          taskId: response.id
+        }
+      });
+    });
   }
-
   addCommentToTask(newComment: Comment) {
     this.apollo.mutate({
       mutation: MAddCommentToTask,

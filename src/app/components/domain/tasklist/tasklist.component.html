@@ -8,6 +8,14 @@
   </h2>
   <div class="tasks-list">
     <div *ngFor="let task of tasks;">
-      <app-task [task]="task"></app-task>
+      <app-task (onDeleteTaskIntent)="deleteTask($event)" [task]="task"></app-task>
+    </div>
+  </div>
+  <div class="ui small modal" [class.active]="isDeleteTaskModalActive">
+    <div class="header">Delete modal</div>
+    <div class="content"><p>Are you sure you want to delete task "{{ taskToDelete.title }}" ?</p></div>
+    <div class="actions">
+      <button class="ui button" (click)="isDeleteTaskModalActive = false">Cancel</button>
+      <button class="ui green button" (click)="confirmTaskDeletion()">Yes</button>
     </div>
   </div>

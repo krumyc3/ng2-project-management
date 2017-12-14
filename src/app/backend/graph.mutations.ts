@@ -52,6 +52,15 @@ export const MAddTaskToProject = gql`
     }
   }
 `;
+export const MDeleteTask = gql`
+  mutation deleteTask($taskId: ID!) {
+    deleteTask(
+      id: $taskId
+    ) {
+      id
+    }
+  }
+`;
 
 export const MAddCommentToTask = gql`
   mutation addCommentToTask($taskId: ID!, $commentContent: String!) {
@@ -69,3 +78,5 @@ export const MAddCommentToTask = gql`
     }
   }
 `;
+
+

@@ -55,6 +55,15 @@ export function projectReducer(state = [] , action: any) {
           }),
         };
       }));
+    case ProjectActions.DELETE_TASK:
+      return state.map((singleProject => {
+        return {
+          ...singleProject,
+          tasks: singleProject.tasks.filter((task => {
+            return task.id !== action.payload.taskId;
+          })),
+        };
+      }));
     default:
       return state;
   }

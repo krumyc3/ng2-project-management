@@ -1,7 +1,15 @@
 <div class="ui basic segment task">
-    <h4 class="header">
-      {{ task.title }}
-    </h4>
+    <div class="header task__header">
+      <h4>
+        {{ task.title }}
+      </h4>
+      <div class="task__actions">
+        <button (click)="deleteTask()" class="ui red button">
+          <i class="trash icon"></i>
+          Delete
+        </button>
+      </div>
+    </div>
     <p>
       {{ task.description }}
     </p>

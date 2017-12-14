@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Input } from '@angular/core';
 import { Task } from '../../../models/task';
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-task',
@@ -9,6 +10,7 @@ import { Task } from '../../../models/task';
 })
 export class TaskComponent implements OnInit {
   @Input() task: Task;
+  @Output() onDeleteTaskIntent: EventEmitter<Task> = new EventEmitter<Task>();
   commentsActive: Boolean = false;
   constructor() { }
 
@@ -22,5 +24,9 @@ export class TaskComponent implements OnInit {
   }
   hasComments(): boolean {
     return this.commentsLength() > 0;
+  }
+
+  deleteTask() {
+    this.onDeleteTaskIntent.emit(this.task);
   }
 }
