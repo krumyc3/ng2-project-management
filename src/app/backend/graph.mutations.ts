@@ -12,6 +12,7 @@ export const MCreateProject = gql`
       id
       name
       description
+      createdAt
     }
   }
 `;
