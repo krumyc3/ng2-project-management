@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Input } from '@angular/core';
 import { TasksService } from '../../../../services/tasks.service';
 import { CommentsService } from '../../../../comments.service';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-comment-form',
@@ -17,8 +18,9 @@ export class CommentFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  addComment() {
+  addComment(commentForm: any) {
     this.comment.taskId = this.taskId;
     this.commentsService.addCommentToTask(this.comment);
+    commentForm.reset();
   }
 }

@@ -4,11 +4,11 @@ import { Task } from '../models/task';
 import { Comment } from '../models/comment';
 import { NotificationsService } from 'angular2-notifications';
 import { Apollo } from 'apollo-angular';
-import { MAddCommentToTask, MDeleteTask, MLikeComment, MAddTaskToProject } from '../backend/graph.mutations';
+import { MAddCommentToTask, MDeleteTask, MLikeComment, MAddTaskToProject, MDeleteComment } from '../backend/graph.mutations';
 import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../store/initialState';
 import { ProjectActions } from '../store/actions/project.actions';
-import { QProjectTasks } from '../backend/graph.queries';
+import { QProjectTasks, QTaskComments } from '../backend/graph.queries';
 import { TaskActions } from '../store/actions/task.actions';
 
 @Injectable()
@@ -27,7 +27,6 @@ export class TasksService {
         projectId: projectId
       }
     }).subscribe(({ data }: any) => {
-      console.log('task.service.#getProjectTasks()');
       const response = data.Project;
       const projectTasks = response.tasks.map((task) => {
         return new Task(task.id, task.status, response.id, task.title, task.description, task.due, null, []);
@@ -44,17 +43,17 @@ export class TasksService {
       variables: {
         taskId
       }
-    }).subscribe(({data}) => {
-      const response = data.deleteTask;
-      console.log('deleted task with id ', response.id);
+    }).subscribe(({data}: any) => {
+      const deletedTaskId = data.deleteTask.id;
       this.store.dispatch({
         type: TaskActions.DELETE_TASK,
         payload: {
-          taskId: response.id
+          taskId: deletedTaskId
         }
       });
+      this.notification.success('Success', 'Task deleted');
     });
-  }
+}
 
   likeComment(commentId: String, likes: number) {
     this.apollo.mutate({

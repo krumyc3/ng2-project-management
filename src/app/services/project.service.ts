@@ -42,11 +42,11 @@ export class ProjectService {
     }).subscribe(({ data }) => {
       const response = data.createProject;
       if (response) {
-        console.log('response');
+        console.log('create project response');
         console.log(data);
         this.store.dispatch({
           type: ProjectActions.ADD_SINGLE_PROJECT,
-          payload: new Project(response.name, response.id, response.description, null, null, null, response.createdAt),
+          payload: new Project(response.name, response.id, response.description, null, null, null, response.createdat),
         });
       }
     }, (error) => {

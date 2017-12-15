@@ -1,5 +1,5 @@
 <div class="comment-form-container">
-  <form #commentForm="ngForm" (ngSubmit)="addComment()" class="ui form">
+  <form #commentForm="ngForm" (ngSubmit)="addComment(commentForm)" class="ui form">
     <div class="field">
       <label for="comment-content">Comment</label>
       <textarea [(ngModel)]="comment.content" required minlength="1" name="content" id="comment-content" #content="ngModel" cols="30" rows="3">

@@ -58,7 +58,20 @@ export const MDeleteTask = gql`
       id: $taskId
     ) {
       id
+      comments {
+        id
+      }
     }
+  }
+`;
+
+export const MDeleteComment = gql`
+  mutation deleteComment($commentId: ID!) {
+    deleteComment(
+      id: $commentId
+    ) {
+        id
+     }
   }
 `;
 
