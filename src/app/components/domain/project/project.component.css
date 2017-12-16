@@ -17,3 +17,11 @@
   border: none !important;
   box-shadow: none;
 }
+
+.project__date {
+  color: #aaa;
+}
+
+.project__description {
+  margin-top: 15px;
+}
