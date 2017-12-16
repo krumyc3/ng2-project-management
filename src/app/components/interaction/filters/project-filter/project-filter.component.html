@@ -1,0 +1,14 @@
+<div class="project-filters" [class.visible]="filtersVisible">
+  <div class="project-filters__left-container" *ngIf="filtersVisible">
+    <p class="project-filters__header">Filter by:</p>
+    <div class="project-filters__filters">
+      <div class="ui icon input">
+        <input type="text" placeholder="Name">
+        <i class="circular remove link icon"></i>
+      </div>
+    </div>
+  </div>
+  <button title="Toggle filters" (click)="toggleFiltersVisibility()" class="ui blue button" [class.basic]="!filtersVisible">
+    <i class="options icon"></i>
+  </button>
+</div>

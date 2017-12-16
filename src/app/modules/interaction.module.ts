@@ -9,6 +9,7 @@ import { NewTaskModalComponent } from '../components/interaction/modals/new-task
 import { CommentFormComponent } from '../components/interactions/forms/comment-form/comment-form.component';
 import { EditProjectModalComponent } from '../components/interaction/modals/edit-project-modal/edit-project-modal.component';
 import { EditingActions } from '../store/actions/editing.actions';
+import { ProjectFilterComponent } from '../components/interaction/filters/project-filter/project-filter.component';
 
 
 @NgModule({
@@ -16,11 +17,19 @@ import { EditingActions } from '../store/actions/editing.actions';
     CommonModule, FormsModule
   ],
   providers: [ModalsActions, EditingActions],
-  declarations: [NewProjectModalComponent, MessageComponent, NewTaskModalComponent, CommentFormComponent, EditProjectModalComponent],
+  declarations: [
+    NewProjectModalComponent,
+    MessageComponent,
+    NewTaskModalComponent,
+    CommentFormComponent,
+    EditProjectModalComponent,
+    ProjectFilterComponent],
   exports: [
     NewProjectModalComponent,
     EditProjectModalComponent,
     NewTaskModalComponent,
-    CommentFormComponent]
+    CommentFormComponent,
+    ProjectFilterComponent
+  ]
 })
 export class InteractionModule { }

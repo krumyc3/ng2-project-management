@@ -1,0 +1,20 @@
+.project-filters {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 37px;
+}
+
+.project-filters.visible {
+  justify-content: space-between;
+}
+
+.project-filters__left-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.project-filters__header {
+  margin-right: 25px;
+}
