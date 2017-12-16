@@ -102,3 +102,11 @@ export const MLikeComment = gql`
   }
 `;
 
+export const MUpdateTaskStatus = gql`
+  mutation updateTaskStatus($taskId: ID!, $newTaskStatus: String!) {
+    updateTask(id: $taskId, status: $newTaskStatus) {
+      id
+      status
+    }
+  }
+`;

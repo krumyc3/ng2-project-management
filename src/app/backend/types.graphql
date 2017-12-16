@@ -27,7 +27,7 @@ type Project @model {
   updatedAt: DateTime!
 
   tasks: [Task!]! @relation(name: "TasksOnProject")
-  name: String! @migrationValue(value: "42")
+  name: String!
   description: String!
 }
 
@@ -41,7 +41,7 @@ type Task @model {
   title: String!
   description: String!
   due: DateTime
-  status: String @defaultValue(value: "No status")
+  status: String @defaultValue(value: "No status") @migrationValue(value: "No status")
 
 }
 

@@ -8,6 +8,7 @@ import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from '../../../store/initialState';
 import { Comment } from '../../../models/comment';
 import { TaskStatuses } from '../../../enums/task.status.enum';
+import { TasksService } from '../../../services/tasks.service';
 
 @Component({
   selector: 'app-task',
@@ -20,7 +21,7 @@ export class TaskComponent implements OnInit {
   commentsSubscription: Subscription;
   @Output() onDeleteTaskIntent: EventEmitter<Task> = new EventEmitter<Task>();
   commentsActive = false;
-  constructor(private commentsService: CommentsService, private store: NgRedux<InitialAppState>) {
+  constructor(private commentsService: CommentsService, private taskService: TasksService, private store: NgRedux<InitialAppState>) {
     this.commentsActive = false;
     this.setUpCommentsSubscription();
   }
@@ -42,18 +43,21 @@ export class TaskComponent implements OnInit {
   }
 
   changeTaskStatus(previousState: string) {
-    switch (previousState) {
-      case 'No status':
-        this.task.status = TaskStatuses.IN_PROGRESS;
-        break;
-      case 'In progress':
-        this.task.status = TaskStatuses.COMPLETED;
-        break;
-      case 'Completed':
-        this.task.status = TaskStatuses.NO_STATUS;
-        break;
-      default:
-        break;
+    if (previousState) {
+      switch (previousState) {
+        case 'No status':
+          this.task.status = TaskStatuses.IN_PROGRESS;
+          break;
+        case 'In progress':
+          this.task.status = TaskStatuses.COMPLETED;
+          break;
+        case 'Completed':
+          this.task.status = TaskStatuses.NO_STATUS;
+          break;
+        default:
+          break;
+      }
+      this.taskService.updateTaskStatus(this.task.id, this.task.status);
     }
   }
   commentsLength(): number {

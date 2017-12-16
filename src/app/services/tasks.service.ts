@@ -4,7 +4,7 @@ import { Task } from '../models/task';
 import { Comment } from '../models/comment';
 import { NotificationsService } from 'angular2-notifications';
 import { Apollo } from 'apollo-angular';
-import { MAddCommentToTask, MDeleteTask, MLikeComment, MAddTaskToProject, MDeleteComment } from '../backend/graph.mutations';
+import { MAddCommentToTask, MDeleteTask, MLikeComment, MAddTaskToProject, MDeleteComment, MUpdateTaskStatus } from '../backend/graph.mutations';
 import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../store/initialState';
 import { ProjectActions } from '../store/actions/project.actions';
@@ -93,5 +93,20 @@ export class TasksService {
       });
     });
     this.notification.success('Success', 'Added task to project');
+  }
+
+  updateTaskStatus(taskId: string, newTaskStatus: TaskStatuses) {
+    this.apollo.mutate({
+      mutation: MUpdateTaskStatus,
+      variables: {
+        taskId,
+        newTaskStatus
+      }
+    }).subscribe(({data}: any) => {
+      const response = data.updateTask;
+      if (response) {
+        this.notification.success('Success', 'Updated task status');
+      }
+    });
   }
 }
