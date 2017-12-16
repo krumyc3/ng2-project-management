@@ -9,6 +9,7 @@ import { OnDestroy } from '@angular/core';
 import { Subscribable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { CommentsService } from '../../../comments.service';
+import { TaskStatuses } from '../../../enums/task.status.enum';
 
 @Component({
   selector: 'app-tasklist',
@@ -21,7 +22,7 @@ export class TasklistComponent implements OnInit, OnDestroy {
 
   tasksSubscription: Subscription;
   isDeleteTaskModalActive: Boolean = false;
-  taskToDelete: Task = new Task('', '', '', '', '', null, null, null);
+  taskToDelete: Task = new Task('', TaskStatuses.NO_STATUS, '', '', '', null, null, null);
   constructor(
     private taskService: TasksService,
     private store: NgRedux<InitialAppState>,
@@ -50,6 +51,7 @@ export class TasklistComponent implements OnInit, OnDestroy {
     this.taskService.deleteTask(this.taskToDelete.id);
     this.isDeleteTaskModalActive = false;
   }
+
 
   ngOnDestroy() {
     this.tasksSubscription.unsubscribe();

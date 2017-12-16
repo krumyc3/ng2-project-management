@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { TasksService } from '../../../../services/tasks.service';
 import { ProjectService } from '../../../../services/project.service';
+import { TaskStatuses } from '../../../../enums/task.status.enum';
 
 @Component({
   selector: 'app-new-task-modal',
@@ -18,7 +19,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
   modalActions: ModalsActions;
   @Input() isOpen: Boolean;
   @Input() projectId: string;
-  private task: Task = new Task('', '', '', '', '', null, null, []);
+  private task: Task = new Task('', TaskStatuses.NO_STATUS,  '', '', '', null, null, []);
   subscription: any;
   routerSubscription: Subscription;
   constructor(

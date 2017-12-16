@@ -10,6 +10,7 @@ import { InitialAppState } from '../store/initialState';
 import { ProjectActions } from '../store/actions/project.actions';
 import { QProjectTasks, QTaskComments } from '../backend/graph.queries';
 import { TaskActions } from '../store/actions/task.actions';
+import { TaskStatuses } from '../enums/task.status.enum';
 
 @Injectable()
 export class TasksService {
@@ -87,7 +88,8 @@ export class TasksService {
       const response = data.createTask;
       this.store.dispatch({
         type: TaskActions.ADD_TASK_TO_PROJECT,
-        payload: new Task(response.id, null, response.project.id, response.title, response.description, response.due, null, null),
+        // tslint:disable-next-line:max-line-length
+        payload: new Task(response.id, TaskStatuses.NO_STATUS, response.project.id, response.title, response.description, response.due, null, null),
       });
     });
     this.notification.success('Success', 'Added task to project');

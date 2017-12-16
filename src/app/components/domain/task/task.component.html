@@ -3,6 +3,7 @@
       <h4>
         {{ task.title }}
       </h4>
+     
       <div class="task__actions">
         <button (click)="deleteTask()" class="ui red button">
           <i class="trash icon"></i>
@@ -13,6 +14,21 @@
     <p>
       {{ task.description }} 
     </p>
+    <div class="current-status">
+      <div class="ui icon button" (click)="changeTaskStatus(task.status)" [attr.data-tooltip]="task.status" [class.yellow]="task.status === 'In progress'" [class.green]="task.status === 'Completed'">
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+   
+    <div class="ui small form">
+      <div class="meta two wide field">
+        <select name="task-status" id="task-status">
+          <option *ngFor="let status of taskStatuses()" [value]="status.key">
+            {{ status.value }}
+          </option>
+        </select>
+      </div>
+    </div>
     <div class="footer">
       <span>Due date: {{ task.due | date}} </span>
       <div>

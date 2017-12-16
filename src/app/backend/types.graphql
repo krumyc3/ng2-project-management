@@ -41,6 +41,7 @@ type Task @model {
   title: String!
   description: String!
   due: DateTime
+  status: String @defaultValue(value: "No status")
 
 }
 

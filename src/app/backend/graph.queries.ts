@@ -18,6 +18,7 @@ export const QProjectTasks = gql`
         id
         title
         description
+        status
         due
       }
     }
