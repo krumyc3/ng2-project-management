@@ -7,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectFilterComponent implements OnInit {
   filtersVisible: Boolean = false;
+  projectName: String = '';
   constructor() { }
 
   ngOnInit() {
   }
-
+  clearProjectName() {
+    this.projectName = '';
+  }
   toggleFiltersVisibility() {
     this.filtersVisible = !this.filtersVisible;
   }

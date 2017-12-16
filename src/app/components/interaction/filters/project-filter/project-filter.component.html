@@ -3,8 +3,9 @@
     <p class="project-filters__header">Filter by:</p>
     <div class="project-filters__filters">
       <div class="ui icon input">
-        <input type="text" placeholder="Name">
-        <i class="circular remove link icon"></i>
+        <input [(ngModel)]="projectName" type="text" placeholder="Name">
+        <i *ngIf="projectName.length > 0" class="circular remove link icon"
+          (click)="clearProjectName()"></i>
       </div>
     </div>
   </div>
