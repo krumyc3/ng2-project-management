@@ -21,6 +21,7 @@ export class TasklistComponent implements OnInit, OnDestroy {
   @Input() projectId: string;
 
   tasksSubscription: Subscription;
+  isDeleteCompletedModalActive: Boolean = false;
   isDeleteTaskModalActive: Boolean = false;
   taskToDelete: Task = new Task('', TaskStatuses.NO_STATUS, '', '', '', null, null, null);
   constructor(
@@ -52,7 +53,18 @@ export class TasklistComponent implements OnInit, OnDestroy {
     this.isDeleteTaskModalActive = false;
   }
 
-
+  deleteCompleted() {
+    this.isDeleteCompletedModalActive = true;
+  }
+  confirmCompletedTasksDeletion() {
+    const completedTasks = this.tasks
+      .filter(singleTask => singleTask.status === TaskStatuses.COMPLETED)
+      .map(completedTask => completedTask.id)
+      .forEach(completedTaskId => {
+        this.taskService.deleteTask(completedTaskId);
+      });
+    this.isDeleteCompletedModalActive = false;
+  }
   ngOnDestroy() {
     this.tasksSubscription.unsubscribe();
   }

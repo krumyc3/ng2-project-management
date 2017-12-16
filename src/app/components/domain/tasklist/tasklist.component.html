@@ -1,10 +1,14 @@
   <h2 class="tasks__header">
     <span class="tasks__number">{{ tasks.length }} tasks</span>
-    <span>
-      <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui small green button">
+    
+    <div>
+      <button *ngIf="!onlyDescription && tasks.length > 0" (click)="deleteCompleted()" class="ui tiny basic orange button">
+        Delete completed
+      </button>
+      <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui tiny basic green button">
         Add task
       </button>
-    </span>
+    </div>
   </h2>
   <div class="tasks-list">
     <div *ngFor="let task of tasks;">
@@ -12,10 +16,20 @@
     </div>
   </div>
   <div class="ui small modal" [class.active]="isDeleteTaskModalActive">
-    <div class="header">Delete modal</div>
+    <div class="header">Delete task</div>
     <div class="content"><p>Are you sure you want to delete task "{{ taskToDelete.title }}" ?</p></div>
     <div class="actions">
       <button class="ui button" (click)="isDeleteTaskModalActive = false">Cancel</button>
       <button class="ui green button" (click)="confirmTaskDeletion()">Yes</button>
     </div>
   </div>
+    <div class="ui small modal" [class.active]="isDeleteCompletedModalActive">
+      <div class="header">Delete completed</div>
+      <div class="content">
+        <p>Are you sure you want to delete completed tasks?</p>
+      </div>
+      <div class="actions">
+        <button class="ui button" (click)="isDeleteCompletedModalActive = false">Cancel</button>
+        <button class="ui green button" (click)="confirmCompletedTasksDeletion()">Yes</button>
+      </div>
+    </div>
