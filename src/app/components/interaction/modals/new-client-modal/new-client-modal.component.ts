@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalInterface } from '../modal-interface';
 import { ModalsActions, ModalTypes, ModalsAction } from '../../../../store/actions/modals.actions';
-import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
+import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../../../../store/initialState';
 import { IModalState } from '../../../../store/reducers/modals.reducer';
 import { Client } from '../../../../models/client';
@@ -28,7 +28,11 @@ export class NewClientModalComponent implements OnInit, ModalInterface {
   }
 
   createClient(): void {
-    this.clientService.addClient(JSON.parse(JSON.stringify(this.client)));
+    if (this.client.name !== '') {
+      this.clientService.addClient(JSON.parse(JSON.stringify(this.client)));
+      this.client.name = '';
+      this.client.id = '';
+    }
   }
   ngOnInit() {
     this.subscription = this.store.select('modalsState').subscribe((status: IModalState ) => {
