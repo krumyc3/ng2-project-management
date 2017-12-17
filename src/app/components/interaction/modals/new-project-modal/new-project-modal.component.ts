@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { Project } from '../../../../models/project';
 import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
-import { InitialAppState } from '../../../../store/initialState';
+import { InitialAppState, INITIAL_STATE } from '../../../../store/initialState';
 import { ModalsActions, ModalTypes } from '../../../../store/actions/modals.actions';
 import { ProjectService } from '../../../../services/project.service';
 import { ModalInterface } from '../modal-interface';
 import { getLocaleDateTimeFormat } from '@angular/common/src/i18n/locale_data_api';
+import { Client } from '../../../../models/client';
+import { Subscription } from 'apollo-client/util/Observable';
 
 @Component({
   selector: 'app-new-project-modal',
@@ -17,6 +19,8 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   modalActions: ModalsActions;
   @Input() isOpen: Boolean = false;
   subscription;
+  clientsSubscription: Subscription;
+  private clients: Client[];
   private project: Project = new Project('', '', '', null, [], [], new Date());
   constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: ProjectService) {
     this.modalActions = modalActions;
@@ -25,12 +29,19 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
       this.isOpen = status.newProjectModalActive;
     });
+
+    this.clientsSubscription = this.store.select<Client[]>('clientsList').subscribe((clientList: Client[]) => {
+      this.clients = clientList;
+    });
   }
 
   closeModal(): void {
     this.store.dispatch(this.modalActions.closeModal(ModalTypes.ADD_NEW_PROJECT));
   }
 
+  openNewClientModal(): void {
+    this.store.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_CLIENT));
+  }
   createProject(): void {
     this.projectService.createProject(this.project);
     this.closeModal();

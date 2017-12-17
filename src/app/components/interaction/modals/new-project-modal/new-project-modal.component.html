@@ -4,13 +4,30 @@
   </div>
   <div class="content">
     <form #form="ngForm"  class="ui form">
-      <div class="field">
-        <label for="project-name">Project name</label>
-        <input id="project-name" [(ngModel)]="project.name" #name="ngModel" name="name" required minlength="1" type="text">
-          <app-message  
-          [hidden]="name.valid || (name.pristine && form.submitted)">
-          <p>Name is required (at least one character).</p>
-        </app-message>
+      <div class="ui grid">
+        <div class="ten wide column">
+          <div class="field">
+            <label for="project-name">Project name</label>
+            <input id="project-name" [(ngModel)]="project.name" #name="ngModel" name="name" required minlength="1" type="text">
+              <app-message  
+              [hidden]="name.valid || (name.pristine && form.submitted)">
+              <p>Name is required (at least one character).</p>
+            </app-message>
+          </div>
+        </div>
+        <div class="four wide column">
+          <div class="inline field">
+            <label for="client-selection">Client</label>
+            <select name="client-selection" id="client-selection">
+              <option selected *ngIf="clients.length < 1" disabled [value]="null">No clients available</option>
+              <option *ngIf="clients.length > 0 " [value]="null">No client</option>
+              <option *ngFor="let client of clients" [value]="client.name">
+                {{ client.name }}
+              </option>
+            </select>
+            <button (click)="openNewClientModal()" class="ui basic button">Create new client</button>
+          </div>
+        </div>  
       </div>
       <div class="field">
         <label for="project-description">Description</label>

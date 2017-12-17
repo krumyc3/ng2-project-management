@@ -17,6 +17,7 @@ import { TaskActions } from '../store/actions/task.actions';
 import { CommentActions } from '../store/actions/comment.actions';
 import { ModalsActions } from '../store/actions/modals.actions';
 import { CommentsService } from '../comments.service';
+import { ClientListComponent } from '../components/domain/client-list/client-list.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { CommentsService } from '../comments.service';
     ProjectlistComponent,
     SingleProjectViewComponent,
     TasklistComponent,
-    CommentsListComponent],
-  exports: [ProjectlistComponent]
+    CommentsListComponent,
+    ClientListComponent],
+  exports: [ProjectlistComponent, ClientListComponent]
 })
 export class DomainModule { }
