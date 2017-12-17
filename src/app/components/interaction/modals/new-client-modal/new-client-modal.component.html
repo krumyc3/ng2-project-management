@@ -5,15 +5,15 @@
   <div class="content">
     <form #clientForm="ngForm" class="ui form">
       <div class="field">
-        <label for="client-name">Clien name</label>
-        <input id="client-name" type="text" required>
-        <app-message >
+        <label for="client-name">Client name</label>
+        <input #name="ngModel" name="name" [(ngModel)]="client.name" id="client-name" type="text" required>
+        <app-message [hidden]="name.valid || (name.pristine && clientForm.submitted)" >
           <p>Client name is required</p>
         </app-message>
     </div>
     <div class="actions">
       <button (click)="closeModal()" class="ui button cancel">Cancel</button>
-      <button (click)="createClient()" class="ui green button">Create </button>
+      <button (click)="createClient()" class="ui green button" [disabled]="!clientForm.valid">Create </button>
     </div>
     </form>
   </div>
