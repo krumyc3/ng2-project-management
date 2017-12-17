@@ -18,3 +18,7 @@
 .project-filters__header {
   margin-right: 25px;
 }
+
+.project-filters__submit {
+  margin-left: 15px;
+}

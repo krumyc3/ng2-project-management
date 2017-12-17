@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { ProjectlistComponent } from '../components/domain/projectlist/projectlist.component';
 import { SingleProjectViewComponent } from '../components/domain/single-project-view/single-project-view.component';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   {
     path: '',
     redirectTo: '/projects',
@@ -19,5 +19,3 @@ const appRoutes: Routes = [
     component: SingleProjectViewComponent,
   },
 ];
-
-export default appRoutes;

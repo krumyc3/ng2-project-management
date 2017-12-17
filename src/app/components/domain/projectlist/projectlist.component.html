@@ -2,7 +2,10 @@
   
   <div class="ui centered inline text loader" [ngClass]="{'active': projects.length < 1}"></div>
   <h1 class="projectlist__header">Your projects</h1>
-  <app-project-filter></app-project-filter>
+  <app-project-filter
+  (onNameFilter)="updateNameFilterTerm($event)"
+  (onClearNameFilter)="clearNameFilterTerm($event)"
+   ></app-project-filter>
   <div class="ui grid projectlist">
     <app-project [project]="project" *ngFor="let project of projects"></app-project>
   </div>

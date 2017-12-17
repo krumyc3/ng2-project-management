@@ -3,10 +3,11 @@
     <p class="project-filters__header">Filter by:</p>
     <div class="project-filters__filters">
       <div class="ui icon input">
-        <input [(ngModel)]="projectName" type="text" placeholder="Name">
-        <i *ngIf="projectName.length > 0" class="circular remove link icon"
-          (click)="clearProjectName()"></i>
+        <input [(ngModel)]="projectName" (input)="submitProjectsFilter()" type="text" placeholder="Name">
+        <i *ngIf="!isProjectNameEmpty()" class="circular remove link icon"
+        (click)="clearProjectName()"></i>
       </div>
+      <!-- <button class="ui green button project-filters__submit" (click)="submitProjectsFilter()" [disabled]="isProjectNameEmpty()">Filter</button> -->
     </div>
   </div>
   <button title="Toggle filters" (click)="toggleFiltersVisibility()" class="ui blue button" [class.basic]="!filtersVisible">

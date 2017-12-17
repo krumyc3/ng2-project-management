@@ -12,7 +12,7 @@ import { InitialAppState, INITIAL_STATE } from './store/initialState';
 import { modalsReducer } from './store/reducers/modals.reducer';
 import { projectReducer } from './store/reducers/project.reducer';
 import { RouterModule } from '@angular/router';
-import appRoutes from './routing/routes';
+import {appRoutes} from './routing/routes';
 import { HttpClientModule } from '@angular/common/http';
 import { taskReducer } from './store/reducers/task.reducer';
 import { commentReducer } from './store/reducers/comment.reducer';
