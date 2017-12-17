@@ -4,7 +4,7 @@ import { Project } from '../../models/project';
 import { Injectable } from '@angular/core';
 import { Task } from '../../models/task';
 
-export interface ProjectAction {
+export interface ProjectAction extends Action {
   type: any;
   payload: any;
 }
@@ -21,7 +21,7 @@ export class ProjectActions {
   static UPDATE_PROJECT = 'UPDATE_PROJECT';
   static DELETE_PROJECT = 'DELETE_PROJECT';
   static UPDATE_COMMENT_LIKES = 'UPDATE_COMMENT_LIKES';
-  setProjects(projectsList: Project[]): ProjectAction {
+  static setProjects(projectsList: Project[]): ProjectAction {
     return {
       type: ProjectActions.SET_PROJECTS,
       payload: projectsList

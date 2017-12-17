@@ -9,6 +9,7 @@ export interface ModalsAction extends Action {
 export enum ModalTypes {
   ADD_NEW_PROJECT = 'newProjectModalActive',
   ADD_NEW_TASK = 'newTaskModalActive',
+  ADD_NEW_CLIENT = 'newClientModalActive',
   EDIT_PROJECT = 'editProjectModalActive',
 }
 

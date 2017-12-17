@@ -46,6 +46,9 @@ export class ProjectlistComponent implements OnInit {
     this.ngRedux.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_PROJECT));
   }
 
+  openNewClientModal() {
+    this.ngRedux.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_CLIENT));
+  }
   onDestroy(): any {
     this.subscription.unsubscribe();
   }

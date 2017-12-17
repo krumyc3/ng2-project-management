@@ -9,7 +9,9 @@
   <div class="ui grid projectlist">
     <app-project [project]="project" *ngFor="let project of projects"></app-project>
   </div>
-  <button class="ui purple button" (click)="openNewProjectModal()">Create new project</button>
-   <app-new-project-modal></app-new-project-modal>
+  <button class="ui purple button" (click)="openNewProjectModal()">New project</button>
+  <button class="ui orange basic button" (click)="openNewClientModal()">New client</button>
+  <app-new-client-modal></app-new-client-modal> 
+  <app-new-project-modal></app-new-project-modal>
    <app-edit-project-modal></app-edit-project-modal>
 </div>

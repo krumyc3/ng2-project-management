@@ -1,0 +1,20 @@
+<div class="ui modal new-client-modal" [class.active]="isOpen">
+  <div class="header">
+    Create new client
+  </div>
+  <div class="content">
+    <form #clientForm="ngForm" class="ui form">
+      <div class="field">
+        <label for="client-name">Clien name</label>
+        <input id="client-name" type="text" required>
+        <app-message >
+          <p>Client name is required</p>
+        </app-message>
+    </div>
+    <div class="actions">
+      <button (click)="closeModal()" class="ui button cancel">Cancel</button>
+      <button (click)="createClient()" class="ui green button">Create </button>
+    </div>
+    </form>
+  </div>
+</div>

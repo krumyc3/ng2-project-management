@@ -10,6 +10,7 @@ import { CommentFormComponent } from '../components/interactions/forms/comment-f
 import { EditProjectModalComponent } from '../components/interaction/modals/edit-project-modal/edit-project-modal.component';
 import { EditingActions } from '../store/actions/editing.actions';
 import { ProjectFilterComponent } from '../components/interaction/filters/project-filter/project-filter.component';
+import { NewClientModalComponent } from '../components/interaction/modals/new-client-modal/new-client-modal.component';
 
 
 @NgModule({
@@ -23,13 +24,15 @@ import { ProjectFilterComponent } from '../components/interaction/filters/projec
     NewTaskModalComponent,
     CommentFormComponent,
     EditProjectModalComponent,
-    ProjectFilterComponent],
+    ProjectFilterComponent,
+    NewClientModalComponent],
   exports: [
     NewProjectModalComponent,
     EditProjectModalComponent,
     NewTaskModalComponent,
     CommentFormComponent,
-    ProjectFilterComponent
+    ProjectFilterComponent,
+    NewClientModalComponent
   ]
 })
 export class InteractionModule { }
