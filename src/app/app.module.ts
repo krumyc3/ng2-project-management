@@ -27,6 +27,8 @@ import { HttpLink } from 'apollo-angular-link-http';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClientsService } from './clients.service';
+import { clientReducer } from './store/reducers/client.reducer';
+import { ClientActions } from './store/actions/client.actions';
 
 
 export const appStore: Store<any> = createStore(combineReducers(
@@ -35,7 +37,8 @@ export const appStore: Store<any> = createStore(combineReducers(
     tasksList: taskReducer,
     commentsList: commentReducer,
     modalsState: modalsReducer,
-    editingResource: editingReducer
+    editingResource: editingReducer,
+    clientsList: clientReducer,
   }
 ), INITIAL_STATE, applyMiddleware(createLogger()));
 
@@ -43,7 +46,7 @@ export const appStore: Store<any> = createStore(combineReducers(
   declarations: [
     AppComponent,
   ],
-  providers: [HttpLink, ClientsService],
+  providers: [HttpLink, ClientsService, ClientActions],
   imports: [
     RouterModule.forRoot(
       appRoutes,
