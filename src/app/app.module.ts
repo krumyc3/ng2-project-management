@@ -26,6 +26,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-angular-link-http';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClientsService } from './clients.service';
 
 
 export const appStore: Store<any> = createStore(combineReducers(
@@ -42,7 +43,7 @@ export const appStore: Store<any> = createStore(combineReducers(
   declarations: [
     AppComponent,
   ],
-  providers: [HttpLink],
+  providers: [HttpLink, ClientsService],
   imports: [
     RouterModule.forRoot(
       appRoutes,
