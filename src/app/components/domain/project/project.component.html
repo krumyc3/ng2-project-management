@@ -14,9 +14,12 @@
       </div>
     </div>
       <div class="meta">
-        <p class="project__date">
-          Created at: {{ project.createdAt }}
-        </p>
+        <span class="project__meta project__date">
+          Created at: {{ project.createdAt | date }}
+        </span>
+        <span class="project__meta project__client" *ngIf="project.client !== null">
+          Client: {{ project.client.name }}
+        </span>
       </div>
       <div class="description">
         <p class="project__description">

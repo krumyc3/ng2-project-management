@@ -7,6 +7,10 @@ export const QAllProjects = gql`
           name
           description
           createdAt
+          client {
+            id
+            name
+          }
         }
       }
     `;
@@ -31,6 +35,10 @@ export const QProjectDetails = gql`
         name
         createdAt
         description
+        client {
+          id
+          name
+        }
         tasks {
           id
           title

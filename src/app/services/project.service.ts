@@ -24,7 +24,7 @@ export class ProjectService {
   getAllProjects() {
     this.apollo.query({ query: QAllProjects}).subscribe((data: any) => {
       const projects = data.data.allProjects.map((project) => {
-        return new Project(project.name, project.id, project.description, null, null, null, project.createdAt);
+        return new Project(project.name, project.client, project.id, project.description, null, null, null, project.createdAt);
       });
       this.store.dispatch({
         type: ProjectActions.SET_PROJECTS,
@@ -44,7 +44,7 @@ export class ProjectService {
       if (response) {
         this.store.dispatch({
           type: ProjectActions.ADD_SINGLE_PROJECT,
-          payload: new Project(response.name, response.id, response.description, null, null, null, response.createdAt),
+          payload: new Project(response.name, response.client, response.id, response.description, null, null, null, response.createdAt),
         });
       }
     }, (error) => {
