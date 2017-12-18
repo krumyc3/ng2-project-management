@@ -32,6 +32,7 @@ export class NewClientModalComponent implements OnInit, ModalInterface {
       this.clientService.addClient(JSON.parse(JSON.stringify(this.client)));
       this.client.name = '';
       this.client.id = '';
+      this.closeModal();
     }
   }
   ngOnInit() {

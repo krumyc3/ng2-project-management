@@ -110,3 +110,14 @@ export const MUpdateTaskStatus = gql`
     }
   }
 `;
+
+export const MAddClient = gql`
+  mutation addClient($clientName: String!) {
+    createClient(
+      name: $clientName
+    ) {
+      id
+      name
+    }
+  }
+`;

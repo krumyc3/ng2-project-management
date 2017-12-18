@@ -3,16 +3,44 @@ import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { InitialAppState } from './store/initialState';
 import { Client } from './models/client';
 import { ClientActions } from './store/actions/client.actions';
+import { Apollo } from 'apollo-angular/Apollo';
+import { MAddClient } from './backend/graph.mutations';
+import { NotificationsService } from 'angular2-notifications';
+import { QAllClients } from './backend/graph.queries';
 
 @Injectable()
 export class ClientsService {
 
-  constructor(private store: NgRedux<InitialAppState>, private clientActions: ClientActions) { }
+  constructor(
+    private store: NgRedux<InitialAppState>,
+    private clientActions: ClientActions,
+    private apollo: Apollo,
+    private notifications: NotificationsService
+  ) { }
   addClient(newClient: Client) {
-    this.store.dispatch(this.clientActions.addClient(newClient));
+    this.apollo.mutate({
+      mutation: MAddClient,
+      variables: {
+        clientName: newClient.name
+      }
+    }).subscribe(({data}: any) => {
+      const response = data.createClient;
+      this.store.dispatch(this.clientActions.addClient(new Client(response.id, response.name)));
+      this.notifications.success('Success', `Created client ${response.name}`);
+    });
   }
 
-  getClients() {}
+  getClients() {
+    this.apollo.query({
+      query: QAllClients
+    }).subscribe(({data}: any) => {
+      const response = data.allClients;
+      const clientsArray = response.map((clientData: Client) => {
+        return new Client(clientData.id, clientData.name);
+      });
+      this.store.dispatch(this.clientActions.setClients(clientsArray));
+    });
+  }
   getClientDetails(clientId: string) {}
   deleteClient(clientId: string) {}
   assignClientToProject(clientId: string, projectId: string) {}

@@ -27,9 +27,10 @@ type Project @model {
   updatedAt: DateTime!
 
   tasks: [Task!]! @relation(name: "TasksOnProject")
+  client: Client @relation(name: "ProjectsOnClient")
   name: String!
   description: String!
-}
+} 
 
 type Task @model {
   id: ID! @isUnique
@@ -53,4 +54,13 @@ type Comment @model {
   task: Task @relation(name: "CommentsOnTask")
   content: String!
   likes: Int @defaultValue(value: 0)
+}
+
+type Client @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  projects: [Project!]! @relation(name: "ProjectsOnClient")
+  name: String!
 }

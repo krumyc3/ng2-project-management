@@ -58,3 +58,15 @@ export const QTaskComments = gql`
       }
     }
   }`;
+
+export const QAllClients = gql`
+  query allClients {
+    allClients {
+      id
+      name
+      projects {
+        id
+      }
+    }
+  }
+`;

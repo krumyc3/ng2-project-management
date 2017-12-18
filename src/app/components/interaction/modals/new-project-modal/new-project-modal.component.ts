@@ -9,6 +9,7 @@ import { ModalInterface } from '../modal-interface';
 import { getLocaleDateTimeFormat } from '@angular/common/src/i18n/locale_data_api';
 import { Client } from '../../../../models/client';
 import { Subscription } from 'apollo-client/util/Observable';
+import { ClientsService } from '../../../../clients.service';
 
 @Component({
   selector: 'app-new-project-modal',
@@ -22,12 +23,19 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   clientsSubscription: Subscription;
   private clients: Client[];
   private project: Project = new Project('', '', '', null, [], [], new Date());
-  constructor(private store: NgRedux<InitialAppState>, modalActions: ModalsActions, private projectService: ProjectService) {
+  constructor(
+    private store: NgRedux<InitialAppState>,
+    modalActions: ModalsActions,
+    private clientService: ClientsService,
+    private projectService: ProjectService) {
     this.modalActions = modalActions;
    }
   ngOnInit() {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
       this.isOpen = status.newProjectModalActive;
+      if (status.newProjectModalActive === true) {
+        this.clientService.getClients();
+      }
     });
 
     this.clientsSubscription = this.store.select<Client[]>('clientsList').subscribe((clientList: Client[]) => {
