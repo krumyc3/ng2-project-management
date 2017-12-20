@@ -21,8 +21,9 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   @Input() isOpen: Boolean = false;
   subscription;
   clientsSubscription: Subscription;
+  selectedClientId: String;
   private clients: Client[];
-  private project: Project = new Project('', '', '', null, [], [], new Date());
+  private project: Project = new Project('', null, '', '', null, [], [], new Date());
   constructor(
     private store: NgRedux<InitialAppState>,
     modalActions: ModalsActions,
@@ -51,6 +52,10 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
     this.store.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_CLIENT));
   }
   createProject(): void {
+    const selectedClient = this.clients.find(client => client.id === this.selectedClientId);
+    if (selectedClient) {
+      this.project.client =  selectedClient;
+    }
     this.projectService.createProject(this.project);
     this.closeModal();
   }

@@ -4,25 +4,38 @@ export const MCreateProject = gql`
   mutation createProject(
     $name: String!
     $description: String!
+    $clientId: ID!
   ) {
     createProject(
       name: $name,
-      description: $description
+      description: $description,
+      clientId: $clientId
     ) {
       id
       name
       description
       createdAt
+      client {
+        id
+        name
+      }
     }
   }
 `;
 
-export const MUpdateProject = gql`
-  mutation updateProject($id: ID!, $name: String, $description: String) {
-    updateProject(id: $id, name: $name, description: $description) {
+export const MCreateProjectWithoutClient = gql`
+  mutation createProject(
+    $name: String!
+    $description: String!
+  ) {
+    createProject(
+      name: $name,
+      description: $description,
+    ) {
+      id
       name
       description
-      id
+      createdAt
     }
   }
 `;

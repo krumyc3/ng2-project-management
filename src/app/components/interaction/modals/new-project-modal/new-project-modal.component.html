@@ -18,10 +18,10 @@
         <div class="four wide column">
           <div class="inline field">
             <label for="client-selection">Client</label>
-            <select name="client-selection" id="client-selection">
+            <select [(ngModel)]="selectedClientId" name="client-selection" id="client-selection">
               <option selected *ngIf="clients.length < 1" disabled [value]="null">No clients available</option>
-              <option *ngIf="clients.length > 0 " [value]="null">No client</option>
-              <option *ngFor="let client of clients" [value]="client.name">
+              <option *ngIf="clients.length > 0 " [ngValue]="null">No client</option>
+              <option *ngFor="let client of clients" [ngValue]="client.id">
                 {{ client.name }}
               </option>
             </select>

@@ -9,7 +9,7 @@ export class Project {
   createdAt: Date;
   public description: string;
   private user: User;
-  private client: Client;
+  client: Client;
   private comments: Array<Comment>;
   tasks: Task[];
   constructor(

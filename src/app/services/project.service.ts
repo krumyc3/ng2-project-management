@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { InitialAppState } from '../store/initialState';
 import { Apollo } from 'apollo-angular';
 import { QAllProjects, QProjectDetails } from '../backend/graph.queries';
-import { MCreateProject, MUpdateProject, MDeleteProject, MAddTaskToProject } from '../backend/graph.mutations';
+import { MCreateProject, MUpdateProject, MDeleteProject, MAddTaskToProject, MCreateProjectWithoutClient } from '../backend/graph.mutations';
 
 import { Project } from '../models/project';
 import { ModalsActions, ModalTypes } from '../store/actions/modals.actions';
@@ -33,18 +33,27 @@ export class ProjectService {
     });
   }
   createProject(newProject: Project) {
+    const projectHasClient: boolean = newProject.client !== null && newProject.client.id !== '';
+    let mutationVariables: any = {
+      name: newProject.name,
+      description: newProject.description,
+    };
+    if (projectHasClient) {
+      mutationVariables = {
+        ...mutationVariables,
+        clientId: newProject.client.id
+      };
+    }
     this.apollo.mutate({
-      mutation: MCreateProject,
-      variables: {
-        name: newProject.name,
-        description: newProject.description
-      },
+      mutation: projectHasClient ? MCreateProject : MCreateProjectWithoutClient,
+      variables: mutationVariables
     }).subscribe(({ data }) => {
       const response = data.createProject;
       if (response) {
         this.store.dispatch({
           type: ProjectActions.ADD_SINGLE_PROJECT,
-          payload: new Project(response.name, response.client, response.id, response.description, null, null, null, response.createdAt),
+          payload: new Project(
+            response.name, response.client || null, response.id, response.description, null, null, null, response.createdAt),
         });
       }
     }, (error) => {
