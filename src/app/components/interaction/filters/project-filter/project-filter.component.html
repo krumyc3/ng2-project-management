@@ -2,11 +2,24 @@
   <div class="project-filters__left-container" *ngIf="filtersVisible">
     <p class="project-filters__header">Filter by:</p>
     <div class="project-filters__filters">
-      <div class="ui icon input">
-        <input [(ngModel)]="projectName" (input)="submitProjectsFilter()" type="text" placeholder="Name">
-        <i *ngIf="!isProjectNameEmpty()" class="circular remove link icon"
-        (click)="clearProjectName()"></i>
-      </div>
+      <form class="ui project-filters__form form">
+       <div class="ui inline field">
+          <div class="ui icon input">
+            <label for="project-name">Title</label>
+            <input [(ngModel)]="projectName" (input)="submitProjectsFilter()" name="project-name" type="text" >
+            <i *ngIf="!isProjectNameEmpty()" class="circular remove link icon"
+            (click)="clearProjectName()"></i>
+          </div>
+        </div>
+        <div class="ui inline field">
+          <label for="client-filter">Client</label>
+          <select (change)="submitClientFilter()" [(ngModel)]="selectedClient" name="client-filter" id="client-filter">
+            <option selected value="">All clients</option>
+            <option *ngFor="let client of clients" (value)="client.id">{{ client.name }}</option>
+          </select>
+        </div>
+
+      </form>
       <!-- <button class="ui green button project-filters__submit" (click)="submitProjectsFilter()" [disabled]="isProjectNameEmpty()">Filter</button> -->
     </div>
   </div>

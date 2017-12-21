@@ -5,6 +5,8 @@
   <app-project-filter
   (onNameFilter)="updateNameFilterTerm($event)"
   (onClearNameFilter)="clearNameFilterTerm($event)"
+  (onClientFilter)="updateClientFilterTerm($event)"
+  (onClearClientFilter)="clearClientFilterTerm($event)"
    ></app-project-filter>
   <div class="ui grid projectlist">
     <app-project [project]="project" *ngFor="let project of projects"></app-project>

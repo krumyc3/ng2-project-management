@@ -1,12 +1,25 @@
 .project-filters {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: baseline;
   height: 37px;
 }
 
 .project-filters.visible {
   justify-content: space-between;
+}
+.project-filters__form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.project-filters__form .input {
+  margin-left: 15px !important;
+  margin-right: 5px !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
 }
 
 .project-filters__left-container {
