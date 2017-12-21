@@ -17,7 +17,7 @@ export enum ModalTypes {
 export class ModalsActions {
   static OPEN_MODAL = 'OPEN_MODAL';
   static CLOSE_MODAL = 'CLOSE_MODAL';
-  openModal(modalType: string): ModalsAction {
+  openModal(modalType: ModalTypes): ModalsAction {
     return {
       type: ModalsActions.OPEN_MODAL,
       payload: modalType,

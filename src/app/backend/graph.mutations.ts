@@ -39,6 +39,17 @@ export const MCreateProjectWithoutClient = gql`
     }
   }
 `;
+export const MUpdateProject = gql`
+  mutation updateProject($projectId: ID!, $projectName: String, $projectDescription: String) {
+    updateProject(
+      id: $projectId,
+      description: $projectDescription,
+      name: $projectName
+    ) {
+      id
+    }
+  }
+`;
 
 export const MDeleteProject = gql`
   mutation deleteProject($id: ID!) {

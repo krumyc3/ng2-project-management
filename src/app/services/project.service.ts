@@ -18,6 +18,7 @@ export class ProjectService {
     private projectActions: ProjectActions,
     private apollo: Apollo,
     private notification: NotificationsService,
+    private modalsActions: ModalsActions,
   ) {
   }
 
@@ -72,10 +73,7 @@ export class ProjectService {
     }).subscribe(({data}) => {
       const response = data.updateProject;
       if (response) {
-        this.store.dispatch({
-          type: ModalsActions.CLOSE_MODAL,
-          payload: ModalTypes.EDIT_PROJECT
-        });
+        this.store.dispatch(this.modalsActions.closeModal(ModalTypes.EDIT_PROJECT));
         this.getAllProjects();
       }
     });
