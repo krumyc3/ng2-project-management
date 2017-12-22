@@ -19,16 +19,7 @@
         <i class="checkmark icon"></i>
       </div>
     </div>
-   
-    <div class="ui small form">
-      <div class="meta two wide field">
-        <select name="task-status" id="task-status">
-          <option *ngFor="let status of taskStatuses()" [value]="status.key">
-            {{ status.value }}
-          </option>
-        </select>
-      </div>
-    </div>
+  
     <div class="footer">
       <span>Due date: {{ task.due | date}} </span>
       <div>

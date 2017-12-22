@@ -11,6 +11,7 @@ export class CommentActions {
   static SET_COMMENTS = 'SET_COMMENTS';
   static ADD_COMMENT = 'ADD_COMMENT';
   static CLEAR_COMMENTS = 'CLEAR_COMMENTS';
+  static LIKE_COMMENT = 'LIKE_COMMENT';
 
   setComments(commentsList: any): CommentAction {
     return {
@@ -23,6 +24,13 @@ export class CommentActions {
     return {
       type: CommentActions.ADD_COMMENT,
       payload: comment
+    };
+  }
+
+  likeComment(commentId: string): CommentAction {
+    return {
+      type: CommentActions.LIKE_COMMENT,
+      payload: commentId
     };
   }
 }

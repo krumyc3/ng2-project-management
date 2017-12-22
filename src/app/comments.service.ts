@@ -5,14 +5,17 @@ import { InitialAppState } from './store/initialState';
 import { QTaskComments } from './backend/graph.queries';
 import { CommentActions } from './store/actions/comment.actions';
 import { Comment } from './models/comment';
-import { MAddCommentToTask } from './backend/graph.mutations';
+import { MAddCommentToTask, MLikeComment } from './backend/graph.mutations';
+import { NotificationsService } from 'angular2-notifications';
 
 @Injectable()
 export class CommentsService {
 
   constructor(
     private apollo: Apollo,
-    private store: NgRedux<InitialAppState>
+    private store: NgRedux<InitialAppState>,
+    private notifications: NotificationsService,
+    private commentActions: CommentActions
   ) { }
   addCommentToTask(newComment: Comment) {
     this.apollo.mutate({
@@ -44,6 +47,20 @@ export class CommentsService {
         type: CommentActions.ADD_COMMENT,
         payload: taskComments,
       });
+    });
+  }
+
+  likeComment(commentId: String, likes: number) {
+    this.apollo.mutate({
+      mutation: MLikeComment,
+      variables: {
+        commentId,
+        likes: likes + 1,
+      }
+    }).subscribe(({ data }) => {
+      const response = data.updateComment;
+      this.store.dispatch(this.commentActions.likeComment(response.id));
+      this.notifications.success('Success', 'Comment liked');
     });
   }
 }

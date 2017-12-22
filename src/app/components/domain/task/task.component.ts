@@ -42,16 +42,16 @@ export class TaskComponent implements OnInit {
     return Task.availableTaskStatuses();
   }
 
-  changeTaskStatus(previousState: string) {
+  changeTaskStatus(previousState: TaskStatuses) {
     if (previousState) {
       switch (previousState) {
-        case 'No status':
+        case TaskStatuses.NO_STATUS:
           this.task.status = TaskStatuses.IN_PROGRESS;
           break;
-        case 'In progress':
+        case TaskStatuses.IN_PROGRESS:
           this.task.status = TaskStatuses.COMPLETED;
           break;
-        case 'Completed':
+        case TaskStatuses.COMPLETED:
           this.task.status = TaskStatuses.NO_STATUS;
           break;
         default:

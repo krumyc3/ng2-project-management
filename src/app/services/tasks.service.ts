@@ -61,25 +61,6 @@ export class TasksService {
     });
 }
 
-  likeComment(commentId: String, likes: number) {
-    this.apollo.mutate({
-      mutation: MLikeComment,
-      variables: {
-        commentId,
-        likes: likes + 1,
-      }
-    }).subscribe(({data}) => {
-      const response = data.updateComment;
-      this.store.dispatch({
-        type: ProjectActions.UPDATE_COMMENT_LIKES,
-        payload: {
-          commentId,
-          likes: response.likes,
-        }
-      });
-      this.notification.success('Success', 'Comment liked');
-    });
-  }
   addTaskToProject(projectId: String, task: Task) {
     this.apollo.mutate({
       mutation: MAddTaskToProject,

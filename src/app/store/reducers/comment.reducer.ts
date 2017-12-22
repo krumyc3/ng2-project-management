@@ -1,4 +1,5 @@
 import { CommentAction, CommentActions } from '../actions/comment.actions';
+import { Comment } from '../../models/comment';
 
 export function commentReducer(state = [], action: CommentAction) {
   switch (action.type) {
@@ -8,6 +9,16 @@ export function commentReducer(state = [], action: CommentAction) {
       return [...state, ...action.payload];
     case CommentActions.CLEAR_COMMENTS:
       return [...state.filter(val => false)];
+    case CommentActions.LIKE_COMMENT:
+      return [...state.map((comment: Comment) => {
+        if (comment.id === action.payload) {
+          return {
+            ...comment,
+            likes: comment.likes + 1
+            };
+          } else {
+            return comment;
+          }})];
     default:
       return state;
   }
