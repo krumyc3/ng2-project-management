@@ -10,6 +10,11 @@ export interface InitialAppState {
   modalsState: any;
   editingResource: any;
   clientsList: Client[];
+  userState: {
+    id: string,
+    email: string,
+    token: string
+  };
 }
 
 export const INITIAL_STATE: InitialAppState = {
@@ -17,6 +22,11 @@ export const INITIAL_STATE: InitialAppState = {
   commentsList: [],
   tasksList: [],
   clientsList: [],
+  userState: {
+    id: '',
+    email: '',
+    token: ''
+  },
   editingResource: {
     project: {}
   },

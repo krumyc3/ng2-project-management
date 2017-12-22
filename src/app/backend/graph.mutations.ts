@@ -145,3 +145,27 @@ export const MAddClient = gql`
     }
   }
 `;
+
+export const MRegisterUser = gql`
+  mutation SignupUser($email: String!, $password: String!) {
+    signupUser(
+      email: $email,
+      password: $password
+    ) {
+      id
+      token
+    }
+  }
+`;
+
+export const MLoginUser = gql`
+  mutation AuthenticateUser($email: String!, $password: String!) {
+    authenticateUser(
+      email: $email,
+      password: $password
+    ) {
+      id
+      token
+    }
+  }
+`;

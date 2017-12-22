@@ -12,13 +12,14 @@ import { EditingActions } from '../store/actions/editing.actions';
 import { ProjectFilterComponent } from '../components/interaction/filters/project-filter/project-filter.component';
 import { NewClientModalComponent } from '../components/interaction/modals/new-client-modal/new-client-modal.component';
 import { UserFormComponent } from '../components/interaction/user-form/user-form.component';
+import { UserService } from '../services/user.service';
 
 
 @NgModule({
   imports: [
     CommonModule, FormsModule
   ],
-  providers: [ModalsActions, EditingActions],
+  providers: [ModalsActions, EditingActions, UserService],
   declarations: [
     NewProjectModalComponent,
     MessageComponent,

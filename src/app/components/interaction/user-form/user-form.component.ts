@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../services/user.service';
+import { User } from '../../../models/user';
 
 enum UserFormMode {
   LOGIN = 'login',
@@ -12,8 +14,12 @@ enum UserFormMode {
 })
 
 export class UserFormComponent implements OnInit {
+  private userEmail: string;
+  private userPassword: string;
   private mode: UserFormMode = UserFormMode.LOGIN;
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
 
@@ -22,7 +28,11 @@ export class UserFormComponent implements OnInit {
   changeUserFormMode(newMode: UserFormMode) {
     this.mode = newMode;
   }
-  login() {}
-  register() {}
+  login() {
+    this.userService.loginUser(this.userEmail, this.userPassword);
+  }
+  register() {
+    this.userService.registerUser({email: this.userEmail, password: this.userPassword});
+  }
 
 }

@@ -29,6 +29,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClientsService } from './clients.service';
 import { clientReducer } from './store/reducers/client.reducer';
 import { ClientActions } from './store/actions/client.actions';
+import { UserService } from './services/user.service';
+import { userReducer } from './store/reducers/user.reducer';
+import { UserActions } from './store/actions/user.actions';
 
 
 export const appStore: Store<any> = createStore(combineReducers(
@@ -37,6 +40,7 @@ export const appStore: Store<any> = createStore(combineReducers(
     tasksList: taskReducer,
     commentsList: commentReducer,
     modalsState: modalsReducer,
+    userState: userReducer,
     editingResource: editingReducer,
     clientsList: clientReducer,
   }
@@ -46,7 +50,7 @@ export const appStore: Store<any> = createStore(combineReducers(
   declarations: [
     AppComponent,
   ],
-  providers: [HttpLink, ClientsService, ClientActions, NotificationsService],
+  providers: [HttpLink, ClientsService, ClientActions, NotificationsService, UserService, UserActions],
   imports: [
     RouterModule.forRoot(
       appRoutes,
@@ -72,6 +76,11 @@ export class AppModule {
   constructor(ngRedux: NgRedux<InitialAppState>, apolloModule: Apollo, httpLink: HttpLink) {
     ngRedux.provideStore(appStore);
     apolloModule.create({
+      defaultOptions: {
+        watchQuery: {
+          errorPolicy: 'all'
+        }
+      },
       link: httpLink.create({ uri: 'https://api.graph.cool/simple/v1/cjb2hxa2p1edf0195t7wi8zwo'}),
       cache: new InMemoryCache()
     });

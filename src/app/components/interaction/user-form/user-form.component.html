@@ -15,11 +15,11 @@
   <form class="form ui user-form">
     <div class="field">
       <label for="email">Email</label>
-      <input type="email">
+      <input [(ngModel)]="userEmail" name="user-email" type="email">
     </div>
     <div class="field">
       <label for="password">Password</label>
-      <input type="password">
+      <input [(ngModel)]="userPassword" name="user-password" type="password">
     </div>
     <ng-container *ngIf="mode === 'login'; else elseTemplate">
         <button (click)="login()" class="ui button green">
@@ -27,7 +27,7 @@
         </button>
     </ng-container>
     <ng-template #elseTemplate>
-  <button  (click)="register()" class="ui button green">
+  <button (click)="register()" class="ui button green">
     Register
   </button>
     </ng-template>
