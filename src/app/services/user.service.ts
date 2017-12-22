@@ -55,7 +55,11 @@ export class UserService {
       this.store.dispatch(this.userActions.signUpUser(data.signupUser.id, '', userToken));
     });
   }
-
+  public logoutUser(): void {
+    localStorage.removeItem('graphcoolToken');
+    this.notifications.info('Loggedd out', 'User logged out');
+    this.router.navigateByUrl('/login');
+  }
   public isLoggedIn(): boolean {
     const userToken = localStorage.getItem('graphcoolToken');
     console.log('userToken');

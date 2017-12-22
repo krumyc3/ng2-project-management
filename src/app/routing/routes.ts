@@ -11,6 +11,11 @@ export const appRoutes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: '',
+    redirectTo: 'projects',
+    pathMatch: 'full',
+  },
+  {
     path: 'register',
     component: UserFormComponent,
     pathMatch: 'full',
@@ -25,6 +30,5 @@ export const appRoutes: Routes = [
     path: 'projects/:id',
     pathMatch: 'full',
     component: SingleProjectViewComponent,
-    canActivate: [LoginGuard]
   },
 ];
