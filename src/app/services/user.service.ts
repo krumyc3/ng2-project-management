@@ -55,5 +55,15 @@ export class UserService {
       this.store.dispatch(this.userActions.signUpUser(data.signupUser.id, '', userToken));
     });
   }
+
+  public isLoggedIn(): boolean {
+    const userToken = localStorage.getItem('graphcoolToken');
+    console.log('userToken');
+    console.log(userToken);
+    if (userToken === null) {
+      return false;
+    }
+    return userToken.length > 0;
+  }
 }
 

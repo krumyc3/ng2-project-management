@@ -32,6 +32,7 @@ import { ClientActions } from './store/actions/client.actions';
 import { UserService } from './services/user.service';
 import { userReducer } from './store/reducers/user.reducer';
 import { UserActions } from './store/actions/user.actions';
+import { LoginGuard } from './routing/login.guard';
 
 
 export const appStore: Store<any> = createStore(combineReducers(
@@ -50,7 +51,7 @@ export const appStore: Store<any> = createStore(combineReducers(
   declarations: [
     AppComponent,
   ],
-  providers: [HttpLink, ClientsService, ClientActions, NotificationsService, UserService, UserActions],
+  providers: [HttpLink, ClientsService, ClientActions, NotificationsService, UserService, UserActions, LoginGuard],
   imports: [
     RouterModule.forRoot(
       appRoutes,
