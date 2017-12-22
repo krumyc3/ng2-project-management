@@ -11,6 +11,7 @@ import { EditProjectModalComponent } from '../components/interaction/modals/edit
 import { EditingActions } from '../store/actions/editing.actions';
 import { ProjectFilterComponent } from '../components/interaction/filters/project-filter/project-filter.component';
 import { NewClientModalComponent } from '../components/interaction/modals/new-client-modal/new-client-modal.component';
+import { UserFormComponent } from '../components/interaction/user-form/user-form.component';
 
 
 @NgModule({
@@ -25,14 +26,16 @@ import { NewClientModalComponent } from '../components/interaction/modals/new-cl
     CommentFormComponent,
     EditProjectModalComponent,
     ProjectFilterComponent,
-    NewClientModalComponent],
+    NewClientModalComponent,
+    UserFormComponent],
   exports: [
     NewProjectModalComponent,
     EditProjectModalComponent,
     NewTaskModalComponent,
     CommentFormComponent,
     ProjectFilterComponent,
-    NewClientModalComponent
+    NewClientModalComponent,
+    UserFormComponent
   ]
 })
 export class InteractionModule { }

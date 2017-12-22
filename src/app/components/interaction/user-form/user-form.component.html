@@ -1,0 +1,37 @@
+<div class="ui container">
+  <div class="user-form__headers">
+    <p (click)="changeUserFormMode('login')" class="ui header" 
+    [class.active]="mode === 'login'"
+    [class.huge]="mode === 'login'"
+    >
+      Login
+    </p>
+    <p (click)="changeUserFormMode('register')" class="ui header"
+    [class.active]="mode === 'register'"
+    [class.huge]="mode === 'register'">
+      Register
+    </p>
+  </div>
+  <form class="form ui user-form">
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email">
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password">
+    </div>
+    <ng-container *ngIf="mode === 'login'; else elseTemplate">
+        <button (click)="login()" class="ui button green">
+          Login
+        </button>
+    </ng-container>
+    <ng-template #elseTemplate>
+  <button  (click)="register()" class="ui button green">
+    Register
+  </button>
+    </ng-template>
+    
+ 
+  </form>
+</div>

@@ -7,6 +7,12 @@
     "apollo-client": "^2.0.4",
     "graphql": "^0.11.7",
     "graphql-tag": "^2.6.0",
-    "graphql-tools": "^2.12.0"
+    "graphql-tools": "^2.12.0",
+    "@types/bcryptjs": "^2.4.1",
+    "@types/validator": "^6.3.0",
+    "bcryptjs": "^2.4.3",
+    "graphcool-lib": "^0.1.0",
+    "graphql-request": "^1.4.0",
+    "validator": "^9.0.0"
   }
 }
