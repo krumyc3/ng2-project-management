@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const QAllProjects = gql`
-      query AllProjects {
+      query AllProjects($authorId: ID) {
         allProjects {
           id
           name

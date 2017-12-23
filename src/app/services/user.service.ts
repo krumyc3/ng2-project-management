@@ -67,8 +67,6 @@ export class UserService {
         query: QLoggedInUser,
         fetchPolicy: 'network-only',
       }).subscribe(({data}: any) => {
-        console.log('data in is logged in');
-        console.log(data);
         const isUserLoggedIn = data.loggedInUser !== null && data.loggedInUser.id !== '';
         if (isUserLoggedIn) {
           this.store.dispatch(this.userActions.signInUser(data.loggedInUser.id, data.loggedInUser.email, ''));

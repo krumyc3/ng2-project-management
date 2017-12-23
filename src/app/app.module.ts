@@ -51,7 +51,7 @@ export const appStore: Store<any> = createStore(combineReducers(
 const middlewareLink = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      authorization: `Bearer ${localStorage.getItem('graphcoolToken')}`
+      Authorization: `Bearer ${localStorage.getItem('graphcoolToken')}`
     }
   });
   return forward(operation);
@@ -88,7 +88,7 @@ export class AppModule {
     apolloModule.create({
       defaultOptions: {
         watchQuery: {
-          errorPolicy: 'all'
+          errorPolicy: 'all',
         }
       },
       link: middlewareLink.concat(httpLink.create({ uri: 'https://api.graph.cool/simple/v1/cjb2hxa2p1edf0195t7wi8zwo'})),
