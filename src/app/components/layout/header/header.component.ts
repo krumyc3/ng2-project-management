@@ -13,12 +13,10 @@ import { OnDestroy } from '@angular/core';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   loggedInUser: any = { email: '' };
-  private userSubscription: Subscription;
+  userIsLoggedIn: boolean;
+  userSubscription: Subscription;
   constructor(private userService: UserService, private store: NgRedux<InitialAppState>) {
     this.setUpUserSubscription();
-  }
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
   }
 
   logoutUser(): void {
@@ -26,7 +24,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   setUpUserSubscription() {
-    this.userSubscription = this.store.select('userState').subscribe((user) => {
+    this.userSubscription = this.store.select('userState').subscribe((user: any) => {
+      if (user.id) {
+        this.userIsLoggedIn = true;
+      }
       this.loggedInUser = user;
     });
   }

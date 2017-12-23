@@ -78,3 +78,12 @@ export const QAllClients = gql`
     }
   }
 `;
+
+export const QLoggedInUser = gql`
+  query LoggedInUser {
+    loggedInUser {
+      id
+      email
+    }
+  }
+`;

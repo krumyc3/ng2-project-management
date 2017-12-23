@@ -7,6 +7,7 @@ import { User } from '../models/user';
 import { MRegisterUser, MLoginUser } from '../backend/graph.mutations';
 import { UserActions } from '../store/actions/user.actions';
 import { Router } from '@angular/router';
+import { QLoggedInUser } from '../backend/graph.queries';
 
 @Injectable()
 export class UserService {
@@ -30,7 +31,6 @@ export class UserService {
       }).subscribe(({data}) => {
         const response = data.authenticateUser;
         localStorage.setItem('graphcoolToken', response.token);
-        this.store.dispatch(this.userActions.signInUser(response.id, userEmail, response.token));
         this.router.navigateByUrl('/projects').then(() => {
           this.notifications.success('Welcome', `Welcome back ${userEmail}`);
         });
@@ -58,16 +58,26 @@ export class UserService {
   public logoutUser(): void {
     localStorage.removeItem('graphcoolToken');
     this.notifications.info('Loggedd out', 'User logged out');
+    this.store.dispatch(this.userActions.clearUser());
     this.router.navigateByUrl('/login');
   }
-  public isLoggedIn(): boolean {
-    const userToken = localStorage.getItem('graphcoolToken');
-    console.log('userToken');
-    console.log(userToken);
-    if (userToken === null) {
-      return false;
-    }
-    return userToken.length > 0;
+  public isLoggedIn(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.apollo.query({
+        query: QLoggedInUser,
+        fetchPolicy: 'network-only',
+      }).subscribe(({data}: any) => {
+        console.log('data in is logged in');
+        console.log(data);
+        const isUserLoggedIn = data.loggedInUser !== null && data.loggedInUser.id !== '';
+        if (isUserLoggedIn) {
+          this.store.dispatch(this.userActions.signInUser(data.loggedInUser.id, data.loggedInUser.email, ''));
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
   }
 }
 

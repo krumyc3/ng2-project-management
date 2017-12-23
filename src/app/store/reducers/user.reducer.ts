@@ -22,6 +22,12 @@ export function userReducer(state: IUserState = InitialUserState, action: UserAc
       return action.payload;
     case UserActions.SING_IN_USER:
       return action.payload;
+    case UserActions.CLEAR_USER:
+      return {
+        id: '',
+        email: '',
+        token: '',
+      };
     default:
       return state;
   }

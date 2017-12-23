@@ -33,6 +33,7 @@ import { UserService } from './services/user.service';
 import { userReducer } from './store/reducers/user.reducer';
 import { UserActions } from './store/actions/user.actions';
 import { LoginGuard } from './routing/login.guard';
+import { ApolloLink } from 'apollo-link';
 
 
 export const appStore: Store<any> = createStore(combineReducers(
@@ -47,6 +48,14 @@ export const appStore: Store<any> = createStore(combineReducers(
   }
 ), INITIAL_STATE, applyMiddleware(createLogger()));
 
+const middlewareLink = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('graphcoolToken')}`
+    }
+  });
+  return forward(operation);
+});
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +91,7 @@ export class AppModule {
           errorPolicy: 'all'
         }
       },
-      link: httpLink.create({ uri: 'https://api.graph.cool/simple/v1/cjb2hxa2p1edf0195t7wi8zwo'}),
+      link: middlewareLink.concat(httpLink.create({ uri: 'https://api.graph.cool/simple/v1/cjb2hxa2p1edf0195t7wi8zwo'})),
       cache: new InMemoryCache()
     });
   }

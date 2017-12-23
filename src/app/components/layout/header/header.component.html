@@ -4,7 +4,7 @@
       <a class="item" href="/">Angular PM</a>
     </div>
     <div class="right menu">
-      <ng-container *ngIf="isLoggedIn(); else elseTemplate">
+      <ng-container *ngIf="userIsLoggedIn; else elseTemplate">
         <div class="item user-profile">
           {{ loggedInUser.email }}
         </div>
@@ -15,7 +15,7 @@
         <a href="" routerLink="/login/" class="item">Login</a>
       </ng-template>
       
-      <a href="" *ngIf="isLoggedIn();" routerLink="/projects/" class="item">Projects</a>
+      <a href="" *ngIf="userIsLoggedIn;" routerLink="/projects/" class="item">Projects</a>
     </div>
   </div>
 </div>
