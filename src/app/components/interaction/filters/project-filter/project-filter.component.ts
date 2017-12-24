@@ -37,7 +37,7 @@ export class ProjectFilterComponent implements OnInit, OnDestroy {
     this.clientsSubscription.unsubscribe();
   }
   fetchAvailableClients(): void {
-    this.clientsService.getClients();
+    // this.clientsService.getClients();
   }
   setUpClientsSubscription(): void {
     this.clientsSubscription = this.store.select('clientsList').subscribe((clientsList: Client[]) => {

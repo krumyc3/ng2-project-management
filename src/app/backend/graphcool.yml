@@ -47,7 +47,16 @@ functions:
 # https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez
 permissions:
   - operation: Project.read
-    query: ./src/permissions/Project.graphql
+    query: ./src/permissions/Project.owner.graphql
+    authenticated: true
+  - operation: Project.update
+    fields: [name, description]
+    authenticated: true
+    query: ./src/permissions/Project.owner.graphql
+  - operation: Project.create
+    authenticated: true
+  - operation: Client.read
+    authenticated: true
 
 
 # Your root tokens used for functions to get full access to the API

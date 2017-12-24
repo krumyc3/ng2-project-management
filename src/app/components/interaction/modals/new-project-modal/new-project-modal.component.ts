@@ -35,7 +35,7 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
       this.isOpen = status.newProjectModalActive;
       if (status.newProjectModalActive === true) {
-        this.clientService.getClients();
+        // this.clientService.getClients();
       }
     });
 

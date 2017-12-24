@@ -23,8 +23,13 @@ export class ProjectService {
   }
 
   getAllProjects() {
-    this.apollo.query({ query: QAllProjects}).subscribe((data: any) => {
-      const projects = data.data.allProjects.map((project) => {
+    this.apollo.query({
+      query: QAllProjects,
+      variables: {
+        user_id: this.store.getState().userState.id
+      }
+    }).subscribe(({data}: any) => {
+      const projects = data.allProjects.map((project) => {
         return new Project(project.name, project.client, project.id, project.description, null, null, null, project.createdAt);
       });
       this.store.dispatch({
@@ -63,6 +68,8 @@ export class ProjectService {
   }
 
   updateProject(updatedProject: Project) {
+    console.log('updated project');
+    console.log(updatedProject);
     this.apollo.mutate({
       mutation: MUpdateProject,
       variables: {
@@ -71,10 +78,13 @@ export class ProjectService {
         description: updatedProject.description
       }
     }).subscribe(({data}) => {
-      const response = data.updateProject;
+      const response: Project = data.updateProject;
       if (response) {
         this.store.dispatch(this.modalsActions.closeModal(ModalTypes.EDIT_PROJECT));
-        this.getAllProjects();
+        this.store.dispatch(
+          this.projectActions.updateProject(
+            new Project(response.name, response.client, response.id, response.description, null, null, null, response.createdAt)
+          ));
       }
     });
   }
@@ -97,6 +107,7 @@ export class ProjectService {
       query: QProjectDetails,
       variables: {
         id: projectId,
+        userId: this.store.getState().userState.id
       }
     }).subscribe(({data}: any) => {
       const response = data.Project;

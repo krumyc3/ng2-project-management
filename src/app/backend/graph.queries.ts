@@ -1,8 +1,13 @@
 import gql from 'graphql-tag';
 
 export const QAllProjects = gql`
-      query AllProjects($authorId: ID) {
-        allProjects {
+      query allProjects($user_id: ID!) {
+        allProjects(
+          filter: {
+            author: {
+              id: $user_id
+            }
+        }) {
           id
           name
           description
@@ -29,8 +34,12 @@ export const QProjectTasks = gql`
   }`;
 
 export const QProjectDetails = gql`
-    query ProjectDetails($id: ID!) {
-      Project(id: $id) {
+    query ProjectDetails($id: ID!, $userId: ID!) {
+      Project(id: $id, filter: {
+        author: {
+          id: $userId
+        }
+      }) {
         id
         name
         createdAt

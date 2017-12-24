@@ -86,11 +86,6 @@ export class AppModule {
   constructor(ngRedux: NgRedux<InitialAppState>, apolloModule: Apollo, httpLink: HttpLink) {
     ngRedux.provideStore(appStore);
     apolloModule.create({
-      defaultOptions: {
-        watchQuery: {
-          errorPolicy: 'all',
-        }
-      },
       link: middlewareLink.concat(httpLink.create({ uri: 'https://api.graph.cool/simple/v1/cjb2hxa2p1edf0195t7wi8zwo'})),
       cache: new InMemoryCache()
     });

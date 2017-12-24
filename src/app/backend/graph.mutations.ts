@@ -40,13 +40,20 @@ export const MCreateProjectWithoutClient = gql`
   }
 `;
 export const MUpdateProject = gql`
-  mutation updateProject($projectId: ID!, $projectName: String, $projectDescription: String) {
+  mutation updateProject($id: ID!, $name: String, $description: String) {
     updateProject(
-      id: $projectId,
-      description: $projectDescription,
-      name: $projectName
+      id: $id,
+      description: $description,
+      name: $name
     ) {
       id
+      name
+      description
+      createdAt
+      client {
+        id
+        name
+      }
     }
   }
 `;
