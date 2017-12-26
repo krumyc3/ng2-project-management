@@ -21,7 +21,6 @@ export class UserService {
   ) { }
 
   loginUser(userEmail: string, userPassword: string) {
-    try {
       this.apollo.mutate({
         mutation: MLoginUser,
         variables: {
@@ -34,13 +33,11 @@ export class UserService {
         this.router.navigateByUrl('/projects').then(() => {
           this.notifications.success('Welcome', `Welcome back ${userEmail}`);
         });
-      });
-    } catch (error) {
-      console.log('error!');
-      console.log(error);
-    }
+      }, this.handleError.bind(this));
   }
-
+  handleError(error) {
+    this.notifications.error('Error!', error.message);
+  }
   registerUser(user) {
     this.apollo.mutate({
       mutation: MRegisterUser,
@@ -53,7 +50,7 @@ export class UserService {
       localStorage.setItem('graphcoolToken', userToken);
       this.notifications.success('Signed up', 'User signed up');
       this.store.dispatch(this.userActions.signUpUser(data.signupUser.id, '', userToken));
-    });
+    }, this.handleError.bind(this));
   }
   public logoutUser(): void {
     localStorage.removeItem('graphcoolToken');

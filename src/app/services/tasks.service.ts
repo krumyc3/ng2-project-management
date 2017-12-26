@@ -27,6 +27,7 @@ export class TasksService {
   ) {
   }
   getProjectTasks(projectId: String) {
+    console.log(`get tasks from project ${projectId}`);
     this.apollo.query({
       query: QProjectTasks,
       variables: {
@@ -34,6 +35,8 @@ export class TasksService {
       }
     }).subscribe(({ data }: any) => {
       const response = data.Project;
+      console.log('response');
+      console.log(response);
       const projectTasks = response.tasks.map((task) => {
         return new Task(task.id, task.status, response.id, task.title, task.description, task.due, null, []);
       });

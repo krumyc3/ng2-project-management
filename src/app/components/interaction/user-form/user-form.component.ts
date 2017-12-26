@@ -28,11 +28,15 @@ export class UserFormComponent implements OnInit {
   changeUserFormMode(newMode: UserFormMode) {
     this.mode = newMode;
   }
+  // TODO: change this temporary validation to form-based one
+  isUserModelValid() {
+    return this.userEmail.length > 0 && this.userPassword.length > 0;
+  }
   login() {
-    this.userService.loginUser(this.userEmail, this.userPassword);
+    if (this.isUserModelValid()) this.userService.loginUser(this.userEmail, this.userPassword);
   }
   register() {
-    this.userService.registerUser({email: this.userEmail, password: this.userPassword});
+    if (this.isUserModelValid()) this.userService.registerUser({email: this.userEmail, password: this.userPassword});
   }
 
 }

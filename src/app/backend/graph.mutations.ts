@@ -5,11 +5,13 @@ export const MCreateProject = gql`
     $name: String!
     $description: String!
     $clientId: ID!
+    $userId: ID!
   ) {
     createProject(
       name: $name,
       description: $description,
       clientId: $clientId
+      authorId: $userId
     ) {
       id
       name
@@ -27,10 +29,12 @@ export const MCreateProjectWithoutClient = gql`
   mutation createProject(
     $name: String!
     $description: String!
+    $userId: ID!
   ) {
     createProject(
       name: $name,
       description: $description,
+      authorId: $userId
     ) {
       id
       name

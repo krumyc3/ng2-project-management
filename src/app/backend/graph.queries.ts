@@ -34,12 +34,8 @@ export const QProjectTasks = gql`
   }`;
 
 export const QProjectDetails = gql`
-    query ProjectDetails($id: ID!, $userId: ID!) {
-      Project(id: $id, filter: {
-        author: {
-          id: $userId
-        }
-      }) {
+    query ProjectDetails($id: ID!) {
+      Project(id: $id) {
         id
         name
         createdAt
@@ -77,13 +73,16 @@ export const QTaskComments = gql`
   }`;
 
 export const QAllClients = gql`
-  query allClients {
-    allClients {
+  query allClients($userId: ID!) {
+    allClients(
+      filter: {
+        author: {
+          id: $userId
+        }
+      }
+    ) {
       id
       name
-      projects {
-        id
-      }
     }
   }
 `;

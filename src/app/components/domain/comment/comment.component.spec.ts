@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { Comment } from '../../../models/comment';
 import { User } from '../../../models/user';
 
-fdescribe('CommentComponent', () => {
+describe('CommentComponent', () => {
   let component: CommentComponent;
   let fixture: ComponentFixture<CommentComponent>;
   let de: DebugElement;

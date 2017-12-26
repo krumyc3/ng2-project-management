@@ -1,16 +1,17 @@
-<div class="projectslist">
+<div ondragover="return false" class="projectslist">
   
-  <div class="ui centered inline text loader" [ngClass]="{'active': projects.length < 1}"></div>
-  <h1 class="projectlist__header">Your projects</h1>
-  <app-project-filter
-  (onNameFilter)="updateNameFilterTerm($event)"
-  (onClearNameFilter)="clearNameFilterTerm($event)"
-  (onClientFilter)="updateClientFilterTerm($event)"
-  (onClearClientFilter)="clearClientFilterTerm($event)"
-   ></app-project-filter>
-  <div class="ui grid projectlist">
-    <app-project [project]="project" *ngFor="let project of projects"></app-project>
-  </div>
+  <div class="ui centered inline text loader" [class.active]="isLoading"></div>
+    <h1 class="projectlist__header">Your projects</h1>
+      <app-project-filter
+      (onNameFilter)="updateNameFilterTerm($event)"
+      (onClearNameFilter)="clearNameFilterTerm($event)"
+      (onClientFilter)="updateClientFilterTerm($event)"
+      (onClearClientFilter)="clearClientFilterTerm($event)"
+      ></app-project-filter>
+        <p *ngIf="projects.length < 1">No projects yet. Try creating a new one.</p>
+        <div class="ui grid projectlist">
+          <app-project [project]="project" *ngFor="let project of projects"></app-project>
+        </div>
   <button class="ui purple button" (click)="openNewProjectModal()">New project</button>
   <button class="ui orange basic button" (click)="openNewClientModal()">New client</button>
   <app-new-client-modal></app-new-client-modal> 

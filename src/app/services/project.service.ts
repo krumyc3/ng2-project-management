@@ -39,9 +39,12 @@ export class ProjectService {
     });
   }
   createProject(newProject: Project) {
+    console.log('create project with user id');
+    console.log(this.store.getState().userState.id);
     const projectHasClient: boolean = newProject.client !== null && newProject.client.id !== '';
     let mutationVariables: any = {
       name: newProject.name,
+      userId: this.store.getState().userState.id,
       description: newProject.description,
     };
     if (projectHasClient) {
@@ -62,14 +65,12 @@ export class ProjectService {
             response.name, response.client || null, response.id, response.description, null, null, null, response.createdAt),
         });
       }
-    }, (error) => {
-      console.log(error);
-    });
+    }, this.handleError);
   }
-
+  handleError(error) {
+    this.notification.error('Error!', error.message);
+  }
   updateProject(updatedProject: Project) {
-    console.log('updated project');
-    console.log(updatedProject);
     this.apollo.mutate({
       mutation: MUpdateProject,
       variables: {
@@ -86,7 +87,7 @@ export class ProjectService {
             new Project(response.name, response.client, response.id, response.description, null, null, null, response.createdAt)
           ));
       }
-    });
+    }, this.handleError);
   }
 
   deleteProject(projectId: String) {
@@ -107,7 +108,6 @@ export class ProjectService {
       query: QProjectDetails,
       variables: {
         id: projectId,
-        userId: this.store.getState().userState.id
       }
     }).subscribe(({data}: any) => {
       const response = data.Project;

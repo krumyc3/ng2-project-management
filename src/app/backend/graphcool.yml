@@ -57,6 +57,19 @@ permissions:
     authenticated: true
   - operation: Client.read
     authenticated: true
+    query: ./src/permissions/Client.author.graphql
+  - operation: ProjectAuthor.connect
+    authenticated: true
+  - operation: Comment.read
+    authenticated: true
+  - operation: Comment.update
+    fields: [likes]
+    authenticated: true
+  - operation: Task.read
+    authenticated: true
+  - operation: Task.update
+    fields: [status]
+    authenticated: true
 
 
 # Your root tokens used for functions to get full access to the API

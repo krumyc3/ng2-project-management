@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular PM';
-  notificationOptions = {
-    timeOut: 2000,
-    position: ['top, right'],
-  };
 }
