@@ -1,0 +1,13 @@
+query permitReadClients(
+  $node_id: ID!,
+  $user_id: ID!
+) {
+  SomeClientExists(
+    filter: {
+      id: $node_id,
+      author: {
+        id: $user_id
+      }
+    }
+  )
+}

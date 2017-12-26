@@ -31,14 +31,21 @@ export class ClientsService {
   }
 
   getClients() {
+    console.log('get clients');
+    console.log(this.store.getState().userState.id);
     this.apollo.query({
-      query: QAllClients
+      query: QAllClients,
+      variables: {
+        userId: this.store.getState().userState.id,
+      }
     }).subscribe(({data}: any) => {
       const response = data.allClients;
       const clientsArray = response.map((clientData: Client) => {
         return new Client(clientData.id, clientData.name);
       });
       this.store.dispatch(this.clientActions.setClients(clientsArray));
+    }, (error) => {
+      this.notifications.error('Error!', error.message);
     });
   }
   getClientDetails(clientId: string) {}

@@ -5,6 +5,7 @@ import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../../../store/initialState';
 import { Subscription } from 'rxjs/Subscription';
 import { ModalsAction, ModalsActions, ModalTypes } from '../../../store/actions/modals.actions';
+import { ClientsService } from '../../../clients.service';
 
 @Component({
   selector: 'app-projectlist',
@@ -16,17 +17,23 @@ export class ProjectlistComponent implements OnInit {
   private nonFilteredProjects: Project[];
   private subscription: Subscription;
   private filterTerm: string;
-  constructor(private ngRedux: NgRedux<InitialAppState>, private modalActions: ModalsActions, private backendService: ProjectService) {
+  isLoading: boolean;
+  // tslint:disable-next-line:max-line-length
+  constructor(private ngRedux: NgRedux<InitialAppState>, private modalActions: ModalsActions, private projectService: ProjectService, private clientService: ClientsService) {
     this.filterTerm = '';
+    this.isLoading = false;
    }
   ngOnInit() {
     this.setUpProjectSubscription();
-    this.backendService.getAllProjects();
+    this.clientService.getClients();
+    this.isLoading = true;
+    this.projectService.getAllProjects();
   }
   setUpProjectSubscription(): any {
     this.subscription = this.ngRedux.select<Project[]>('projectsList').subscribe((projectList) => {
       this.nonFilteredProjects = projectList;
       this.projects = projectList;
+      this.isLoading = false;
     });
   }
 
