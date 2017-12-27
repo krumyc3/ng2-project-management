@@ -31,8 +31,6 @@ export class ClientsService {
   }
 
   getClients() {
-    console.log('get clients');
-    console.log(this.store.getState().userState.id);
     this.apollo.query({
       query: QAllClients,
       variables: {

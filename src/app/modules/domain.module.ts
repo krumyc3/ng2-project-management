@@ -18,12 +18,14 @@ import { CommentActions } from '../store/actions/comment.actions';
 import { ModalsActions } from '../store/actions/modals.actions';
 import { CommentsService } from '../comments.service';
 import { ClientListComponent } from '../components/domain/client-list/client-list.component';
+import { ProjectNameFilterPipe } from '../project-filter.pipe';
+import { ProjectClientPipe } from '../project-client.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     InteractionModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [ProjectService, ProjectActions, TasksService, TaskActions, CommentActions, CommentsService],
   declarations: [
@@ -33,9 +35,11 @@ import { ClientListComponent } from '../components/domain/client-list/client-lis
     CommentComponent,
     ProjectlistComponent,
     SingleProjectViewComponent,
+    ProjectNameFilterPipe,
     TasklistComponent,
     CommentsListComponent,
-    ClientListComponent],
+    ClientListComponent,
+    ProjectClientPipe],
   exports: [ProjectlistComponent, ClientListComponent]
 })
 export class DomainModule { }

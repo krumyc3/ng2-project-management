@@ -14,13 +14,13 @@ import { ClientsService } from '../../../clients.service';
 })
 export class ProjectlistComponent implements OnInit {
   @Input() private projects: Project[];
-  private nonFilteredProjects: Project[];
-  private subscription: Subscription;
-  private filterTerm: string;
+  private projectsSubscription: Subscription;
+  private nameFilterTerm: string;
+  private clientNameFilterTerm: string;
   isLoading: boolean;
   // tslint:disable-next-line:max-line-length
   constructor(private ngRedux: NgRedux<InitialAppState>, private modalActions: ModalsActions, private projectService: ProjectService, private clientService: ClientsService) {
-    this.filterTerm = '';
+    this.nameFilterTerm = '';
     this.isLoading = false;
    }
   ngOnInit() {
@@ -30,40 +30,26 @@ export class ProjectlistComponent implements OnInit {
     this.projectService.getAllProjects();
   }
   setUpProjectSubscription(): any {
-    this.subscription = this.ngRedux.select<Project[]>('projectsList').subscribe((projectList) => {
-      this.nonFilteredProjects = projectList;
+    this.projectsSubscription = this.ngRedux.select<Project[]>('projectsList').subscribe((projectList) => {
       this.projects = projectList;
       this.isLoading = false;
     });
   }
 
   updateNameFilterTerm(nameFromFilter: string) {
-    this.projects = this.projects.filter(project => {
-      return nameFromFilter === '' ? true : project.name.includes(nameFromFilter);
-    });
+    this.nameFilterTerm = nameFromFilter;
   }
 
   clearNameFilterTerm(clear: boolean) {
-    if (clear) {
-      this.projects = JSON.parse(JSON.stringify(this.nonFilteredProjects));
-    }
+    if (clear) this.nameFilterTerm = '';
   }
 
   updateClientFilterTerm(clientName: string) {
-    this.projects = JSON.parse(JSON.stringify(this.nonFilteredProjects));
-    this.projects = this.projects.filter(project => {
-      if (project.client) {
-        return clientName === '' ? true : project.client.name === clientName;
-      } else {
-        return false;
-      }
-    });
+    this.clientNameFilterTerm = clientName;
   }
 
   clearClientFilterTerm(clear: boolean) {
-    if (clear) {
-      this.projects = JSON.parse(JSON.stringify(this.nonFilteredProjects));
-    }
+    if (clear) this.clientNameFilterTerm = '';
   }
   openNewProjectModal() {
     this.ngRedux.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_PROJECT));
@@ -73,6 +59,6 @@ export class ProjectlistComponent implements OnInit {
     this.ngRedux.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_CLIENT));
   }
   onDestroy(): any {
-    this.subscription.unsubscribe();
+    this.projectsSubscription.unsubscribe();
   }
 }

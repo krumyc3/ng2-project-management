@@ -10,11 +10,11 @@
       ></app-project-filter>
         <p *ngIf="projects.length < 1">No projects yet. Try creating a new one.</p>
         <div class="ui grid projectlist">
-          <app-project [project]="project" *ngFor="let project of projects"></app-project>
+          <app-project [project]="project" *ngFor="let project of (projects | projectFilter:nameFilterTerm | projectClient:clientNameFilterTerm)"></app-project>
         </div>
   <button class="ui purple button" (click)="openNewProjectModal()">New project</button>
   <button class="ui orange basic button" (click)="openNewClientModal()">New client</button>
   <app-new-client-modal></app-new-client-modal> 
   <app-new-project-modal></app-new-project-modal>
-   <app-edit-project-modal></app-edit-project-modal>
+  <app-edit-project-modal></app-edit-project-modal>
 </div>
