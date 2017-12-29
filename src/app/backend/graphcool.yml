@@ -69,6 +69,8 @@ permissions:
   - operation: Comment.update
     fields: [likes]
     authenticated: true
+  - operation: Comment.create
+    authenticated: true
   - operation: Task.read
     authenticated: true
   - operation: Task.update

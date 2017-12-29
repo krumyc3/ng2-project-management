@@ -2,9 +2,6 @@
   margin-bottom: 15px !important;
 }
 
-.show-comments {
-  cursor: pointer;
-}
 
 .task__header {
   display: flex;
