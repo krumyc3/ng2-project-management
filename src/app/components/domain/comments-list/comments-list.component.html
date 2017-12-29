@@ -1,6 +1,11 @@
 <div class="comments-list">
-  <div class="ui comments">
-    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+  <div>
+    <span class="show-comments" (click)="toggleComments()">Show {{comments.length }} comments</span>
   </div>
-  <app-comment-form [taskId]="taskId"></app-comment-form>
+  <div *ngIf="commentsActive">
+    <div class="ui comments">
+      <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+    </div>
+    <app-comment-form [taskId]="taskId"></app-comment-form>
+  </div>
 </div>

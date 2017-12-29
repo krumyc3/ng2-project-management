@@ -16,15 +16,17 @@ import { ProjectActions } from '../store/actions/project.actions';
 import { QProjectTasks, QTaskComments } from '../backend/graph.queries';
 import { TaskActions } from '../store/actions/task.actions';
 import { TaskStatuses } from '../enums/task.status.enum';
+import { BaseService } from './base-service';
 
 @Injectable()
-export class TasksService {
+export class TasksService extends BaseService {
   private db: any;
   constructor(
     private apollo: Apollo,
-    private store: NgRedux<InitialAppState>,
-    private notification: NotificationsService,
+    protected store: NgRedux<InitialAppState>,
+    protected notifications: NotificationsService,
   ) {
+    super(notifications, store);
   }
   getProjectTasks(projectId: String) {
     console.log(`get tasks from project ${projectId}`);
@@ -50,18 +52,18 @@ export class TasksService {
     this.apollo.mutate({
       mutation: MDeleteTask,
       variables: {
-        taskId
+        taskId,
       }
     }).subscribe(({data}: any) => {
       const deletedTaskId = data.deleteTask.id;
       this.store.dispatch({
-        type: TaskActions.DELETE_TASK,
-        payload: {
-          taskId: deletedTaskId
-        }
-      });
-      this.notification.success('Success', 'Task deleted');
-    });
+          type: TaskActions.DELETE_TASK,
+          payload: {
+            taskId: deletedTaskId
+          }
+        });
+      this.notifications.success('Success', 'Task deleted');
+      }, this.handleError);
 }
 
   addTaskToProject(projectId: String, task: Task) {
@@ -71,7 +73,8 @@ export class TasksService {
         projectId,
         taskName: task.title,
         taskDescription: task.description,
-        taskDue: task.due
+        taskDue: task.due,
+        userId: this.getLoggedInUserId()
       }
     }).subscribe(({ data }: any) => {
       const response = data.createTask;
@@ -80,8 +83,8 @@ export class TasksService {
         // tslint:disable-next-line:max-line-length
         payload: new Task(response.id, TaskStatuses.NO_STATUS, response.project.id, response.title, response.description, response.due, null, null),
       });
-    });
-    this.notification.success('Success', 'Added task to project');
+      this.notifications.success('Success', 'Added task to project');
+    }, this.handleError);
   }
 
   updateTaskStatus(taskId: string, newTaskStatus: TaskStatuses) {
@@ -94,8 +97,8 @@ export class TasksService {
     }).subscribe(({data}: any) => {
       const response = data.updateTask;
       if (response) {
-        this.notification.success('Success', 'Updated task status');
+        this.notifications.success('Success', 'Updated task status');
       }
-    });
+    }, this.handleError);
   }
 }

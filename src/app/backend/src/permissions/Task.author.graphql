@@ -1,0 +1,13 @@
+query permitDeleteTasks(
+  $node_id: ID!,
+  $user_id: ID!
+) {
+  SomeTaskExists(
+    filter: {
+      id: $node_id,
+      author: {
+        id: $user_id
+      }
+    }
+  )
+}

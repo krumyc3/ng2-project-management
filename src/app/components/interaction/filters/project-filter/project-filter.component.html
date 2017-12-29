@@ -13,9 +13,9 @@
         </div>
         <div class="ui inline field">
           <label for="client-filter">Client</label>
-          <select (change)="submitClientFilter()" [(ngModel)]="selectedClient" name="client-filter" id="client-filter">
-            <option selected value="">All clients</option>
-            <option *ngFor="let client of clients" (value)="client.id">{{ client.name }}</option>
+          <select (change)="submitClientFilter()" [(ngModel)]="selectedClientId" name="client-filter" id="client-filter">
+            <option selected [ngValue]="''">All clients</option>
+            <option *ngFor="let client of clients" [ngValue]="client.id">{{ client.name }}</option>
           </select>
         </div>
 

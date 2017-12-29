@@ -8,6 +8,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Project } from '../../../../models/project';
 import { EditingAction, EditingActions } from '../../../../store/actions/editing.actions';
 import { NotificationsService } from 'angular2-notifications';
+import { Client } from '../../../../models/client';
+import { Subscription } from 'apollo-client/util/Observable';
 
 @Component({
   selector: 'app-edit-project-modal',
@@ -18,8 +20,10 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   modalActions: ModalsActions;
   isOpen: Boolean = false;
   subscription: any;
+  clients: Client[];
+  clientsSubscription: Subscription;
   @Input() project: Project = new Project('', null, '', '', null, [], [], new Date());
-  projectSubscription: any;
+  projectSubscription: Subscription;
   constructor
   (private store: NgRedux<InitialAppState>,
     private projectService: ProjectService,
@@ -38,7 +42,15 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
     });
 
     this.projectSubscription = this.store.select<any>('editingResource').subscribe((editingState) => {
+      console.log('editing state project');
+      console.log(editingState.project);
       this.project = editingState.project;
+    });
+
+    this.clientsSubscription = this.store.select<any>('clientsList').subscribe((clientsList: Client[]) => {
+      console.log('clients list');
+      console.log(clientsList);
+      this.clients = clientsList;
     });
   }
   closeModal(): void {
@@ -47,10 +59,11 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   updateProject() {
     this.projectService.updateProject(JSON.parse(JSON.stringify(this.project)));
     this.closeModal();
-    this.notification.success('Updated', 'Project updated');
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.clientsSubscription.unsubscribe();
+    this.projectSubscription.unsubscribe();
   }
 
 }

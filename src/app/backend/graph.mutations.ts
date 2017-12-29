@@ -44,11 +44,12 @@ export const MCreateProjectWithoutClient = gql`
   }
 `;
 export const MUpdateProject = gql`
-  mutation updateProject($id: ID!, $name: String, $description: String) {
+  mutation updateProject($id: ID!, $name: String, $description: String, $clientId: ID!) {
     updateProject(
       id: $id,
       description: $description,
-      name: $name
+      name: $name,
+      clientId: $clientId
     ) {
       id
       name
@@ -71,12 +72,13 @@ export const MDeleteProject = gql`
 `;
 
 export const MAddTaskToProject = gql`
-  mutation addTaskToProject($projectId: ID!, $taskName: String!, $taskDescription: String!, $taskDue: DateTime) {
+  mutation addTaskToProject($projectId: ID!, $taskName: String!, $taskDescription: String!, $taskDue: DateTime, $userId: ID!) {
     createTask(
       projectId: $projectId,
       title: $taskName,
       description: $taskDescription,
       due: $taskDue
+      authorId: $userId
     ) {
       project {
         id
@@ -147,9 +149,10 @@ export const MUpdateTaskStatus = gql`
 `;
 
 export const MAddClient = gql`
-  mutation addClient($clientName: String!) {
+  mutation addClient($clientName: String!, $userId: ID!) {
     createClient(
-      name: $clientName
+      name: $clientName,
+      authorId: $userId
     ) {
       id
       name

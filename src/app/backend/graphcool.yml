@@ -58,7 +58,11 @@ permissions:
   - operation: Client.read
     authenticated: true
     query: ./src/permissions/Client.author.graphql
+  - operation: Client.create
+    authenticated: true
   - operation: ProjectAuthor.connect
+    authenticated: true
+  - operation: ProjectsOnClient.connect
     authenticated: true
   - operation: Comment.read
     authenticated: true
@@ -69,6 +73,15 @@ permissions:
     authenticated: true
   - operation: Task.update
     fields: [status]
+    authenticated: true
+  - operation: Task.create
+    authenticated: true
+  - operation: Task.delete
+    authenticated: true
+    query: ./src/permissions/Task.author.graphql
+  - operation: TasksOnProject.connect
+    authenticated: true
+  - operation: TaskAuthor.connect
     authenticated: true
 
 

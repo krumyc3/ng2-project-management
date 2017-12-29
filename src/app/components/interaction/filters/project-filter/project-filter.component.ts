@@ -14,10 +14,10 @@ import { OnDestroy } from '@angular/core';
   styleUrls: ['./project-filter.component.css']
 })
 export class ProjectFilterComponent implements OnInit, OnDestroy {
-  filtersVisible: Boolean = false;
+  filtersVisible: Boolean = true;
   projectName: string;
   private clientsSubscription: Subscription = new Subscription();
-  selectedClient: string;
+  selectedClientId: string;
   clients: Client[];
   @Output() onNameFilter: EventEmitter<string> = new EventEmitter<string>();
   @Output() onClearNameFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -30,6 +30,8 @@ export class ProjectFilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.selectedClientId = '';
+    this.submitClientFilter();
     this.fetchAvailableClients();
     this.setUpClientsSubscription();
   }
@@ -66,7 +68,7 @@ export class ProjectFilterComponent implements OnInit, OnDestroy {
     }
   }
   submitClientFilter() {
-    this.onClientFilter.emit(this.selectedClient);
+    this.onClientFilter.emit(this.selectedClientId);
   }
 
   clearFilters() {

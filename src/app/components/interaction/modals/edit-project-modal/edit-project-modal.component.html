@@ -21,7 +21,14 @@
           </app-message>
         </div>
       </div>
-      <div class="field"></div>
+      <div class="field" *ngIf="project.client">
+        <label for="project-client">Client</label>
+        <select [(ngModel)]="project.client.id" name="project-client" id="project-client">
+          <option [ngValue]="client.id" *ngFor="let client of clients">
+            {{ client.name }}
+          </option>
+        </select>
+      </div>
     </form>
   </div>
   <div class="actions">

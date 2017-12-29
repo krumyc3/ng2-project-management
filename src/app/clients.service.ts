@@ -21,13 +21,14 @@ export class ClientsService {
     this.apollo.mutate({
       mutation: MAddClient,
       variables: {
-        clientName: newClient.name
+        clientName: newClient.name,
+        userId: this.store.getState().userState.id
       }
     }).subscribe(({data}: any) => {
       const response = data.createClient;
       this.store.dispatch(this.clientActions.addClient(new Client(response.id, response.name)));
       this.notifications.success('Success', `Created client ${response.name}`);
-    });
+    }, this.handleError.bind(this));
   }
 
   getClients() {
@@ -45,6 +46,10 @@ export class ClientsService {
     }, (error) => {
       this.notifications.error('Error!', error.message);
     });
+  }
+  handleError(error) {
+    this.notifications.error('Error', error.message);
+    console.error(error.message);
   }
   getClientDetails(clientId: string) {}
   deleteClient(clientId: string) {}

@@ -16,7 +16,7 @@ export class ProjectlistComponent implements OnInit {
   @Input() private projects: Project[];
   private projectsSubscription: Subscription;
   private nameFilterTerm: string;
-  private clientNameFilterTerm: string;
+  private clientIdFilterTerm: string;
   isLoading: boolean;
   // tslint:disable-next-line:max-line-length
   constructor(private ngRedux: NgRedux<InitialAppState>, private modalActions: ModalsActions, private projectService: ProjectService, private clientService: ClientsService) {
@@ -45,11 +45,11 @@ export class ProjectlistComponent implements OnInit {
   }
 
   updateClientFilterTerm(clientName: string) {
-    this.clientNameFilterTerm = clientName;
+    this.clientIdFilterTerm = clientName;
   }
 
   clearClientFilterTerm(clear: boolean) {
-    if (clear) this.clientNameFilterTerm = '';
+    if (clear) this.clientIdFilterTerm = '';
   }
   openNewProjectModal() {
     this.ngRedux.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_PROJECT));

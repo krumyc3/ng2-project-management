@@ -6,9 +6,9 @@ import { Project } from './models/project';
 })
 export class ProjectClientPipe implements PipeTransform {
 
-  transform(projects: Project[], clientName: string) {
-    if (clientName !== '') {
-      return projects.filter(project => project.client.name.includes(clientName));
+  transform(projects: Project[], clientId: string) {
+    if (clientId !== '' || clientId !== null) {
+      return projects.filter(project => project.client.id.includes(clientId));
     } return projects;
   }
 

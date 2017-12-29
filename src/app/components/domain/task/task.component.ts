@@ -17,27 +17,13 @@ import { TasksService } from '../../../services/tasks.service';
 })
 export class TaskComponent implements OnInit {
   @Input() task: Task;
-  comments: Comment[];
-  commentsSubscription: Subscription;
   @Output() onDeleteTaskIntent: EventEmitter<Task> = new EventEmitter<Task>();
-  commentsActive = false;
-  constructor(private commentsService: CommentsService, private taskService: TasksService, private store: NgRedux<InitialAppState>) {
-    this.commentsActive = false;
-    this.setUpCommentsSubscription();
+  constructor(private taskService: TasksService, private store: NgRedux<InitialAppState>) {
   }
 
   ngOnInit() {
-    this.commentsService.getTaskComments(this.task.id);
   }
-  toggleComments(): void {
-    console.log('task.component#toggleComments()');
-    this.commentsActive = !this.commentsActive;
-  }
-  setUpCommentsSubscription(): void {
-    this.commentsSubscription = this.store.select('commentsList').subscribe((commentsList: Comment[]) => {
-      this.comments = commentsList.filter(singleComment => singleComment.taskId === this.task.id);
-    });
-  }
+
   taskStatuses() {
     return Task.availableTaskStatuses();
   }
@@ -60,12 +46,8 @@ export class TaskComponent implements OnInit {
       this.taskService.updateTaskStatus(this.task.id, this.task.status);
     }
   }
-  commentsLength(): number {
-    return this.task.comments.length;
-  }
-  hasComments(): boolean {
-    return this.commentsLength() > 0;
-  }
+
+
   deleteTask() {
     this.onDeleteTaskIntent.emit(this.task);
   }
