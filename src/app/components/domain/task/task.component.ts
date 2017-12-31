@@ -4,7 +4,7 @@ import { Task } from '../../../models/task';
 import { Output } from '@angular/core';
 import { CommentsService } from '../../../comments.service';
 import { Subscription } from 'rxjs/Subscription';
-import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
+import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../../../store/initialState';
 import { Comment } from '../../../models/comment';
 import { TaskStatuses } from '../../../enums/task.status.enum';

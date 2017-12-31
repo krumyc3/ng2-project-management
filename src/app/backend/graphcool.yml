@@ -47,10 +47,13 @@ functions:
 # https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez
 permissions:
   - operation: Project.read
-    query: ./src/permissions/Project.owner.graphql
+    # query: ./src/permissions/Project.owner.graphql
     authenticated: true
   - operation: Project.update
     fields: [name, description]
+    authenticated: true
+    query: ./src/permissions/Project.owner.graphql
+  - operation: Project.delete
     authenticated: true
     query: ./src/permissions/Project.owner.graphql
   - operation: Project.create
@@ -65,6 +68,10 @@ permissions:
   - operation: ProjectsOnClient.connect
     authenticated: true
   - operation: Comment.read
+    authenticated: true
+  - operation: CommentAuthor.connect
+    authenticated: true
+  - operation: CommentsOnTask.connect
     authenticated: true
   - operation: Comment.update
     fields: [likes]

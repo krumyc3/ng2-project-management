@@ -10,24 +10,25 @@ import { Project } from '../models/project';
 import { ModalsActions, ModalTypes } from '../store/actions/modals.actions';
 import { Task } from '../models/task';
 import { NotificationsService } from 'angular2-notifications';
+import { BaseService } from './base-service';
 
 @Injectable()
-export class ProjectService {
+export class ProjectService extends BaseService {
   constructor(
-    private store: NgRedux<InitialAppState>,
+    store: NgRedux<InitialAppState>,
     private projectActions: ProjectActions,
     private apollo: Apollo,
-    private notification: NotificationsService,
+    notification: NotificationsService,
     private modalsActions: ModalsActions,
   ) {
+    super(notification, store);
   }
 
   getAllProjects() {
-    
     this.apollo.query({
       query: QAllProjects,
       variables: {
-        user_id: this.store.getState().userState.id
+        user_id: this.getLoggedInUserId()
       }
     }).subscribe(({data}: any) => {
       const projects = data.allProjects.map((project) => {
@@ -43,7 +44,7 @@ export class ProjectService {
     const projectHasClient: boolean = newProject.client !== null && newProject.client.id !== '';
     let mutationVariables: any = {
       name: newProject.name,
-      userId: this.store.getState().userState.id,
+      userId: this.getLoggedInUserId(),
       description: newProject.description,
     };
     if (projectHasClient) {
@@ -66,10 +67,7 @@ export class ProjectService {
       }
     }, this.handleError.bind(this));
   }
-  handleError(error) {
-    console.log(error.message);
-    this.notification.error('Error!', error.message);
-  }
+
   updateProject(updatedProject: Project) {
     console.log('updated project info');
     console.log(updatedProject);
@@ -89,7 +87,7 @@ export class ProjectService {
           this.projectActions.updateProject(
             new Project(response.name, response.client, response.id, response.description, null, null, null, response.createdAt)
           ));
-        this.notification.success('Updated', 'Project updated');
+        this.notifications.success('Updated', 'Project updated');
       }
     }, this.handleError.bind(this));
   }
@@ -105,7 +103,7 @@ export class ProjectService {
         type: ProjectActions.DELETE_PROJECT,
         payload: data.deleteProject.id
       });
-    });
+    }, this.handleError.bind(this));
   }
   getProjectInfo(projectId: String) {
     this.apollo.query({
@@ -119,6 +117,6 @@ export class ProjectService {
         type: ProjectActions.UPDATE_PROJECT,
         payload: response
       });
-    });
+    }, this.handleError.bind(this));
   }
 }

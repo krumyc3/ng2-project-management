@@ -1,13 +1,8 @@
 import gql from 'graphql-tag';
 
 export const QAllProjects = gql`
-      query allProjects($user_id: ID!) {
-        allProjects(
-          filter: {
-            author: {
-              id: $user_id
-            }
-        }) {
+      query allProjects{
+        allProjects{
           id
           name
           description
