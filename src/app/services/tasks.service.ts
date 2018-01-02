@@ -17,6 +17,7 @@ import { QProjectTasks, QTaskComments } from '../backend/graph.queries';
 import { TaskActions } from '../store/actions/task.actions';
 import { TaskStatuses } from '../enums/task.status.enum';
 import { BaseService } from './base-service';
+import { User } from '../models/user';
 
 @Injectable()
 export class TasksService extends BaseService {
@@ -40,7 +41,8 @@ export class TasksService extends BaseService {
       console.log('response');
       console.log(response);
       const projectTasks = response.tasks.map((task) => {
-        return new Task(task.id, task.status, response.id, task.title, task.description, task.due, null, []);
+        // tslint:disable-next-line:max-line-length
+        return new Task(task.id, task.status, response.id, task.title, task.description, task.due, new User('', response.author.email, '', ''), []);
       });
       this.store.dispatch({
         type: TaskActions.SET_PROJECT_TASKS,

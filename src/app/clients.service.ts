@@ -39,6 +39,8 @@ export class ClientsService {
       }
     }).subscribe(({data}: any) => {
       const response = data.allClients;
+      console.log('get clients data');
+      console.log(data);
       const clientsArray = response.map((clientData: Client) => {
         return new Client(clientData.id, clientData.name);
       });

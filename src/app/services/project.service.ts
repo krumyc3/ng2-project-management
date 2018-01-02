@@ -11,6 +11,7 @@ import { ModalsActions, ModalTypes } from '../store/actions/modals.actions';
 import { Task } from '../models/task';
 import { NotificationsService } from 'angular2-notifications';
 import { BaseService } from './base-service';
+import { User } from '../models/user';
 
 @Injectable()
 export class ProjectService extends BaseService {
@@ -32,7 +33,10 @@ export class ProjectService extends BaseService {
       }
     }).subscribe(({data}: any) => {
       const projects = data.allProjects.map((project) => {
-        return new Project(project.name, project.client, project.id, project.description, null, null, null, project.createdAt);
+        console.log('map projects');
+        console.log(project);
+        // tslint:disable-next-line:max-line-length
+        return new Project(project.name, project.client, project.id, project.description, new User('', project.author.email, '', ''), null, null, project.createdAt);
       });
       this.store.dispatch({
         type: ProjectActions.SET_PROJECTS,
@@ -62,7 +66,8 @@ export class ProjectService extends BaseService {
         this.store.dispatch({
           type: ProjectActions.ADD_SINGLE_PROJECT,
           payload: new Project(
-            response.name, response.client || null, response.id, response.description, null, null, null, response.createdAt),
+            // tslint:disable-next-line:max-line-length
+            response.name, response.client || null, response.id, response.description, new User('', response.author.email, '', ''), null, null, response.createdAt),
         });
       }
     }, this.handleError.bind(this));
@@ -80,12 +85,13 @@ export class ProjectService extends BaseService {
         clientId: updatedProject.client.id
       }
     }).subscribe(({data}) => {
-      const response: Project = data.updateProject;
+      const response = data.updateProject;
       if (response) {
         this.store.dispatch(this.modalsActions.closeModal(ModalTypes.EDIT_PROJECT));
         this.store.dispatch(
           this.projectActions.updateProject(
-            new Project(response.name, response.client, response.id, response.description, null, null, null, response.createdAt)
+            // tslint:disable-next-line:max-line-length
+            new Project(response.name, response.client, response.id, response.description, new User('', response.author.email, '', ''), null, null, response.createdAt)
           ));
         this.notifications.success('Updated', 'Project updated');
       }

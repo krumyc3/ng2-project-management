@@ -8,7 +8,7 @@ export class Project {
   id: string;
   createdAt: Date;
   public description: string;
-  private user: User;
+  private author: User;
   client: Client;
   private comments: Array<Comment>;
   tasks: Task[];
@@ -18,7 +18,7 @@ export class Project {
     this.id = id;
     this.client = client;
     this.description = description;
-    this.user = user;
+    this.author = user;
     this.comments = comments;
     this.createdAt = createdAt;
     this.tasks = tasks;

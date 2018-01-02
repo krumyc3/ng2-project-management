@@ -3,8 +3,12 @@
       <h4>
         {{ task.title }}
       </h4>
-     
       <div class="task__actions">
+        <div class="current-status">
+          <div class="ui icon button" (click)="changeTaskStatus(task.status)" [attr.data-tooltip]="task.status" [class.yellow]="task.status === 'In progress'" [class.green]="task.status === 'Completed'">
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
         <button (click)="deleteTask()" class="ui red mini button">
           <i class="trash icon"></i>
           Delete
@@ -14,14 +18,9 @@
     <p>
       {{ task.description }} 
     </p>
-    <div class="current-status">
-      <div class="ui icon button" (click)="changeTaskStatus(task.status)" [attr.data-tooltip]="task.status" [class.yellow]="task.status === 'In progress'" [class.green]="task.status === 'Completed'">
-        <i class="checkmark icon"></i>
-      </div>
-    </div>
-  
+
     <div class="footer">
-      <span>Due date: {{ task.due | date}} </span>
+      Author: {{ task.author.email }}
     </div>
 </div>
 <div class="ui divider">

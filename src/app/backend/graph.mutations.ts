@@ -21,6 +21,9 @@ export const MCreateProject = gql`
         id
         name
       }
+      author {
+        name
+      }
     }
   }
 `;
@@ -114,11 +117,12 @@ export const MDeleteComment = gql`
 `;
 
 export const MAddCommentToTask = gql`
-  mutation addCommentToTask($taskId: ID!, $commentContent: String!) {
+  mutation addCommentToTask($taskId: ID!, $commentContent: String!, $userId: ID!) {
     createComment(
       taskId: $taskId,
       content: $commentContent,
-      likes: 0
+      likes: 0,
+      authorId: $userId
     ) {
       id
       task {
@@ -126,6 +130,9 @@ export const MAddCommentToTask = gql`
       }
       content
       createdAt
+      author {
+        email
+      }
     }
   }
 `;

@@ -7,30 +7,36 @@ import { CommentActions } from './store/actions/comment.actions';
 import { Comment } from './models/comment';
 import { MAddCommentToTask, MLikeComment } from './backend/graph.mutations';
 import { NotificationsService } from 'angular2-notifications';
+import { BaseService } from './services/base-service';
+import { User } from './models/user';
 
 @Injectable()
-export class CommentsService {
+export class CommentsService extends BaseService {
 
   constructor(
     private apollo: Apollo,
-    private store: NgRedux<InitialAppState>,
-    private notifications: NotificationsService,
+    store: NgRedux<InitialAppState>,
+    notifications: NotificationsService,
     private commentActions: CommentActions
-  ) { }
+  ) {
+    super(notifications, store);
+   }
   addCommentToTask(newComment: Comment) {
     this.apollo.mutate({
       mutation: MAddCommentToTask,
       variables: {
         taskId: newComment.taskId,
-        commentContent: newComment.content
+        commentContent: newComment.content,
+        userId: this.getLoggedInUserId()
       },
     }).subscribe(({ data }) => {
-      const response = data.createComment;
+      const comment = data.createComment;
       this.store.dispatch({
         type: CommentActions.ADD_COMMENT,
-        payload: new Comment(response.id, null, response.task.id, response.content, response.likes, response.createdAt),
+        // tslint:disable-next-line:max-line-length
+        payload: new Comment(comment.id, new User('', comment.author.email, '', ''), comment.task.id, comment.content, comment.likes, comment.createdAt),
       });
-    });
+    }, this.handleError.bind(this));
   }
   getTaskComments(taskId: string) {
     this.apollo.query({
@@ -41,13 +47,14 @@ export class CommentsService {
     }).subscribe(({data}: any) => {
       const response = data.Task.comments;
       const taskComments = response.map((comment => {
-        return new Comment(comment.id, null, data.Task.id, comment.content, comment.likes, comment.createdAt);
+        // tslint:disable-next-line:max-line-length
+        return new Comment(comment.id, new User('', comment.author.email, '', ''), data.Task.id, comment.content, comment.likes, comment.createdAt);
       }));
       this.store.dispatch({
         type: CommentActions.ADD_COMMENT,
         payload: taskComments,
       });
-    });
+    }, this.handleError.bind(this));
   }
 
   likeComment(commentId: String, likes: number) {
@@ -61,6 +68,6 @@ export class CommentsService {
       const response = data.updateComment;
       this.store.dispatch(this.commentActions.likeComment(response.id));
       this.notifications.success('Success', 'Comment liked');
-    });
+    }, this.handleError.bind(this));
   }
 }

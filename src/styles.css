@@ -3,4 +3,5 @@
 @import './semantic.min.css';
 body {
   font-family: "Catamaran";
+  padding-top: 80px;
 }

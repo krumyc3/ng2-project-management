@@ -9,7 +9,7 @@ export class Task {
   title: string;
   description: string;
   due: Date;
-  user: User;
+  author: User;
   comments: Comment[];
   constructor(
     id: string, status: TaskStatuses, projectId: string, name: string, description: string, due: Date, user: User, comments: Comment[]) {
@@ -19,7 +19,7 @@ export class Task {
     this.title = name;
     this.description = description;
     this.due = due;
-    this.user = user;
+    this.author = user;
     this.comments = comments;
   }
 

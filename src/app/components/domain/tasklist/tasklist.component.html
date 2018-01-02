@@ -1,5 +1,14 @@
   <h2 class="tasks__header">
-    <span class="tasks__number">{{ tasks.length }} tasks</span>
+    <ng-container *ngIf="tasks.length < 1; else elseTemplate">
+      No tasks yet.
+    </ng-container>
+    <ng-template #elseTemplate>
+      {{ tasks.length }} tasks
+    </ng-template>
+    
+    <span class="tasks__number">
+
+    </span>
     
     <div>
       <button *ngIf="!onlyDescription && tasks.length > 0" (click)="deleteCompleted()" class="ui tiny basic orange button">

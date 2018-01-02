@@ -1,21 +1,23 @@
-<div class="ui secondary menu">
-  <div class="ui container">
-    <div class="left menu">
-      <a class="item" href="/">Angular PM</a>
-    </div>
-    <div class="right menu">
-      <ng-container *ngIf="userIsLoggedIn; else elseTemplate">
-        <div class="item user-profile">
-          {{ loggedInUser.email }}
-        </div>
-        <a href="" routerLink="/logout/" class="item" (click)="logoutUser()">Logout</a>
+<nav class="navigation">
+  <div class="ui secondary menu">
+    <div class="ui container">
+      <div class="left menu">
+        <a class="item" href="/">Angular PM</a>
+      </div>
+      <div class="right menu">
+        <ng-container *ngIf="userIsLoggedIn; else elseTemplate">
+          <div class="item user-profile">
+            {{ loggedInUser.email }}
+          </div>
+          <a href="" routerLink="/logout/" class="item" (click)="logoutUser()">Logout</a>
+          
+        </ng-container>
+        <ng-template #elseTemplate>
+          <a href="" routerLink="/login/" class="item">Login</a>
+        </ng-template>
         
-      </ng-container>
-      <ng-template #elseTemplate>
-        <a href="" routerLink="/login/" class="item">Login</a>
-      </ng-template>
-      
-      <a href="" *ngIf="userIsLoggedIn;" routerLink="/projects/" class="item">Projects</a>
+        <a href="" *ngIf="userIsLoggedIn;" routerLink="/projects/" class="item">Projects</a>
+      </div>
     </div>
   </div>
-</div>
+</nav>

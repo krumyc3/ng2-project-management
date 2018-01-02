@@ -11,6 +11,9 @@ export const QAllProjects = gql`
             id
             name
           }
+          author {
+            email
+          }
         }
       }
     `;
@@ -24,6 +27,9 @@ export const QProjectTasks = gql`
         description
         status
         due
+      }
+      author {
+        email
       }
     }
   }`;
@@ -50,6 +56,9 @@ export const QProjectDetails = gql`
             likes
           }
         }
+        author {
+          email
+        }
       }
     }
 `;
@@ -63,19 +72,16 @@ export const QTaskComments = gql`
         createdAt
         content
         likes
+        author {
+          email
+        }
       }
     }
   }`;
 
 export const QAllClients = gql`
-  query allClients($userId: ID!) {
-    allClients(
-      filter: {
-        author: {
-          id: $userId
-        }
-      }
-    ) {
+  query allClients {
+    allClients {
       id
       name
     }
