@@ -1,6 +1,6 @@
-import { TaskAction, TaskActions } from '../actions/task.actions';
+import { ITaskAction, TaskActions } from '../actions/task.actions';
 
-export function taskReducer(state = [], action: TaskAction) {
+export function taskReducer(state = [], action: ITaskAction) {
   switch (action.type) {
     case TaskActions.SET_PROJECT_TASKS:
       return action.payload;

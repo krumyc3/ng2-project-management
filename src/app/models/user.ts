@@ -1,11 +1,14 @@
+import { UserRole } from '../enums/user-role.enum';
+
 export class User {
   private uid: string;
-  public email: string;
-  private firstName: string;
-  private lastName: string;
-  password: string;
-  constructor(uid: string, email: string, firstName: string, lastName: string) {
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: UserRole;
+  constructor(uid: string, email: string, firstName: string, lastName: string, role: UserRole = UserRole.DEVELOPER) {
     this.uid = uid;
+    this.role = role;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;

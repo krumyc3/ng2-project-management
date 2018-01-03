@@ -48,7 +48,9 @@ type Client @model {
 type User @model {
   # Required system field:
   id: ID! @isUnique # read-only (managed by Graphcool)
-
+  firstName: String! @migrationValue(defaultValue: "Test first name")
+  lastName: String! @migrationValue(defaultValue: "Test last name")
+  role: UserRole @migrationValue(defaultValue: DEVELOPER) 
   # Optional system fields (remove if not needed):
   createdAt: DateTime! # read-only (managed by Graphcool)
   updatedAt: DateTime! # read-only (managed by Graphcool)
@@ -60,4 +62,10 @@ type User @model {
   password: String!
 }
 
-
+enum UserRole {
+  PRODUCT_OWNER
+  PROJECT_MANAGER
+  DEVELOPER
+  DESIGNER
+  QA
+}

@@ -4,7 +4,7 @@ import { Action } from 'redux';
 import { Task } from '../../models/task';
 import { Project } from '../../models/project';
 
-export interface TaskAction {
+export interface ITaskAction {
   type: string;
   payload: any;
 }
@@ -15,19 +15,19 @@ export class TaskActions {
   static ADD_TASK_TO_PROJECT = 'ADD_TASK_TO_PROJECT';
   static DELETE_TASK = 'DELETE_TASK';
 
-  addTaskToProject(projectId: String, task: Task): TaskAction {
+  addTaskToProject(projectId: String, task: Task): ITaskAction {
     return {
       type: TaskActions.ADD_TASK_TO_PROJECT,
       payload: task,
     };
   }
-  setTasks(projectTasks: Project[]): TaskAction {
+  setTasks(projectTasks: Project[]): ITaskAction {
     return {
       type: TaskActions.SET_PROJECT_TASKS,
       payload: projectTasks,
     };
   }
-  deleteTask(taskId: String): TaskAction {
+  deleteTask(taskId: String): ITaskAction {
     return {
       type: TaskActions.DELETE_TASK,
       payload: {
