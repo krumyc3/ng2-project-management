@@ -2,7 +2,7 @@ import { ProjectClientPipe } from './project-client.pipe';
 import { Project } from './models/project';
 import { Client } from './models/client';
 
-fdescribe('ProjectClientPipe', () => {
+describe('ProjectClientPipe', () => {
   let pipe: ProjectClientPipe;
   let mockProjects: Project[] = [];
   const clientFullName = 'John Doe';

@@ -22,13 +22,13 @@ describe('CommentComponent', () => {
 
   beforeEach(() => {
     expectedUser = new User(null, 'some@email.com', 'Łukasz', 'Golec');
-    expectedComment = new Comment(expectedUser, '', 'Pole pole łyse pole', 0);
+    expectedComment = new Comment('', expectedUser, '', '', 0, new Date());
     fixture = TestBed.createComponent(CommentComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement.query(By.css('.comment'));
     el = de.nativeElement;
-    component.content = expectedComment.content;
-    component.author = expectedUser.getFullName();
+    component.comment.content = expectedComment.content;
+    component.comment.author = expectedUser;
     fixture.detectChanges();
   });
   it('should display comment\'s author full name', () => {

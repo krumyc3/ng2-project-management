@@ -190,3 +190,24 @@ export const MLoginUser = gql`
     }
   }
 `;
+
+export const MUpdateUserInfo = gql`
+  mutation updateUser(
+    $userId: ID!,
+    $firstName: String,
+    $lastName: String,
+    $phone: String
+  ) {
+    updateUser(
+      id: $userId,
+      firstName: $firstName,
+      lastName: $lastName,
+      phone: $phone
+    ) {
+      id
+      firstName
+      lastName
+      phone
+    }
+  }
+`;

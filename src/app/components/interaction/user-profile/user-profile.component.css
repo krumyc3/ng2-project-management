@@ -1,0 +1,15 @@
+.user-profile__header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-profile__field {
+  margin-bottom: 20px;
+}
+
+.user-profile {
+  padding: 25px;
+}

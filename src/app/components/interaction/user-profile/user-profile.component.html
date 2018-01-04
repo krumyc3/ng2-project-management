@@ -1,0 +1,51 @@
+<div class="user-profile ui card">
+  <div class="user-profile__header">
+    <h3>Your profile</h3>
+    <button (click)="toggleEditMode()" id="editIcon" class="ui blue button">
+      <i class="icon edit">
+      </i>
+    </button>
+  </div>
+  <div class="field">
+    <p class="user-profile__field">
+      <i class="mail icon"></i> <a [href]="'mailto:' + user.email">{{ user.email }}</a>
+    </p>
+  </div>
+  <div class="field">
+    <p class="user-profile__header">First name</p>
+    <ng-container *ngIf="isEditing === false; else firstNameInput">
+      <p class="user-profile__field user-profile__first-name">{{ user.firstName || 'Unknown' }}</p>
+    </ng-container>
+    <ng-template #firstNameInput>
+      <div class="ui input">
+        <input [(ngModel)]="user.firstName" name="first-name"type="text">
+      </div>
+    </ng-template>
+  </div>
+  <div class="field">
+    <p class="user-profile__header">Last name</p>
+    <ng-container *ngIf="isEditing === false; else lastNameInput">
+      <p class="user-profile__field user-profile__last-name">{{ user.lastName || 'Unknown' }}</p>
+    </ng-container>
+    <ng-template #lastNameInput>
+     <div class="ui input"><input type="text" id="last-name" name="last-name" [(ngModel)]="user.lastName"></div>
+    </ng-template>
+  </div>
+  <div class="field">
+    <p class="user-profile__header">Phone</p>
+      <ng-container *ngIf="isEditing === false; else phoneInput">
+        <p class="user-profile__field user-profile__phone"><i class="phone icon"></i><a [href]="'tel:' + user.phone">{{ user.phone || 'Unknown' }}</a></p>
+      </ng-container>
+      <ng-template #phoneInput>
+        <div class="ui input">
+          <input type="phone" name="phone" [(ngModel)]="user.phone">
+        </div>
+      </ng-template>
+  </div>
+  <button *ngIf="isEditing" class="ui simple button cancel-edit" (click)="cancelEditMode()">
+    Cancel
+  </button>
+  <button *ngIf="isEditing" (click)="updateUserProfile()" class="ui button green">
+    Update
+  </button>
+</div>

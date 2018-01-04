@@ -6,10 +6,12 @@ export class Comment {
   author: User;
   content: string;
   taskId: string;
+  isReply: boolean;
   likes: number;
   createdAt: any;
-  constructor(id: String, user: User, taskId: string, content: string, likes: number, createdAt: any) {
+  constructor(id: String, user: User, taskId: string, content: string, likes: number, createdAt: any, isReply: boolean = false) {
     this.id = id;
+    this.isReply = isReply;
     this.author = user;
     this.taskId = taskId;
     this.content = content;

@@ -13,6 +13,7 @@ import { ProjectFilterComponent } from '../components/interaction/filters/projec
 import { NewClientModalComponent } from '../components/interaction/modals/new-client-modal/new-client-modal.component';
 import { UserFormComponent } from '../components/interaction/user-form/user-form.component';
 import { UserService } from '../services/user.service';
+import { UserProfileComponent } from '../components/interaction/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { UserService } from '../services/user.service';
     EditProjectModalComponent,
     ProjectFilterComponent,
     NewClientModalComponent,
-    UserFormComponent],
+    UserFormComponent,
+    UserProfileComponent],
   exports: [
     NewProjectModalComponent,
     EditProjectModalComponent,

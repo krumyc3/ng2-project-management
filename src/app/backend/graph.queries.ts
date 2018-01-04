@@ -96,3 +96,15 @@ export const QLoggedInUser = gql`
     }
   }
 `;
+
+export const QUserInfo = gql`
+  query userInfo($userId: ID!) {
+    User(
+      id: $userId
+    ) {
+      firstName
+      lastName
+      phone
+      role
+    }
+  }`;

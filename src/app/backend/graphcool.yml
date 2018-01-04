@@ -92,7 +92,14 @@ permissions:
   - operation: User.read
     fields: [email]
     authenticated: true
-
+  - operation: User.read
+    fields: [lastName, firstName, phone, role]
+    authenticated: true
+    query: ./src/permissions/User.own.graphql
+  - operation: User.update
+    fields: [lastName, firstName, phone]
+    authenticated: true
+    query: ./src/permissions/User.own.graphql
 
 # Your root tokens used for functions to get full access to the API
 # Read more here:

@@ -3,6 +3,7 @@ import { ProjectlistComponent } from '../components/domain/projectlist/projectli
 import { SingleProjectViewComponent } from '../components/domain/single-project-view/single-project-view.component';
 import { UserFormComponent } from '../components/interaction/user-form/user-form.component';
 import { LoginGuard } from './login.guard';
+import { UserProfileComponent } from '../components/interaction/user-profile/user-profile.component';
 
 export const appRoutes: Routes = [
   {
@@ -19,6 +20,12 @@ export const appRoutes: Routes = [
     path: 'register',
     component: UserFormComponent,
     pathMatch: 'full',
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    pathMatch: 'full',
+    canActivate: [LoginGuard],
   },
   {
     path: 'projects',

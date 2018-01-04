@@ -67,7 +67,7 @@ export class ProjectService extends BaseService {
           type: ProjectActions.ADD_SINGLE_PROJECT,
           payload: new Project(
             // tslint:disable-next-line:max-line-length
-            response.name, response.client || null, response.id, response.description, new User('', response.author.email, '', ''), null, null, response.createdAt),
+            response.name, response.client || null, response.id, response.description, new User('', response.author.email || '', '', ''), null, null, response.createdAt),
         });
       }
     }, this.handleError.bind(this));

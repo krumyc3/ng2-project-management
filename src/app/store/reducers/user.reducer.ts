@@ -28,6 +28,14 @@ export function userReducer(state: IUserState = InitialUserState, action: UserAc
         email: '',
         token: '',
       };
+    case UserActions.UPDATE_USER_INFO:
+      return {
+        ...state,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        phone: action.payload.phone,
+        role: action.payload.role
+      };
     default:
       return state;
   }
