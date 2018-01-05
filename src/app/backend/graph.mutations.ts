@@ -22,7 +22,9 @@ export const MCreateProject = gql`
         name
       }
       author {
-        name
+        email
+        firstName
+        lastName
       }
     }
   }
@@ -43,6 +45,11 @@ export const MCreateProjectWithoutClient = gql`
       name
       description
       createdAt
+      author {
+        email
+        lastName
+        firstName
+      }
     }
   }
 `;
@@ -90,6 +97,12 @@ export const MAddTaskToProject = gql`
       description
       due
       title
+      author {
+        id
+        email
+        firstName
+        lastName
+      }
     }
   }
 `;

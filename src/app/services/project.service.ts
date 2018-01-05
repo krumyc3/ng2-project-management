@@ -32,15 +32,9 @@ export class ProjectService extends BaseService {
         user_id: this.getLoggedInUserId()
       }
     }).subscribe(({data}: any) => {
-      const projects = data.allProjects.map((project) => {
-        console.log('map projects');
-        console.log(project);
-        // tslint:disable-next-line:max-line-length
-        return new Project(project.name, project.client, project.id, project.description, new User('', project.author.email, '', ''), null, null, project.createdAt);
-      });
       this.store.dispatch({
         type: ProjectActions.SET_PROJECTS,
-        payload: projects,
+        payload: data.allProjects,
       });
     }, this.handleError.bind(this));
   }
@@ -67,7 +61,7 @@ export class ProjectService extends BaseService {
           type: ProjectActions.ADD_SINGLE_PROJECT,
           payload: new Project(
             // tslint:disable-next-line:max-line-length
-            response.name, response.client || null, response.id, response.description, new User('', response.author.email || '', '', ''), null, null, response.createdAt),
+            response.name, response.client || null, response.id, response.description, new User('', response.author.email, response.author.firstName, response.author.lastName, null, ''), null, null, response.createdAt),
         });
       }
     }, this.handleError.bind(this));

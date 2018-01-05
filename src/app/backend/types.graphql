@@ -16,7 +16,7 @@ type Task @model {
   updatedAt: DateTime!
   author: User @relation(name: "TaskAuthor")
   project: Project @relation(name: "TasksOnProject")
-  comments: [Comment!]! @relation(name: "CommentsOnTask")
+  comments: [Comment!]! @relation(name: "TaskComments")
   title: String!
   description: String!
   due: DateTime
@@ -29,7 +29,7 @@ type Comment @model {
   createdAt: DateTime!
   updatedAt: DateTime!
   author: User @relation(name: "CommentAuthor")
-  task: Task @relation(name: "CommentsOnTask")
+  task: Task @relation(name: "TaskComments")
   content: String!
   likes: Int @defaultValue(value: 0)
 }

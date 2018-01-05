@@ -14,7 +14,7 @@ import { OnDestroy } from '@angular/core';
   styleUrls: ['./project-filter.component.css']
 })
 export class ProjectFilterComponent implements OnInit, OnDestroy {
-  filtersVisible: Boolean = true;
+  filtersVisible: boolean;
   projectName: string;
   private clientsSubscription: Subscription = new Subscription();
   selectedClientId: string;
@@ -27,6 +27,7 @@ export class ProjectFilterComponent implements OnInit, OnDestroy {
     private store: NgRedux<InitialAppState>,
     private clientsService: ClientsService) {
     this.projectName = '';
+    this.filtersVisible = false;
   }
 
   ngOnInit() {

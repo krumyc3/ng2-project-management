@@ -12,6 +12,19 @@
     </p>
     <div class="actions">
       <span (click)="likeComment()" class="like-comment" ><i class="icon red like"></i>{{ comment.likes }}</span>
+      <span (click)="toggleReplyForm()"> Reply </span>
+      <form id="reply-form" *ngIf="isReplyActive">
+        <div class="field">
+          <div class="ui input">
+            <input type="text" name="reply" [(ngModel)]="replyText">
+          </div>
+        </div>
+        <div class="field">
+          <button (click)="submitReply()" class="ui green button">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

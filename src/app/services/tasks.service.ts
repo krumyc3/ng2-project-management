@@ -83,7 +83,7 @@ export class TasksService extends BaseService {
       this.store.dispatch({
         type: TaskActions.ADD_TASK_TO_PROJECT,
         // tslint:disable-next-line:max-line-length
-        payload: new Task(response.id, TaskStatuses.NO_STATUS, response.project.id, response.title, response.description, response.due, null, null),
+        payload: new Task(response.id, TaskStatuses.NO_STATUS, response.project.id, response.title, response.description, response.due, new User(response.author.id, response.author.email, response.author.email, response.author.lastName, null, ''), null),
       });
       this.notifications.success('Success', 'Added task to project');
     }, this.handleError);

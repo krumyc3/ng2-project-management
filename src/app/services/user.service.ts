@@ -32,7 +32,7 @@ export class UserService {
         const response = data.authenticateUser;
         console.log('login user data');
         console.log(response);
-        localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_USER, response.id);
+        localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID, response.id);
         localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_TOKEN, response.token);
         this.router.navigateByUrl('/projects').then(() => {
           this.notifications.success('Welcome', `Welcome back ${userEmail}`);
@@ -51,7 +51,7 @@ export class UserService {
       }
     }).subscribe(({data}) => {
       const userToken: string = data.signupUser.token;
-      localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_USER, data.signupUser.id);
+      localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID, data.signupUser.id);
       localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_TOKEN, userToken);
       this.notifications.success('Signed up', 'User signed up');
       this.store.dispatch(this.userActions.signUpUser(data.signupUser.id, '', userToken));
@@ -59,7 +59,7 @@ export class UserService {
   }
   public logoutUser(): void {
     localStorage.removeItem(GLOBAL_CONFIG.GRAPHCOOL_TOKEN);
-    localStorage.removeItem(GLOBAL_CONFIG.GRAPHCOOL_USER);
+    localStorage.removeItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID);
     this.notifications.info('Loggedd out', 'User logged out');
     this.store.dispatch(this.userActions.clearUser());
     this.router.navigateByUrl('/login');

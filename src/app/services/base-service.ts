@@ -2,6 +2,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { Injectable } from '@angular/core';
 import { InitialAppState } from '../store/initialState';
 import { NgRedux } from '@angular-redux/store';
+import { GLOBAL_CONFIG } from '../utils/GLOBAL_CONFIG';
 
 @Injectable()
 export class BaseService {
@@ -14,6 +15,6 @@ export class BaseService {
     console.log(error);
   }
   getLoggedInUserId(): string {
-    return this.store.getState().userState.id;
+    return localStorage.getItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID);
   }
 }

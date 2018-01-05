@@ -12,7 +12,8 @@ export const QAllProjects = gql`
             name
           }
           author {
-            email
+            lastName
+            firstName
           }
         }
       }
@@ -57,7 +58,8 @@ export const QProjectDetails = gql`
           }
         }
         author {
-          email
+          lastName
+          firstName
         }
       }
     }

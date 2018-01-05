@@ -20,12 +20,14 @@ import { CommentsService } from '../comments.service';
 import { ClientListComponent } from '../components/domain/client-list/client-list.component';
 import { ProjectNameFilterPipe } from '../project-filter.pipe';
 import { ProjectClientPipe } from '../project-client.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     InteractionModule,
     RouterModule,
+    FormsModule,
   ],
   providers: [ProjectService, ProjectActions, TasksService, TaskActions, CommentActions, CommentsService],
   declarations: [
