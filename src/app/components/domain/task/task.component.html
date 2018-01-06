@@ -15,12 +15,17 @@
         </button>
       </div>
     </div>
-    <p>
-      {{ task.description }} 
-    </p>
+    <div class="task__details">
+      <p class="task__due">
+        Due {{ task.due | date}}
+      </p>
+      <p class="task__description">
+        {{ task.description}} 
+      </p>
+    </div>
 
     <div class="footer">
-      Author: {{ task.author.email }}
+      Author: {{ task.author.firstName }} {{ task.author.lastName}}
     </div>
 </div>
 <div class="ui divider">

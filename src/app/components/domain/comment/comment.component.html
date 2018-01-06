@@ -1,30 +1,29 @@
-<div class="comment app-comment">
+<div class="comment">
   <div class="content">
-    
     <a class="author">
-      {{ comment.user}}
+      {{ comment.author.firstName }} {{ comment.author.lastName }}
     </a>
     <div class="metadata">
-      <span class="date">{{ comment.createdAt }}</span>
+      <span class="date">{{ comment.createdAt | date }}</span>
     </div>
-    <p class="text">
+    <div class="text">
       {{ comment.content }}
-    </p>
+    </div>
     <div class="actions">
-      <span (click)="likeComment()" class="like-comment" ><i class="icon red like"></i>{{ comment.likes }}</span>
-      <span (click)="toggleReplyForm()"> Reply </span>
+      <span (click)="likeComment()" class="comment__like">
+      <i class="red like icon"></i>{{ comment.likes }}</span>
+      <!-- <span (click)="toggleReplyForm()"> Reply </span>
+
       <form id="reply-form" *ngIf="isReplyActive">
         <div class="field">
-          <div class="ui input">
+          <div class="ui inline input">
             <input type="text" name="reply" [(ngModel)]="replyText">
+            <button (click)="submitReply()" class="ui green button">
+              Submit
+            </button>
           </div>
         </div>
-        <div class="field">
-          <button (click)="submitReply()" class="ui green button">
-            Submit
-          </button>
-        </div>
-      </form>
+      </form> -->
     </div>
   </div>
 </div>

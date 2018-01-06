@@ -9,6 +9,10 @@ import { UserActions } from '../store/actions/user.actions';
 import { Router } from '@angular/router';
 import { QLoggedInUser, QUserInfo } from '../backend/graph.queries';
 import { GLOBAL_CONFIG } from '../utils/GLOBAL_CONFIG';
+import { ProjectAction } from '../store/actions/project.actions';
+import { TaskActions } from '../store/actions/task.actions';
+import { CommentActions } from '../store/actions/comment.actions';
+import { ClientActions } from '../store/actions/client.actions';
 
 @Injectable()
 export class UserService {
@@ -18,6 +22,10 @@ export class UserService {
     private notifications: NotificationsService,
     private apollo: Apollo,
     private userActions: UserActions,
+    private projectActions: ProjectAction,
+    private taskActions: TaskActions,
+    private commentActions: CommentActions,
+    private clientActions: ClientActions,
     private router: Router,
   ) { }
 
@@ -61,8 +69,17 @@ export class UserService {
     localStorage.removeItem(GLOBAL_CONFIG.GRAPHCOOL_TOKEN);
     localStorage.removeItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID);
     this.notifications.info('Loggedd out', 'User logged out');
-    this.store.dispatch(this.userActions.clearUser());
+    this.clearStore();
     this.router.navigateByUrl('/login');
+  }
+
+  public clearStore() {
+    // temporary solution to clearing
+    this.store.dispatch(this.userActions.clearUser());
+    this.store.dispatch(this.projectActions.clearStore());
+    this.store.dispatch(this.clientActions.clearStore());
+    this.store.dispatch(this.taskActions.clearStore());
+    this.store.dispatch(this.commentActions.clearStore());
   }
   public isLoggedIn(): Promise<boolean> {
     return new Promise((resolve, reject) => {

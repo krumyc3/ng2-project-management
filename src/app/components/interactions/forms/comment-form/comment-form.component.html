@@ -9,6 +9,9 @@
       </app-message>
     </div>
     <div class="field">
+      <button type="reset" (click)="closeCommentForm()" class="ui button simple">
+        Cancel
+      </button>
       <button type="submit" [disabled]="!content.valid" class="ui positive button">
         Add comment
       </button>

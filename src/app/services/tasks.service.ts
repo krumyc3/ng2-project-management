@@ -42,7 +42,8 @@ export class TasksService extends BaseService {
       console.log(response);
       const projectTasks = response.tasks.map((task) => {
         // tslint:disable-next-line:max-line-length
-        return new Task(task.id, task.status, response.id, task.title, task.description, task.due, new User('', response.author.email, '', ''), []);
+        const taskAuthor: User = new User('', task.author.email, task.author.firstName, task.author.lastName, null, '');
+        return new Task(task.id, task.status, response.id, task.title, task.description, task.due, taskAuthor, []);
       });
       this.store.dispatch({
         type: TaskActions.SET_PROJECT_TASKS,
@@ -83,7 +84,7 @@ export class TasksService extends BaseService {
       this.store.dispatch({
         type: TaskActions.ADD_TASK_TO_PROJECT,
         // tslint:disable-next-line:max-line-length
-        payload: new Task(response.id, TaskStatuses.NO_STATUS, response.project.id, response.title, response.description, response.due, new User(response.author.id, response.author.email, response.author.email, response.author.lastName, null, ''), null),
+        payload: new Task(response.id, TaskStatuses.NO_STATUS, response.project.id, response.title, response.description, response.due, new User(response.author.id, response.author.email, response.author.firstName, response.author.lastName, null, ''), null),
       });
       this.notifications.success('Success', 'Added task to project');
     }, this.handleError);

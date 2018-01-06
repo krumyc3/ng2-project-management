@@ -20,14 +20,21 @@
             <p>Description is required (at least one character)</p>
           </app-message>
         </div>
+        <div *ngIf="project.client" class="field">
+          <p>Current client</p>
+          <p>{{ project.client.name }}</p>
+        </div>
       </div>
-      <div class="field" *ngIf="project.client">
+      <div class="inline field">
         <label for="project-client">Client</label>
-        <select [(ngModel)]="project.client.id" name="project-client" id="project-client">
+        <select [(ngModel)]="selectedClient.id" name="project-client" id="project-client">
           <option [ngValue]="client.id" *ngFor="let client of clients">
             {{ client.name }}
           </option>
         </select>
+        <button (click)="openNewClientModal()" class="ui button blue">
+          Add new client
+        </button>
       </div>
     </form>
   </div>

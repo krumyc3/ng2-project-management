@@ -1,3 +1,11 @@
 .app-comment .content {
   padding: 10px 0;
 }
+
+.comment {
+  margin-bottom: 25px !important;
+}
+
+.comment__like {
+  margin-right: 25px;
+}

@@ -28,11 +28,12 @@ export const QProjectTasks = gql`
         description
         status
         due
-      }
-      author {
-        email
+        author {
+          lastName
+          firstName
       }
     }
+      }
   }`;
 
 export const QProjectDetails = gql`
@@ -56,6 +57,11 @@ export const QProjectDetails = gql`
             content
             likes
           }
+          author {
+            email
+            firstName
+            lastName
+          }
         }
         author {
           lastName
@@ -76,6 +82,8 @@ export const QTaskComments = gql`
         likes
         author {
           email
+          firstName
+          lastName
         }
       }
     }

@@ -22,7 +22,8 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   subscription: any;
   clients: Client[];
   clientsSubscription: Subscription;
-  @Input() project: Project = new Project('', null, '', '', null, [], [], new Date());
+  @Input() project: Project = new Project('', new Client('0', 'No client'), '', '', null, [], [], new Date());
+  selectedClient: Client = new Client('', '');
   projectSubscription: Subscription;
   constructor
   (private store: NgRedux<InitialAppState>,
@@ -38,7 +39,7 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
 
   setUpSubscriptions(): void {
     this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
-      this.isOpen = status.editProjectModalActive;
+      if (status !== this.isOpen) this.isOpen = status.editProjectModalActive;
     });
 
     this.projectSubscription = this.store.select<any>('editingResource').subscribe((editingState) => {
@@ -57,8 +58,13 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
     this.store.dispatch(this.modalActions.closeModal(ModalTypes.EDIT_PROJECT));
   }
   updateProject() {
+    this.project.client = this.selectedClient;
     this.projectService.updateProject(JSON.parse(JSON.stringify(this.project)));
     this.closeModal();
+  }
+
+  openNewClientModal() {
+    this.store.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_CLIENT));
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

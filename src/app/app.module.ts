@@ -34,9 +34,16 @@ import { userReducer } from './store/reducers/user.reducer';
 import { UserActions } from './store/actions/user.actions';
 import { LoginGuard } from './routing/login.guard';
 import { ApolloLink } from 'apollo-link';
+import { InteractionModule } from './modules/interaction.module';
 
 
-export const appStore: Store<any> = createStore(combineReducers(
+const clearStore = (state, action) => {
+  if (action === 'CLEAR_STORE') {
+    return undefined;
+  }
+  return state;
+};
+const appReducer: Store<InitialAppState> = createStore(combineReducers(
   {
     projectsList: projectReducer,
     tasksList: taskReducer,
@@ -75,6 +82,7 @@ const middlewareLink = new ApolloLink((operation, forward) => {
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     DomainModule,
+    InteractionModule,
     LayoutModule,
     NgReduxModule,
   ],
@@ -84,7 +92,7 @@ const middlewareLink = new ApolloLink((operation, forward) => {
 
 export class AppModule {
   constructor(ngRedux: NgRedux<InitialAppState>, apolloModule: Apollo, httpLink: HttpLink) {
-    ngRedux.provideStore(appStore);
+    ngRedux.provideStore(appReducer);
     apolloModule.create({
       link: middlewareLink.concat(httpLink.create({ uri: 'https://api.graph.cool/simple/v1/cjb2hxa2p1edf0195t7wi8zwo'})),
       cache: new InMemoryCache()

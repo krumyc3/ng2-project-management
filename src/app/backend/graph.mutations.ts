@@ -54,17 +54,23 @@ export const MCreateProjectWithoutClient = gql`
   }
 `;
 export const MUpdateProject = gql`
-  mutation updateProject($id: ID!, $name: String, $description: String, $clientId: ID!) {
+  mutation updateProject($id: ID!, $userId: ID!, $name: String, $description: String, $clientId: ID!) {
     updateProject(
       id: $id,
       description: $description,
       name: $name,
       clientId: $clientId
+      authorId: $userId
     ) {
       id
       name
       description
       createdAt
+      author {
+        id
+        firstName
+        lastName
+      }
       client {
         id
         name
@@ -144,7 +150,8 @@ export const MAddCommentToTask = gql`
       content
       createdAt
       author {
-        email
+        firstName
+        lastName
       }
     }
   }

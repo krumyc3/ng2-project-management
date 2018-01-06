@@ -62,6 +62,8 @@ permissions:
     authenticated: true
   - operation: Client.create
     authenticated: true
+  - operation: ClientAuthor.connect
+    authenticated: true
   - operation: ProjectAuthor.connect
     authenticated: true
   - operation: ProjectsOnClient.connect

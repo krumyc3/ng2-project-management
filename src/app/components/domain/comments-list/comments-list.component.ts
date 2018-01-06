@@ -19,11 +19,12 @@ export class CommentsListComponent implements OnInit, OnDestroy {
   @Input() comments: Comment[];
   commentsSubscription: Subscription;
   commentsActive = false;
-
+  isCommentFormActive: boolean;
   constructor(
     private store: NgRedux<InitialAppState>,
     private commentsService: CommentsService,
   ) {
+    this.isCommentFormActive = false;
     this.commentsActive = false;
 
   }
@@ -36,7 +37,13 @@ export class CommentsListComponent implements OnInit, OnDestroy {
       } else this.comments = [];
     });
   }
+  showCommentForm(): void {
+    this.isCommentFormActive = true;
+  }
 
+  closeCommentForm(shouldClose): void {
+    if (shouldClose) this.isCommentFormActive = false;
+  }
   toggleComments(): void {
     console.log('task.component#toggleComments()');
     this.commentsActive = !this.commentsActive;

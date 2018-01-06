@@ -34,8 +34,9 @@ export class CommentsService extends BaseService {
       this.store.dispatch({
         type: CommentActions.ADD_COMMENT,
         // tslint:disable-next-line:max-line-length
-        payload: new Comment(comment.id, new User('', comment.author.email, '', ''), comment.task.id, comment.content, comment.likes, comment.createdAt),
+        payload: new Comment(comment.id, new User('', '', comment.author.firstName, comment.author.lastName), comment.task.id, comment.content, comment.likes, comment.createdAt),
       });
+      this.notifications.success('Success', 'Comment added');
     }, this.handleError.bind(this));
   }
   getTaskComments(taskId: string) {
@@ -48,7 +49,8 @@ export class CommentsService extends BaseService {
       const response = data.Task.comments;
       const taskComments = response.map((comment => {
         // tslint:disable-next-line:max-line-length
-        return new Comment(comment.id, new User('', comment.author.email, '', ''), data.Task.id, comment.content, comment.likes, comment.createdAt);
+        const commentAuthor = new User('', comment.author.email, comment.author.firstName, comment.author.lastName, null, '');
+        return new Comment(comment.id, commentAuthor, data.Task.id, comment.content, comment.likes, comment.createdAt);
       }));
       this.store.dispatch({
         type: CommentActions.ADD_COMMENT,

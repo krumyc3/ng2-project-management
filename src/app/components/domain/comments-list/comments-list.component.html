@@ -1,11 +1,16 @@
-<div class="comments-list">
-  <div>
-    <span class="show-comments" (click)="toggleComments()">Show {{comments.length }} comments</span>
+<div class="comments-list ui comments">
+  <div class="ui header">
+    <span class="show-comments" (click)="toggleComments()">
+      {{ commentsActive ? 'Hide' : 'Show' }} {{comments.length }} comments</span>
   </div>
   <div *ngIf="commentsActive">
     <div class="ui comments">
       <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     </div>
-    <app-comment-form [taskId]="taskId"></app-comment-form>
+    <app-comment-form (onCloseCommentForm)="closeCommentForm($event)" *ngIf="isCommentFormActive" [taskId]="taskId"></app-comment-form>
+
+    <button *ngIf="!isCommentFormActive" (click)="showCommentForm()" class="ui blue button">
+      Add comment
+    </button>
   </div>
 </div>
