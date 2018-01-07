@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { Task } from '../../models/task';
 
 export interface ProjectAction extends Action {
-  type: any;
-  payload: any;
+  type: string;
+  payload?: any;
 }
 
 
@@ -21,7 +21,8 @@ export class ProjectActions {
   static UPDATE_PROJECT = 'UPDATE_PROJECT';
   static DELETE_PROJECT = 'DELETE_PROJECT';
   static UPDATE_COMMENT_LIKES = 'UPDATE_COMMENT_LIKES';
-  static setProjects(projectsList: Project[]): ProjectAction {
+  static CLEAR_PROJECTS = 'CLEAR';
+  setProjects(projectsList: Project[]): ProjectAction {
     return {
       type: ProjectActions.SET_PROJECTS,
       payload: projectsList
@@ -34,6 +35,11 @@ export class ProjectActions {
     };
   }
 
+  clearProjects(): ProjectAction {
+    return {
+      type: ProjectActions.CLEAR_PROJECTS
+    };
+  }
   updateProject(projectToUpdate: Project): ProjectAction {
     return {
       type: ProjectActions.UPDATE_PROJECT,

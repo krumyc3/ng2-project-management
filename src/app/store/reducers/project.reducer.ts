@@ -20,6 +20,8 @@ export function projectReducer(state = [] , action: any) {
           return singleProject;
         }
       });
+    case ProjectActions.CLEAR_PROJECTS:
+      return state.filter(() => false);
     case ProjectActions.DELETE_PROJECT:
       return state.filter(singleProject => singleProject.id !== action.payload);
     case ProjectActions.UPDATE_COMMENT_LIKES:
