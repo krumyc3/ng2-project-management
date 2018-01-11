@@ -1,7 +1,7 @@
 <div class="comments-list ui comments">
   <div class="ui header">
-    <span class="show-comments" (click)="toggleComments()">
-      {{ commentsActive ? 'Hide' : 'Show' }} {{comments.length }} comments</span>
+    <p class="show-comments" (click)="toggleComments()">
+      {{ commentsActive ? 'Hide' : 'Show' }} {{comments.length }} comments</p>
   </div>
   <div *ngIf="commentsActive">
     <div class="ui comments">

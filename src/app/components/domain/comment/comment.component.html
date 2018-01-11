@@ -4,15 +4,17 @@
       {{ comment.author.firstName }} {{ comment.author.lastName }}
     </a>
     <div class="metadata">
-      <span class="date">{{ comment.createdAt | date }}</span>
+      <span class="date">{{ comment.createdAt }}</span>
     </div>
     <div class="text">
-      {{ comment.content }}
+      <p class="comment__content">
+        {{ comment.content }}
+      </p>
     </div>
     <div class="actions">
-      <span (click)="likeComment()" class="comment__like">
+      <span title="Like comment" (click)="likeComment()" class="comment__like">
       <i class="red like icon"></i>{{ comment.likes }}</span>
-      <span *ngIf="comment.own" (click)="isDeleteCommentModalActive = true" href="" class="comment__delete">Delete</span>
+      <button *ngIf="comment.own" (click)="isDeleteCommentModalActive = true" href="" class="ui basic negative tiny button comment__delete">Delete</button>
       <!-- <span (click)="toggleReplyForm()"> Reply </span>
 
       <form id="reply-form" *ngIf="isReplyActive">
@@ -35,8 +37,8 @@
       <p>Are you sure you want to delete your comment?</p>
     </div>
     <div class="actions">
-      <div class="ui cancel button" (click)="isDeleteCommentModalActive = false">Cancel</div>
-      <div class="ui negative button" (click)="deleteComment()" >Delete</div>
+      <button class="ui cancel button" (click)="isDeleteCommentModalActive = false">Cancel</button>
+      <button class="ui negative button" (click)="deleteComment()" >Delete</button>
     </div>
   </div>
 </div>

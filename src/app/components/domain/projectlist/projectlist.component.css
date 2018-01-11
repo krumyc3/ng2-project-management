@@ -4,4 +4,9 @@
 
 .projectlist {
   margin-top: 50px;
+
+}
+
+.projectlist__actions {
+  padding-bottom: 45px;
 }

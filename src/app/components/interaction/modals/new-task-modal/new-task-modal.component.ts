@@ -17,10 +17,10 @@ import { TaskStatuses } from '../../../../enums/task.status.enum';
 })
 export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy {
   modalActions: ModalsActions;
-  @Input() isOpen: Boolean;
+  @Input() isOpen: boolean;
   @Input() projectId: string;
   private task: Task = new Task('', TaskStatuses.NO_STATUS,  '', '', '', null, null, []);
-  subscription: any;
+  modalSubscription: Subscription;
   routerSubscription: Subscription;
   constructor(
     private store: NgRedux<InitialAppState>, modalActions: ModalsActions,
@@ -29,7 +29,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
     this.modalActions = modalActions;
   }
   ngOnInit() {
-    this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
+    this.modalSubscription = this.store.select<any>('modalsState').subscribe((status) => {
       console.log(status.newTaskModalActive);
       this.isOpen = status.newTaskModalActive;
     });
@@ -42,7 +42,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
     this.store.dispatch(this.modalActions.closeModal(ModalTypes.ADD_NEW_TASK));
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.modalSubscription.unsubscribe();
   }
   createTask() {
     this.task.projectId = this.projectId;

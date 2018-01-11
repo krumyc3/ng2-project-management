@@ -1,4 +1,5 @@
-<div class="ui container">
+<div class="ui centered inline text loader" [class.active]="isLoggingIn"></div>
+<div class="ui container" *ngIf="!isLoggingIn">
   <div class="user-form__headers">
     <p (click)="changeUserFormMode('login')" class="ui header" 
     [class.active]="mode === 'login'"

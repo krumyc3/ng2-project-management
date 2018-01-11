@@ -6,6 +6,7 @@ import { InitialAppState } from '../../../../store/initialState';
 import { IModalState } from '../../../../store/reducers/modals.reducer';
 import { Client } from '../../../../models/client';
 import { ClientsService } from '../../../../clients.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-new-client-modal',
@@ -13,8 +14,8 @@ import { ClientsService } from '../../../../clients.service';
   styleUrls: ['./new-client-modal.component.css']
 })
 export class NewClientModalComponent implements OnInit, ModalInterface {
-  isOpen: Boolean = true;
-  subscription: any;
+  isOpen: boolean;
+  modalSubscription: Subscription;
   modalActions: ModalsActions;
   client: Client = new Client('', '');
   constructor(modalActions: ModalsActions,
@@ -36,7 +37,7 @@ export class NewClientModalComponent implements OnInit, ModalInterface {
     }
   }
   ngOnInit() {
-    this.subscription = this.store.select('modalsState').subscribe((status: IModalState ) => {
+    this.modalSubscription = this.store.select('modalsState').subscribe((status: IModalState ) => {
       this.isOpen = status.newClientModalActive;
     });
   }

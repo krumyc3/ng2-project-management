@@ -9,7 +9,7 @@ import { Project } from '../../../../models/project';
 import { EditingAction, EditingActions } from '../../../../store/actions/editing.actions';
 import { NotificationsService } from 'angular2-notifications';
 import { Client } from '../../../../models/client';
-import { Subscription } from 'apollo-client/util/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-edit-project-modal',
@@ -18,8 +18,8 @@ import { Subscription } from 'apollo-client/util/Observable';
 })
 export class EditProjectModalComponent implements OnInit, ModalInterface, OnDestroy {
   modalActions: ModalsActions;
-  isOpen: Boolean = false;
-  subscription: any;
+  isOpen: boolean;
+  modalSubscription: Subscription;
   clients: Client[];
   clientsSubscription: Subscription;
   @Input() project: Project = new Project('', new Client('0', 'No client'), '', '', null, [], [], new Date());
@@ -38,7 +38,7 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
   }
 
   setUpSubscriptions(): void {
-    this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
+    this.modalSubscription = this.store.select<any>('modalsState').subscribe((status) => {
       if (status !== this.isOpen) this.isOpen = status.editProjectModalActive;
     });
 
@@ -67,7 +67,7 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
     this.store.dispatch(this.modalActions.openModal(ModalTypes.ADD_NEW_CLIENT));
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.modalSubscription.unsubscribe();
     this.clientsSubscription.unsubscribe();
     this.projectSubscription.unsubscribe();
   }

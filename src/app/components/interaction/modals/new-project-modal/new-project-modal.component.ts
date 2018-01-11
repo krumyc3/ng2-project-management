@@ -18,8 +18,8 @@ import { ClientsService } from '../../../../clients.service';
 })
 export class NewProjectModalComponent implements OnInit, ModalInterface {
   modalActions: ModalsActions;
-  @Input() isOpen: Boolean = false;
-  subscription;
+  @Input() isOpen: boolean;
+  modalSubscription;
   clientsSubscription: Subscription;
   selectedClientId: string;
   private clients: Client[];
@@ -32,7 +32,7 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
     this.modalActions = modalActions;
    }
   ngOnInit() {
-    this.subscription = this.store.select<any>('modalsState').subscribe((status) => {
+    this.modalSubscription = this.store.select<any>('modalsState').subscribe((status) => {
       this.isOpen = status.newProjectModalActive;
       if (status.newProjectModalActive === true) {
         // this.clientService.getClients();

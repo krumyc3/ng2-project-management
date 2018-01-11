@@ -3,9 +3,17 @@
 }
 
 .comment {
-  margin-bottom: 25px !important;
+  margin-bottom: 55px !important;
 }
 
 .comment__like {
   margin-right: 25px;
+  cursor: pointer;
+}
+
+.comment__content {
+  margin: 10px 0;
+}
+.author {
+  margin-bottom: 15px;
 }

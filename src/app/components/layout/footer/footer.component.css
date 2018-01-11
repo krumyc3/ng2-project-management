@@ -1,3 +1,14 @@
 .footer-text {
   text-align: right;
 }
+
+footer {
+  background-color: rgb(6, 13, 15);
+  color: white;
+  padding: 20px 0;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+}

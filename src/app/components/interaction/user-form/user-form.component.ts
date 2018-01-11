@@ -16,13 +16,14 @@ enum UserFormMode {
 export class UserFormComponent implements OnInit {
   private userEmail: string;
   private userPassword: string;
+  private isLoggingIn: boolean;
   private mode: UserFormMode = UserFormMode.LOGIN;
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit() {
-
+    this.isLoggingIn = false;
   }
 
   changeUserFormMode(newMode: UserFormMode) {
@@ -33,10 +34,17 @@ export class UserFormComponent implements OnInit {
     return this.userEmail.length > 0 && this.userPassword.length > 0;
   }
   login() {
-    if (this.isUserModelValid()) this.userService.loginUser(this.userEmail, this.userPassword);
+    if (this.isUserModelValid()) {
+      this.userService.loginUser(this.userEmail, this.userPassword);
+    }
   }
   register() {
-    if (this.isUserModelValid()) this.userService.registerUser({email: this.userEmail, password: this.userPassword});
+    if (this.isUserModelValid()) {
+      this.userService.registerUser({
+        email: this.userEmail,
+        password: this.userPassword
+      });
+    }
   }
 
 }

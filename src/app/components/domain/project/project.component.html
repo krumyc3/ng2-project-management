@@ -1,4 +1,4 @@
-<div draggable="true" class="ui project" [class.segment]="!onlyDescription" [class.card]="onlyDescription" >
+<div class="ui project" [class.segment]="!onlyDescription" [class.card]="onlyDescription" >
   <div class="content">
     <div class="header project__header">
       <a class="project__name" href="" routerLink="{{ '/projects/' + project.id }}">{{ project.name }}</a>
@@ -26,7 +26,7 @@
 
       <div class="footer">
         <span class="project__meta project__date">
-          Created by {{ project.author.firstName }} {{ project.author.lastName }} at: {{ project.createdAt | date }}
+          Created by {{ project.author.firstName }} {{ project.author.lastName }} on {{ project.createdAt | date }}
         </span>
       </div>
     </div>

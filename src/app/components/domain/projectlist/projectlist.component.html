@@ -12,7 +12,9 @@
         <div class="ui grid projectlist">
           <app-project [project]="project" *ngFor="let project of (projects | projectFilter:nameFilterTerm | projectClient:clientIdFilterTerm)"></app-project>
         </div>
-  <button class="ui purple button" (click)="openNewProjectModal()">New project</button>
-  <button class="ui orange basic button" (click)="openNewClientModal()">New client</button>
+  <div class="projectlist__actions">
+    <button class="ui purple button" (click)="openNewProjectModal()">New project</button>
+    <button class="ui orange basic button" (click)="openNewClientModal()">New client</button>
+  </div>
 
 </div>
