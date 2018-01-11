@@ -55,7 +55,7 @@ export class ProjectActions {
   }
 
 
-  updateCommentLikes(commentId: String, likes: number): ProjectAction {
+  updateCommentLikes(commentId: string, likes: number): ProjectAction {
     return {
       type: ProjectActions.UPDATE_COMMENT_LIKES,
       payload: {

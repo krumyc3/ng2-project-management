@@ -150,6 +150,7 @@ export const MAddCommentToTask = gql`
       content
       createdAt
       author {
+        id
         firstName
         lastName
       }

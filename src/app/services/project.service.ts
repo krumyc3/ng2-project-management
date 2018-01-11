@@ -96,7 +96,7 @@ export class ProjectService extends BaseService {
     }, this.handleError.bind(this));
   }
 
-  deleteProject(projectId: String) {
+  deleteProject(projectId: string) {
     this.apollo.mutate({
       mutation: MDeleteProject,
       variables: {
@@ -112,7 +112,7 @@ export class ProjectService extends BaseService {
       });
     }, this.handleError.bind(this));
   }
-  getProjectInfo(projectId: String) {
+  getProjectInfo(projectId: string) {
     this.apollo.query({
       query: QProjectDetails,
       variables: {

@@ -5,7 +5,7 @@ import { InitialAppState } from './store/initialState';
 import { QTaskComments } from './backend/graph.queries';
 import { CommentActions } from './store/actions/comment.actions';
 import { Comment } from './models/comment';
-import { MAddCommentToTask, MLikeComment } from './backend/graph.mutations';
+import { MAddCommentToTask, MLikeComment, MDeleteComment } from './backend/graph.mutations';
 import { NotificationsService } from 'angular2-notifications';
 import { BaseService } from './services/base-service';
 import { User } from './models/user';
@@ -34,7 +34,7 @@ export class CommentsService extends BaseService {
       this.store.dispatch({
         type: CommentActions.ADD_COMMENT,
         // tslint:disable-next-line:max-line-length
-        payload: new Comment(comment.id, new User('', '', comment.author.firstName, comment.author.lastName), comment.task.id, comment.content, comment.likes, comment.createdAt),
+        payload: new Comment(comment.id, new User(comment.author.id, '', comment.author.firstName, comment.author.lastName), comment.task.id, comment.content, comment.likes, comment.createdAt),
       });
       this.notifications.success('Success', 'Comment added');
     }, this.handleError.bind(this));
@@ -49,7 +49,7 @@ export class CommentsService extends BaseService {
       const response = data.Task.comments;
       const taskComments = response.map((comment => {
         // tslint:disable-next-line:max-line-length
-        const commentAuthor = new User('', comment.author.email, comment.author.firstName, comment.author.lastName, null, '');
+        const commentAuthor = new User(comment.author.id, comment.author.email, comment.author.firstName, comment.author.lastName, null, '');
         return new Comment(comment.id, commentAuthor, data.Task.id, comment.content, comment.likes, comment.createdAt);
       }));
       this.store.dispatch({
@@ -59,7 +59,7 @@ export class CommentsService extends BaseService {
     }, this.handleError.bind(this));
   }
 
-  likeComment(commentId: String, likes: number) {
+  likeComment(commentId: string, likes: number) {
     this.apollo.mutate({
       mutation: MLikeComment,
       variables: {
@@ -70,6 +70,19 @@ export class CommentsService extends BaseService {
       const response = data.updateComment;
       this.store.dispatch(this.commentActions.likeComment(response.id));
       this.notifications.success('Success', 'Comment liked');
+    }, this.handleError.bind(this));
+  }
+
+  deleteComment(commentId: string) {
+    this.apollo.mutate({
+      mutation: MDeleteComment,
+      variables: {
+        commentId
+      }
+    }).subscribe(({ data}) => {
+      const response = data.deleteComment;
+      this.store.dispatch(this.commentActions.deleteComment(response.id));
+      this.notifications.success('Success', 'Comment deleted!');
     }, this.handleError.bind(this));
   }
 }

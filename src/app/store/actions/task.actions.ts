@@ -15,7 +15,7 @@ export class TaskActions {
   static ADD_TASK_TO_PROJECT = 'ADD_TASK_TO_PROJECT';
   static DELETE_TASK = 'DELETE_TASK';
 
-  addTaskToProject(projectId: String, task: Task): ITaskAction {
+  addTaskToProject(projectId: string, task: Task): ITaskAction {
     return {
       type: TaskActions.ADD_TASK_TO_PROJECT,
       payload: task,
@@ -27,7 +27,7 @@ export class TaskActions {
       payload: projectTasks,
     };
   }
-  deleteTask(taskId: String): ITaskAction {
+  deleteTask(taskId: string): ITaskAction {
     return {
       type: TaskActions.DELETE_TASK,
       payload: {

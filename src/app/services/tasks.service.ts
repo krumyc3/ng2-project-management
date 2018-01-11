@@ -29,7 +29,7 @@ export class TasksService extends BaseService {
   ) {
     super(notifications, store);
   }
-  getProjectTasks(projectId: String) {
+  getProjectTasks(projectId: string) {
     console.log(`get tasks from project ${projectId}`);
     this.apollo.query({
       query: QProjectTasks,
@@ -51,7 +51,7 @@ export class TasksService extends BaseService {
       });
     });
   }
-  deleteTask(taskId: String) {
+  deleteTask(taskId: string) {
     this.apollo.mutate({
       mutation: MDeleteTask,
       variables: {
@@ -69,7 +69,7 @@ export class TasksService extends BaseService {
       }, this.handleError);
 }
 
-  addTaskToProject(projectId: String, task: Task) {
+  addTaskToProject(projectId: string, task: Task) {
     this.apollo.mutate({
       mutation: MAddTaskToProject,
       variables: {

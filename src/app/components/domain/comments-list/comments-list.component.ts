@@ -8,6 +8,7 @@ import { Subscribable, Observable } from 'rxjs/Observable';
 import { Subscription } from 'apollo-client/util/Observable';
 import { Comment } from '../../../models/comment';
 import { CommentsService } from '../../../comments.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-comments-list',
@@ -22,6 +23,7 @@ export class CommentsListComponent implements OnInit, OnDestroy {
   isCommentFormActive: boolean;
   constructor(
     private store: NgRedux<InitialAppState>,
+    private userService: UserService,
     private commentsService: CommentsService,
   ) {
     this.isCommentFormActive = false;
@@ -33,7 +35,16 @@ export class CommentsListComponent implements OnInit, OnDestroy {
     this.commentsSubscription = this.store.select('commentsList').subscribe((commentsList: Comment[]) => {
       console.log('task in set up comments sub');
       if (commentsList.length > 0) {
-        this.comments = commentsList.filter(singleComment => singleComment.taskId === this.taskId);
+        this.comments = commentsList
+          .filter(singleComment => singleComment.taskId === this.taskId)
+          .map((singleComment) => {
+            if (this.userService.getLoggedInUserId() === singleComment.author.id) {
+              return {
+                ...singleComment,
+                own: true
+              };
+            } else return singleComment;
+          });
       } else this.comments = [];
     });
   }

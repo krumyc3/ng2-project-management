@@ -70,6 +70,8 @@ permissions:
     authenticated: true
   - operation: Comment.create
     authenticated: true
+  - operation: Comment.delete
+    autheticated: true
   - operation: Comment.read
     authenticated: true
   - operation: CommentAuthor.connect

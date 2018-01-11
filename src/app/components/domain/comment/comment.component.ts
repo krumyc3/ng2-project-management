@@ -14,12 +14,14 @@ export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   isReplyActive: boolean;
   replyText: string;
+  isDeleteCommentModalActive: boolean;
   constructor(
     private notifications: NotificationsService,
     private commentService: CommentsService) { }
 
   ngOnInit() {
     this.isReplyActive = false;
+    this.isDeleteCommentModalActive = false;
   }
   toggleReplyForm() {
     this.isReplyActive = !this.isReplyActive;
@@ -33,4 +35,7 @@ export class CommentComponent implements OnInit {
     this.commentService.likeComment(this.comment.id, this.comment.likes);
   }
 
+  deleteComment() {
+    this.commentService.deleteComment(this.comment.id);
+  }
 }

@@ -40,7 +40,7 @@ export class SingleProjectViewComponent implements OnInit, OnDestroy {
      this.project = foundProject;
     });
   }
-  getProjectDetails(projectId: String) {
+  getProjectDetails(projectId: string) {
     this.projectService.getProjectInfo(projectId);
     this.taskService.getProjectTasks(projectId);
   }

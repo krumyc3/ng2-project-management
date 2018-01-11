@@ -9,6 +9,8 @@ export function commentReducer(state = [], action: CommentAction) {
       return [...state, ...action.payload];
     case CommentActions.CLEAR_COMMENTS:
       return [...state.filter(val => false)];
+    case CommentActions.DELETE_COMMENT:
+      return [...state.filter((comment: Comment) => comment.id !== action.payload.commentId)];
     case CommentActions.LIKE_COMMENT:
       return [...state.map((comment: Comment) => {
         if (comment.id === action.payload) {

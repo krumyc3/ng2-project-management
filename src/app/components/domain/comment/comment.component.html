@@ -12,6 +12,7 @@
     <div class="actions">
       <span (click)="likeComment()" class="comment__like">
       <i class="red like icon"></i>{{ comment.likes }}</span>
+      <span *ngIf="comment.own" (click)="isDeleteCommentModalActive = true" href="" class="comment__delete">Delete</span>
       <!-- <span (click)="toggleReplyForm()"> Reply </span>
 
       <form id="reply-form" *ngIf="isReplyActive">
@@ -24,6 +25,18 @@
           </div>
         </div>
       </form> -->
+    </div>
+  </div>
+  <div class="ui small modal" [class.active]="isDeleteCommentModalActive">
+    <div class="header">
+      Delete comment
+    </div>
+    <div class="content">
+      <p>Are you sure you want to delete your comment?</p>
+    </div>
+    <div class="actions">
+      <div class="ui cancel button" (click)="isDeleteCommentModalActive = false">Cancel</div>
+      <div class="ui negative button" (click)="deleteComment()" >Delete</div>
     </div>
   </div>
 </div>

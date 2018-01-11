@@ -13,18 +13,21 @@ import { ProjectAction, ProjectActions } from '../store/actions/project.actions'
 import { TaskActions } from '../store/actions/task.actions';
 import { CommentActions } from '../store/actions/comment.actions';
 import { ClientActions } from '../store/actions/client.actions';
+import { BaseService } from './base-service';
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseService{
 
   constructor(
-    private store: NgRedux<InitialAppState>,
-    private notifications: NotificationsService,
+    store: NgRedux<InitialAppState>,
+    notifications: NotificationsService,
     private apollo: Apollo,
     private userActions: UserActions,
     private projectActions: ProjectActions,
     private router: Router,
-  ) { }
+  ) {
+    super(notifications, store);
+  }
 
   loginUser(userEmail: string, userPassword: string) {
       this.apollo.mutate({
@@ -43,9 +46,6 @@ export class UserService {
           this.notifications.success('Welcome', `Welcome back ${userEmail}`);
         });
       }, this.handleError.bind(this));
-  }
-  handleError(error) {
-    this.notifications.error('Error!', error.message);
   }
   registerUser(user) {
     this.apollo.mutate({
