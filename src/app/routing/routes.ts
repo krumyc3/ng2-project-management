@@ -4,6 +4,7 @@ import { SingleProjectViewComponent } from '../components/domain/single-project-
 import { UserFormComponent } from '../components/interaction/user-form/user-form.component';
 import { LoginGuard } from './login.guard';
 import { UserProfileComponent } from '../components/interaction/user-profile/user-profile.component';
+import { ClientListComponent } from '../components/domain/client-list/client-list.component';
 
 export const appRoutes: Routes = [
   {
@@ -19,6 +20,11 @@ export const appRoutes: Routes = [
   {
     path: 'register',
     component: UserFormComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'clients',
+    component: ClientListComponent,
     pathMatch: 'full',
   },
   {

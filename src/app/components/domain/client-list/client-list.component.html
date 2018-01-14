@@ -1,5 +1,11 @@
-<div class="ui list">
-  <div *ngFor="let client of clients" class="item">
-    {{ client.name }}
+<div class="ui container">
+  <h3>Clients</h3>
+  <div class="ui list">
+    <div *ngFor="let client of clients" class="item">
+      {{ client.name }}
+    </div>
+  </div>
+  <div>
+    <button class="ui blue button" (click)="openNewClientModal()">Add new client</button>
   </div>
 </div>

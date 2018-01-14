@@ -1,9 +1,10 @@
-<div class="user-profile ui card">
+<h3>Your profile</h3>
+<div class="user-profile">
   <div class="user-profile__header">
-    <h3>Your profile</h3>
-    <button (click)="toggleEditMode()" id="editIcon" class="ui blue button">
+    <button *ngIf="!isEditing" (click)="toggleEditMode()" id="editIcon" class="ui blue button">
       <i class="icon edit">
       </i>
+      Edit
     </button>
   </div>
   <div class="field">

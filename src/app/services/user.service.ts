@@ -16,7 +16,7 @@ import { ClientActions } from '../store/actions/client.actions';
 import { BaseService } from './base-service';
 
 @Injectable()
-export class UserService extends BaseService{
+export class UserService extends BaseService {
 
   constructor(
     store: NgRedux<InitialAppState>,
@@ -81,7 +81,6 @@ export class UserService extends BaseService{
           query: QLoggedInUser,
           fetchPolicy: 'network-only',
         }).subscribe(({data}: any) => {
-          console.log('is logged in data');
           console.log(data);
           const isUserLoggedIn = data.loggedInUser !== null && data.loggedInUser.id !== '';
           if (isUserLoggedIn) {

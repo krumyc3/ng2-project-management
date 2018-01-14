@@ -6,9 +6,8 @@
       </div>
       <div class="right menu">
         <ng-container *ngIf="userIsLoggedIn; else elseTemplate">
-          <div class="item user-profile">
-            <a href="" routerLink="/profile">{{ loggedInUser.email }}</a>
-          </div>
+            <a href="" class="item" routerLink="/profile">{{ loggedInUser.email }}</a>
+            <a href="" class="item" routerLink="/clients">Clients</a>
           <a href="" routerLink="/logout/" class="item" (click)="logoutUser()">Logout</a>
           
         </ng-container>
