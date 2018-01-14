@@ -10,13 +10,16 @@ export class Task {
   description: string;
   due: Date;
   author: User;
+  // assignee: User;
   comments: Comment[];
   constructor(
+    // tslint:disable-next-line:max-line-length
     id: string, status: TaskStatuses, projectId: string, name: string, description: string, due: Date, user: User, comments: Comment[]) {
     this.id = id;
     this.status = status;
     this.projectId = projectId;
     this.title = name;
+    // this.assignee = assignee;
     this.description = description;
     this.due = due;
     this.author = user;

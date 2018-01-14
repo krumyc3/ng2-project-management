@@ -19,7 +19,7 @@
       <p class="task__due">
         Due {{ task.due | date}}
       </p>
-      <p class="task__description">
+      <p *ngIf="task.description" class="task__description">
         {{ task.description}} 
       </p>
     </div>

@@ -53,7 +53,7 @@ export class CommentsService extends BaseService {
         return new Comment(comment.id, commentAuthor, data.Task.id, comment.content, comment.likes, comment.createdAt);
       }));
       this.store.dispatch({
-        type: CommentActions.ADD_COMMENT,
+        type: CommentActions.SET_COMMENTS,
         payload: taskComments,
       });
     }, this.handleError.bind(this));
