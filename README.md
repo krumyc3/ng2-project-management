@@ -29,23 +29,23 @@ $ ng serve *or* ng build
 ```
 
 ## Current basic features
-[x] Projects
-[x] Tasks
-[x] Comments
-[x] Clients
-[x] Notification
-[x] Logging in to one of the test accounts
+- [x] Projects
+- [x] Tasks
+- [x] Comments
+- [x] Clients
+- [x] Notification
+- [x] Logging in to one of the test accounts
 
 ## Upcoming features
-[ ] Tasks priority
-[ ] Registering
-[ ] Your tasks
-[ ] Replying to comments
-[ ] Editing clients
-[ ] Editing own comments
-[ ] Assigning users to projects
-[ ] Exporting data to .pdf / json
-[ ] Some other extra features
+- [ ] Tasks priority
+- [ ] Registering
+- [ ] Your tasks
+- [ ] Replying to comments
+- [ ] Editing clients
+- [ ] Editing own comments
+- [ ] Assigning users to projects
+- [ ] Exporting data to .pdf / json
+- [ ] Some other extra features
 
 
 ## Angular CLI
