@@ -26,6 +26,7 @@ export const appRoutes: Routes = [
     path: 'clients',
     component: ClientListComponent,
     pathMatch: 'full',
+    canActivate: [LoginGuard],
   },
   {
     path: 'profile',

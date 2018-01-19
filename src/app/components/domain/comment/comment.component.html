@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="actions">
-      <span title="Like comment" (click)="likeComment()" class="comment__like">
+      <span *ngIf="!comment.own" title="Like comment" (click)="likeComment()" class="comment__like">
       <i class="red like icon"></i>{{ comment.likes }}</span>
       <button *ngIf="comment.own" (click)="isDeleteCommentModalActive = true" href="" class="ui basic negative tiny button comment__delete">Delete</button>
       <!-- <span (click)="toggleReplyForm()"> Reply </span>

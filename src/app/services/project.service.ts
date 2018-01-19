@@ -10,41 +10,39 @@ import { Project } from '../models/project';
 import { ModalsActions, ModalTypes } from '../store/actions/modals.actions';
 import { Task } from '../models/task';
 import { NotificationsService } from 'angular2-notifications';
-import { BaseService } from './base-service';
+import { UtilsService } from './base-service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class ProjectService extends BaseService {
+export class ProjectService {
   constructor(
-    store: NgRedux<InitialAppState>,
     private projectActions: ProjectActions,
     private apollo: Apollo,
-    notification: NotificationsService,
+    private utils: UtilsService,
     private modalsActions: ModalsActions,
     private router: Router
   ) {
-    super(notification, store);
   }
 
   getAllProjects() {
     this.apollo.query({
       query: QAllProjects,
       variables: {
-        user_id: this.getLoggedInUserId()
+        user_id: this.utils.getLoggedInUserId()
       }
     }).subscribe(({data}: any) => {
-      this.store.dispatch({
+      this.utils.store.dispatch({
         type: ProjectActions.SET_PROJECTS,
         payload: data.allProjects,
       });
-    }, this.handleError.bind(this));
+    }, this.utils.handleError.bind(this));
   }
   createProject(newProject: Project) {
     const projectHasClient: boolean = newProject.client !== null && newProject.client.id !== '';
     let mutationVariables: any = {
       name: newProject.name,
-      userId: this.getLoggedInUserId(),
+      userId: this.utils.getLoggedInUserId(),
       description: newProject.description,
     };
     if (projectHasClient) {
@@ -59,15 +57,15 @@ export class ProjectService extends BaseService {
     }).subscribe(({ data }) => {
       const response = data.createProject;
       if (response) {
-        this.store.dispatch({
+        this.utils.store.dispatch({
           type: ProjectActions.ADD_SINGLE_PROJECT,
           payload: new Project(
             // tslint:disable-next-line:max-line-length
             response.name, response.client || null, response.id, response.description, new User('', response.author.email, response.author.firstName, response.author.lastName, null, ''), null, null, response.createdAt),
         });
-        this.notifications.success('Created', `Project ${response.name} created`);
+       this.utils.notifications.success('Created', `Project ${response.name} created`);
       }
-    }, this.handleError.bind(this));
+    }, this.utils.handleError.bind(this));
   }
 
   updateProject(updatedProject: Project) {
@@ -77,7 +75,7 @@ export class ProjectService extends BaseService {
       mutation: MUpdateProject,
       variables: {
         id: updatedProject.id,
-        userId: this.getLoggedInUserId(),
+        userId: this.utils.getLoggedInUserId(),
         name: updatedProject.name,
         description: updatedProject.description,
         clientId: updatedProject.client.id
@@ -85,15 +83,15 @@ export class ProjectService extends BaseService {
     }).subscribe(({data}) => {
       const response = data.updateProject;
       if (response) {
-        this.store.dispatch(this.modalsActions.closeModal(ModalTypes.EDIT_PROJECT));
-        this.store.dispatch(
+        this.utils.store.dispatch(this.modalsActions.closeModal(ModalTypes.EDIT_PROJECT));
+        this.utils.store.dispatch(
           this.projectActions.updateProject(
             // tslint:disable-next-line:max-line-length
             new Project(response.name, response.client, response.id, response.description, new User(response.author.id, '', response.author.firstName, response.author.lastName), null, null, response.createdAt)
           ));
-        this.notifications.success('Updated', 'Project updated');
+       this.utils.notifications.success('Updated', 'Project updated');
       }
-    }, this.handleError.bind(this));
+    }, this.utils.handleError.bind(this));
   }
 
   deleteProject(projectId: string) {
@@ -103,14 +101,16 @@ export class ProjectService extends BaseService {
         id: projectId
       }
     }).subscribe(({data}: any) => {
-      this.store.dispatch({
+      this.utils.store.dispatch({
         type: ProjectActions.DELETE_PROJECT,
         payload: data.deleteProject.id
       });
-      this.router.navigateByUrl('/projects').then(() => {
-        this.getAllProjects();
-      });
-    }, this.handleError.bind(this));
+      if (this.router.url !== '/projects') {
+        this.router.navigateByUrl('/projects').then(() => {
+          this.getAllProjects();
+        });
+      }
+    }, this.utils.handleError.bind(this));
   }
   getProjectInfo(projectId: string) {
     this.apollo.query({
@@ -122,10 +122,10 @@ export class ProjectService extends BaseService {
       const response = data.Project;
       console.log('get project info');
       console.log(response);
-      this.store.dispatch({
+      this.utils.store.dispatch({
         type: ProjectActions.UPDATE_PROJECT,
         payload: response
       });
-    }, this.handleError.bind(this));
+    }, this.utils.handleError.bind(this));
   }
 }

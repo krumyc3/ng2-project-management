@@ -14,13 +14,16 @@ import { NewClientModalComponent } from '../components/interaction/modals/new-cl
 import { UserFormComponent } from '../components/interaction/user-form/user-form.component';
 import { UserService } from '../services/user.service';
 import { UserProfileComponent } from '../components/interaction/user-profile/user-profile.component';
+import { SpinnerComponent } from '../components/interaction/spinner/spinner.component';
+import { SpinnerService } from '../services/spinner.service';
+import { SpinnerActions } from '../store/actions/spinner.actions';
 
 
 @NgModule({
   imports: [
     CommonModule, FormsModule
   ],
-  providers: [ModalsActions, EditingActions, UserService],
+  providers: [ModalsActions, EditingActions, UserService, SpinnerService, SpinnerActions],
   declarations: [
     NewProjectModalComponent,
     MessageComponent,
@@ -30,7 +33,8 @@ import { UserProfileComponent } from '../components/interaction/user-profile/use
     ProjectFilterComponent,
     NewClientModalComponent,
     UserFormComponent,
-    UserProfileComponent],
+    UserProfileComponent,
+    SpinnerComponent],
   exports: [
     NewProjectModalComponent,
     EditProjectModalComponent,
@@ -38,7 +42,8 @@ import { UserProfileComponent } from '../components/interaction/user-profile/use
     CommentFormComponent,
     ProjectFilterComponent,
     NewClientModalComponent,
-    UserFormComponent
+    UserFormComponent,
+    SpinnerComponent
   ]
 })
 export class InteractionModule { }

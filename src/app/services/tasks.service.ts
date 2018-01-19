@@ -16,18 +16,18 @@ import { ProjectActions } from '../store/actions/project.actions';
 import { QProjectTasks, QTaskComments } from '../backend/graph.queries';
 import { TaskActions } from '../store/actions/task.actions';
 import { TaskStatuses } from '../enums/task.status.enum';
-import { BaseService } from './base-service';
+import { UtilsService } from './base-service';
 import { User } from '../models/user';
 
 @Injectable()
-export class TasksService extends BaseService {
+export class TasksService {
   private db: any;
   constructor(
     private apollo: Apollo,
     protected store: NgRedux<InitialAppState>,
+    private utils: UtilsService,
     protected notifications: NotificationsService,
   ) {
-    super(notifications, store);
   }
   getProjectTasks(projectId: string) {
     console.log(`get tasks from project ${projectId}`);
@@ -66,7 +66,7 @@ export class TasksService extends BaseService {
           }
         });
       this.notifications.success('Success', 'Task deleted');
-      }, this.handleError);
+      }, this.utils.handleError);
 }
 
   addTaskToProject(projectId: string, task: Task) {
@@ -77,7 +77,7 @@ export class TasksService extends BaseService {
         taskName: task.title,
         taskDescription: task.description,
         taskDue: task.due,
-        userId: this.getLoggedInUserId()
+        userId: this.utils.getLoggedInUserId()
       }
     }).subscribe(({ data }: any) => {
       const response = data.createTask;
@@ -87,7 +87,7 @@ export class TasksService extends BaseService {
         payload: new Task(response.id, TaskStatuses.NO_STATUS, response.project.id, response.title, response.description, response.due, new User(response.author.id, response.author.email, response.author.firstName, response.author.lastName, null, ''), null),
       });
       this.notifications.success('Success', 'Added task to project');
-    }, this.handleError);
+    }, this.utils.handleError);
   }
 
   updateTaskStatus(taskId: string, newTaskStatus: TaskStatuses) {
@@ -102,6 +102,6 @@ export class TasksService extends BaseService {
       if (response) {
         this.notifications.success('Success', 'Updated task status');
       }
-    }, this.handleError);
+    }, this.utils.handleError);
   }
 }

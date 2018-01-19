@@ -189,12 +189,16 @@ export const MAddClient = gql`
 `;
 
 export const MRegisterUser = gql`
-  mutation SignupUser($email: String!, $password: String!) {
+  mutation SignupUser($email: String!, $firstName: String!, $lastName: String!, $password: String!) {
     signupUser(
       email: $email,
+      firstName: $firstName,
+      lastName: $lastName,
       password: $password
     ) {
       id
+      firstName
+      lastName
       token
     }
   }

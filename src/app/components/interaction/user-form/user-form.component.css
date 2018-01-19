@@ -1,18 +1,10 @@
-.user-form__headers {
-  display: flex;
-  justify-content: flex-start;
-  align-items: baseline;
-  margin-top: 50px;
-}
-
-.header {
-  margin-right: 50px;
-  cursor: pointer;
-  color: #888;
-}
-
-.user-form {
-  padding: 50px 0;
+.user-form__container {
+  padding: 15px;
+  min-height: 300px;
+  width: 400px;
+  margin: 0 auto;
+  margin-bottom: 80px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .16);
 }
 .header.active {
   text-decoration: underline;

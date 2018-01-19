@@ -11,7 +11,7 @@ export class LoginGuard implements CanActivate {
 
   canActivate(): Promise<boolean> {
     return this.userService.isLoggedIn().then((status: boolean) => {
-      if (status === true) {
+      if (status) {
         return true;
       } else {
         this.router.navigateByUrl('/login');

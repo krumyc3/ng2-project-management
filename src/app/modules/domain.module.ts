@@ -21,6 +21,7 @@ import { ClientListComponent } from '../components/domain/client-list/client-lis
 import { ProjectNameFilterPipe } from '../project-filter.pipe';
 import { ProjectClientPipe } from '../project-client.pipe';
 import { FormsModule } from '@angular/forms';
+import { UtilsService } from '../services/base-service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
   ],
-  providers: [ProjectService, ProjectActions, TasksService, TaskActions, CommentActions, CommentsService],
+  providers: [ProjectService, ProjectActions, TasksService, TaskActions, CommentActions, UtilsService, CommentsService],
   declarations: [
     ProjectComponent,
     TaskComponent,

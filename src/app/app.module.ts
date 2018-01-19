@@ -35,6 +35,8 @@ import { UserActions } from './store/actions/user.actions';
 import { LoginGuard } from './routing/login.guard';
 import { ApolloLink } from 'apollo-link';
 import { InteractionModule } from './modules/interaction.module';
+import { spinnerReducer } from './store/reducers/spinner.reducer';
+import { UtilsService } from './services/base-service';
 
 
 const clearStore = (state, action) => {
@@ -52,6 +54,7 @@ const appReducer: Store<InitialAppState> = createStore(combineReducers(
     userState: userReducer,
     editingResource: editingReducer,
     clientsList: clientReducer,
+    spinner: spinnerReducer
   }
 ), INITIAL_STATE, applyMiddleware(createLogger()));
 
@@ -67,7 +70,7 @@ const middlewareLink = new ApolloLink((operation, forward) => {
   declarations: [
     AppComponent,
   ],
-  providers: [HttpLink, ClientsService, ClientActions, NotificationsService, UserService, UserActions, LoginGuard],
+  providers: [HttpLink, ClientsService, ClientActions, NotificationsService, UserService, UserActions, UtilsService, LoginGuard],
   imports: [
     RouterModule.forRoot(
       appRoutes,

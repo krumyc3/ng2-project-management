@@ -1,38 +1,56 @@
-<div class="ui centered inline text loader" [class.active]="isLoggingIn"></div>
-<div class="ui container" *ngIf="!isLoggingIn">
-  <div class="user-form__headers">
-    <p (click)="changeUserFormMode('login')" class="ui header" 
-    [class.active]="mode === 'login'"
-    [class.huge]="mode === 'login'"
-    >
-      Login
-    </p>
-    <p (click)="changeUserFormMode('register')" class="ui header"
-    [class.active]="mode === 'register'"
-    [class.huge]="mode === 'register'">
-      Register
-    </p>
+<div class="user-form__container">
+  <app-spinner></app-spinner>
+  <div class="ui container" *ngIf="!isLoggingIn">
+    <div class="user-form__headers">
+      <div class="ui top attached tabular menu">
+        <div (click)="changeUserFormMode('login')" [class.active]="mode === 'login'" class="item">Login</div>
+        <div (click)="changeUserFormMode('register')" [class.active]="mode === 'register'" class="item">Register</div>
+      </div>
+      <!-- class="ui header" 
+      [class.active]="mode === 'login'"
+      [class.huge]="mode === 'login'"
+      >
+        Login
+      </p>
+      <p  class="ui header"
+      [class.active]="mode === 'register'"
+      [class.huge]="mode === 'register'">
+        Register
+      </p> -->
+    </div>
+    <div class="ui bottom attached tab active segment">
+      <form class="form ui user-form">
+        <div class="field">
+          <label for="email">Email</label>
+          <input [(ngModel)]="user.email" name="user-email" type="email">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input [(ngModel)]="userPassword" name="user-password" type="password">
+        </div>
+        <ng-container *ngIf="mode === 'register'">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input [(ngModel)]="user.firstName" name="first-name" type="text">
+          </div>
+          <div class="field">
+            <label for="last-name">Last name</label>
+            <input [(ngModel)]="user.lastName" name="last-name" type="text">
+          </div>
+        </ng-container>
+        <ng-container *ngIf="mode === 'login'; else elseTemplate">
+          <button (click)="login()" class="ui button green">
+            Login
+          </button>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <button (click)="register()" class="ui button green">
+            Register
+          </button>
+        </ng-template>
+
+
+      </form>
+    </div>
   </div>
-  <form class="form ui user-form">
-    <div class="field">
-      <label for="email">Email</label>
-      <input [(ngModel)]="userEmail" name="user-email" type="email">
-    </div>
-    <div class="field">
-      <label for="password">Password</label>
-      <input [(ngModel)]="userPassword" name="user-password" type="password">
-    </div>
-    <ng-container *ngIf="mode === 'login'; else elseTemplate">
-        <button (click)="login()" class="ui button green">
-          Login
-        </button>
-    </ng-container>
-    <ng-template #elseTemplate>
-  <button (click)="register()" class="ui button green">
-    Register
-  </button>
-    </ng-template>
-    
- 
-  </form>
 </div>

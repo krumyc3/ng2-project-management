@@ -6,8 +6,9 @@
       </div>
       <div class="right menu">
         <ng-container *ngIf="userIsLoggedIn; else elseTemplate">
-            <a href="" class="item" routerLink="/profile">{{ loggedInUser.email }}</a>
-            <a href="" class="item" routerLink="/clients">Clients</a>
+          <a href="" routerLink="/projects/" class="item">Projects</a>
+          <a href="" class="item" routerLink="/profile">Profile</a>
+          <a href="" class="item" routerLink="/clients">Clients</a>
           <a href="" routerLink="/logout/" class="item" (click)="logoutUser()">Logout</a>
           
         </ng-container>
@@ -15,8 +16,10 @@
           <a href="" routerLink="/login/" class="item">Login</a>
         </ng-template>
         
-        <a href="" *ngIf="userIsLoggedIn;" routerLink="/projects/" class="item">Projects</a>
+        
       </div>
     </div>
   </div>
+    <simple-notifications [options]="notificationOptions"></simple-notifications>
+
 </nav>

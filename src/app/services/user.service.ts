@@ -13,23 +13,23 @@ import { ProjectAction, ProjectActions } from '../store/actions/project.actions'
 import { TaskActions } from '../store/actions/task.actions';
 import { CommentActions } from '../store/actions/comment.actions';
 import { ClientActions } from '../store/actions/client.actions';
-import { BaseService } from './base-service';
+import { UtilsService } from './base-service';
+import { SpinnerService } from './spinner.service';
 
 @Injectable()
-export class UserService extends BaseService {
+export class UserService {
 
   constructor(
-    store: NgRedux<InitialAppState>,
-    notifications: NotificationsService,
     private apollo: Apollo,
+    public utils: UtilsService,
     private userActions: UserActions,
     private projectActions: ProjectActions,
     private router: Router,
   ) {
-    super(notifications, store);
   }
 
   loginUser(userEmail: string, userPassword: string) {
+    this.utils.spinnerService.setActive();
       this.apollo.mutate({
         mutation: MLoginUser,
         variables: {
@@ -43,40 +43,47 @@ export class UserService extends BaseService {
         localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID, response.id);
         localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_TOKEN, response.token);
         this.router.navigateByUrl('/projects').then(() => {
-          this.notifications.success('Welcome', `Welcome back ${userEmail}`);
+          this.utils.notifications.success('Welcome', `Welcome back ${userEmail}`);
         });
-      }, this.handleError.bind(this));
+        this.utils.spinnerService.setNotActive();
+      }, this.utils.handleError.bind(this));
   }
-  registerUser(user) {
+  registerUser(user: User, userPassword: string) {
     this.apollo.mutate({
       mutation: MRegisterUser,
       variables: {
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
-        password: user.password
+        password: userPassword
       }
     }).subscribe(({data}) => {
       const userToken: string = data.signupUser.token;
       localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID, data.signupUser.id);
       localStorage.setItem(GLOBAL_CONFIG.GRAPHCOOL_TOKEN, userToken);
-      this.notifications.success('Signed up', 'User signed up');
-      this.store.dispatch(this.userActions.signUpUser(data.signupUser.id, '', userToken));
-    }, this.handleError.bind(this));
+      this.utils.notifications.success('Signed up', 'User signed up');
+      this.utils.store.dispatch(this.userActions.signUpUser(data.signupUser.id, '', userToken));
+    }, this.utils.handleError.bind(this));
   }
   public logoutUser(): void {
     localStorage.removeItem(GLOBAL_CONFIG.GRAPHCOOL_TOKEN);
     localStorage.removeItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID);
-    this.notifications.info('Loggedd out', 'User logged out');
+    this.utils.notifications.info('Loggedd out', 'User logged out');
     this.clearStore();
     this.router.navigateByUrl('/login');
   }
 
   public clearStore() {
     // temporary solution to clearing
-    this.store.dispatch(this.userActions.clearUser());
-    this.store.dispatch(this.projectActions.clearProjects());
+    this.utils.store.dispatch(this.userActions.clearUser());
+    this.utils.store.dispatch(this.projectActions.clearProjects());
   }
   public isLoggedIn(): Promise<boolean> {
     return new Promise((resolve, reject) => {
+      // temporary fix for long route navigation
+      if (localStorage.getItem(GLOBAL_CONFIG.GRAPHCOOL_USER_ID)) {
+        resolve(true);
+      }
         this.apollo.query({
           query: QLoggedInUser,
           fetchPolicy: 'network-only',
@@ -84,10 +91,10 @@ export class UserService extends BaseService {
           console.log(data);
           const isUserLoggedIn = data.loggedInUser !== null && data.loggedInUser.id !== '';
           if (isUserLoggedIn) {
-            if (this.store.getState().userState.id === data.loggedInUser.id) {
+            if (this.utils.store.getState().userState.id === data.loggedInUser.id) {
               resolve(true);
             } else {
-              this.store.dispatch(this.userActions.signInUser(data.loggedInUser.id, data.loggedInUser.email, ''));
+              this.utils.store.dispatch(this.userActions.signInUser(data.loggedInUser.id, data.loggedInUser.email, ''));
               resolve(true);
             }
           } else {
@@ -107,8 +114,8 @@ export class UserService extends BaseService {
         phone: user.phone,
       }
     }).subscribe(({data}) => {
-      this.notifications.success('Success', 'User profile updated');
-    }, this.handleError.bind(this));
+      this.utils.notifications.success('Success', 'User profile updated');
+    }, this.utils.handleError.bind(this));
   }
 
   public getUserDetails(userId: string) {
@@ -119,8 +126,8 @@ export class UserService extends BaseService {
       }
     }).subscribe(({data}: any) => {
       const userInfo = data.User;
-      this.store.dispatch(this.userActions.updateUserInfo(userInfo));
-    }, this.handleError.bind(this));
+      this.utils.store.dispatch(this.userActions.updateUserInfo(userInfo));
+    }, this.utils.handleError.bind(this));
   }
 }
 

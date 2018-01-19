@@ -3,14 +3,17 @@ import { Injectable } from '@angular/core';
 import { InitialAppState } from '../store/initialState';
 import { NgRedux } from '@angular-redux/store';
 import { GLOBAL_CONFIG } from '../utils/GLOBAL_CONFIG';
+import { SpinnerService } from './spinner.service';
 
 @Injectable()
-export class BaseService {
+export class UtilsService {
   constructor(
-    protected notifications: NotificationsService,
-    protected store: NgRedux<InitialAppState>,
+    public notifications: NotificationsService,
+    public store: NgRedux<InitialAppState>,
+    public spinnerService: SpinnerService,
   ) {}
   handleError = (error) => {
+    this.spinnerService.setNotActive();
     this.notifications.error('Error', error.message);
     console.log(error);
   }

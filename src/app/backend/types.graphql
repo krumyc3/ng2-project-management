@@ -48,9 +48,9 @@ type Client @model {
 type User @model {
   # Required system field:
   id: ID! @isUnique # read-only (managed by Graphcool)
-  firstName: String! @migrationValue(value: "Test first name")
-  phone: String! @migrationValue(value: "000000001")
-  lastName: String! @migrationValue(value: "Test last name")
+  firstName: String! @migrationValue(value: "")
+  phone: String! @migrationValue(value: "")
+  lastName: String! @migrationValue(value: "")
   role: UserRole @migrationValue(value: DEVELOPER) 
   # Optional system fields (remove if not needed):
   createdAt: DateTime! # read-only (managed by Graphcool)

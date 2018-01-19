@@ -5,6 +5,7 @@ import { NgRedux } from '@angular-redux/store';
 import { InitialAppState } from '../../../store/initialState';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core';
+import { NOTIFICATION_OPTIONS } from '../../../utils/GLOBAL_CONFIG';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggedInUser: any = { email: '' };
   userIsLoggedIn: boolean;
   userSubscription: Subscription;
+  notificationOptions = NOTIFICATION_OPTIONS;
   constructor(private userService: UserService, private store: NgRedux<InitialAppState>) {
     this.setUpUserSubscription();
   }
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSubscription = this.store.select('userState').subscribe((user: any) => {
       if (user.id) {
         this.userIsLoggedIn = true;
-      }
+      } else this.userIsLoggedIn = false;
       this.loggedInUser = user;
     });
   }

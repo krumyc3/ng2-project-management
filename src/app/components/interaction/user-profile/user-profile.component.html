@@ -1,11 +1,6 @@
-<h3>Your profile</h3>
 <div class="user-profile">
   <div class="user-profile__header">
-    <button *ngIf="!isEditing" (click)="toggleEditMode()" id="editIcon" class="ui blue button">
-      <i class="icon edit">
-      </i>
-      Edit
-    </button>
+    <h2>Your profile</h2>
   </div>
   <div class="field">
     <p class="user-profile__field">
@@ -43,6 +38,11 @@
         </div>
       </ng-template>
   </div>
+  <button *ngIf="!isEditing" (click)="toggleEditMode()" id="editIcon" class="ui blue button">
+    <i class="icon edit">
+    </i>
+    Edit
+  </button>
   <button *ngIf="isEditing" class="ui simple button cancel-edit" (click)="cancelEditMode()">
     Cancel
   </button>

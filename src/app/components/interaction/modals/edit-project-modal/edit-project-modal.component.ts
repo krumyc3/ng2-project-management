@@ -58,7 +58,9 @@ export class EditProjectModalComponent implements OnInit, ModalInterface, OnDest
     this.store.dispatch(this.modalActions.closeModal(ModalTypes.EDIT_PROJECT));
   }
   updateProject() {
-    this.project.client = this.selectedClient;
+    if (this.selectedClient.id !== '') {
+      this.project.client = this.selectedClient;
+    }
     this.projectService.updateProject(JSON.parse(JSON.stringify(this.project)));
     this.closeModal();
   }

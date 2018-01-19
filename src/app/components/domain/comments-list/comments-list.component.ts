@@ -38,7 +38,7 @@ export class CommentsListComponent implements OnInit, OnDestroy {
         this.comments = commentsList
           .filter(singleComment => singleComment.taskId === this.taskId)
           .map((singleComment) => {
-            if (this.userService.getLoggedInUserId() === singleComment.author.id) {
+            if (this.userService.utils.getLoggedInUserId() === singleComment.author.id) {
               return {
                 ...singleComment,
                 own: true

@@ -6,7 +6,6 @@ import { NOTIFICATION_OPTIONS } from '../../../utils/GLOBAL_CONFIG';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  notificationOptions = NOTIFICATION_OPTIONS;
   constructor() { }
 
   ngOnInit() {
