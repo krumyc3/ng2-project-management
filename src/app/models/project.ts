@@ -4,13 +4,13 @@ import { Task } from './task';
 import { Client } from './client';
 
 export class Project {
-  public name: string;
+  name: string;
   id: string;
   createdAt: Date;
-  public description: string;
-  private author: User;
+  description: string;
+  author: User;
   client: Client;
-  private comments: Array<Comment>;
+  comments: Array<Comment>;
   tasks: Task[];
   constructor(
     name: string, client: Client, id: string, description: string, user: User, comments: Array<Comment>, tasks: Task[], createdAt: Date) {

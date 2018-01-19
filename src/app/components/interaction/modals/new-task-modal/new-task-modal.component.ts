@@ -19,7 +19,7 @@ export class NewTaskModalComponent implements OnInit, ModalInterface, OnDestroy 
   modalActions: ModalsActions;
   @Input() isOpen: boolean;
   @Input() projectId: string;
-  private task: Task = new Task('', TaskStatuses.NO_STATUS,  '', '', '', null, null, []);
+  task: Task = new Task('', TaskStatuses.NO_STATUS,  '', '', '', null, null, []);
   modalSubscription: Subscription;
   routerSubscription: Subscription;
   constructor(

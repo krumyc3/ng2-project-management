@@ -22,7 +22,7 @@ export class NewProjectModalComponent implements OnInit, ModalInterface {
   modalSubscription;
   clientsSubscription: Subscription;
   selectedClientId: string;
-  private clients: Client[];
+  clients: Client[];
   project: Project = new Project('', null, '', '', null, [], [], new Date());
   constructor(
     private store: NgRedux<InitialAppState>,

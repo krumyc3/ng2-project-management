@@ -15,7 +15,7 @@ import { EventEmitter } from '@angular/core';
 export class CommentFormComponent implements OnInit {
   @Input() taskId: string;
   @Output() onCloseCommentForm = new EventEmitter<boolean>(true);
-  private comment: Comment = new Comment('', null, '', '', 0, new Date());
+  comment: Comment = new Comment('', null, '', '', 0, new Date());
   constructor(private route: ActivatedRoute, private commentsService: CommentsService) { }
   ngOnInit() {
   }

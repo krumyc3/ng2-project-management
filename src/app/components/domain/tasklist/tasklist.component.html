@@ -11,10 +11,10 @@
     </span>
     
     <div>
-      <button *ngIf="!onlyDescription && tasks.length > 0" (click)="deleteCompleted()" class="ui tiny basic orange button">
+      <button *ngIf="tasks.length > 0" (click)="deleteCompleted()" class="ui tiny basic orange button">
         Delete completed
       </button>
-      <button *ngIf="!onlyDescription" (click)="openNewTaskModal()" class="ui tiny basic green button">
+      <button (click)="openNewTaskModal()" class="ui tiny basic green button">
         Add task
       </button>
     </div>

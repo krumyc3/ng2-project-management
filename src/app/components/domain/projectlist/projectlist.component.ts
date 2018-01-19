@@ -13,10 +13,10 @@ import { ClientsService } from '../../../clients.service';
   styleUrls: ['./projectlist.component.css']
 })
 export class ProjectlistComponent implements OnInit {
-  @Input() private projects: Project[];
-  private projectsSubscription: Subscription;
-  private nameFilterTerm: string;
-  private clientIdFilterTerm: string;
+  @Input() projects: Project[];
+  projectsSubscription: Subscription;
+  nameFilterTerm: string;
+  clientIdFilterTerm: string;
   isLoading: boolean;
   // tslint:disable-next-line:max-line-length
   constructor(private ngRedux: NgRedux<InitialAppState>, private modalActions: ModalsActions, private projectService: ProjectService, private clientService: ClientsService) {

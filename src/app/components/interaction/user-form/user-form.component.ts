@@ -16,11 +16,11 @@ enum UserFormMode {
 })
 
 export class UserFormComponent implements OnInit {
-  private user: User = new User('', '', '', '');
-  private userPassword: string;
-  private isLoggingIn: boolean;
-  private mode: UserFormMode = UserFormMode.LOGIN;
-  private spinnerSubscription: Subscription;
+  user: User = new User('', '', '', '');
+  userPassword: string;
+  isLoggingIn: boolean;
+  mode: UserFormMode = UserFormMode.LOGIN;
+  spinnerSubscription: Subscription;
   constructor(
     private spinnerService: SpinnerService,
     private userService: UserService
