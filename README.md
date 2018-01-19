@@ -45,7 +45,9 @@ $ ng serve *or* ng build
 - [ ] Editing own comments
 - [ ] Assigning users to projects
 - [ ] Exporting data to .pdf / json
+- [ ] User profile picture or something more advanced
 - [ ] Some other extra features
+- [ ] Lots of refactoring
 
 
 ## Angular CLI
